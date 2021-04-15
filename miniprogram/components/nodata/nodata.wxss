@@ -1,0 +1,45 @@
+.not-data {
+    text-align: center;
+    padding-top: 300rpx;
+}
+
+.not-data .img image {
+    width: 210rpx;
+    margin: 0 auto;
+}
+
+.not-data .tips {
+    padding: 30rpx 0;
+    font-size: 32rpx;
+    color: #B4B8BE;
+    font-weight: normal;
+}
+
+.not-data .no-data-btn {
+    background: #30a690;
+    border-radius: 10px;
+    color: #FFF;
+    margin: 0 auto;
+    width: 500rpx;
+    height: 100rpx;
+    line-height: 100rpx;
+    font-size: 36rpx;
+}
+
+.not-data .no-data-btn .btn-info {
+    display: table;
+    margin: 0 auto;
+}
+
+.not-data .no-data-btn .icon {
+    width: 40rpx;
+    height: 40rpx;
+    color: #FFF;
+    display: table-cell;
+    padding-right: 5px;
+    font-size: 34rpx;
+}
+
+.iconyoujiantou {
+    margin-left: 10rpx;
+}

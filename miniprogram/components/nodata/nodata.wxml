@@ -1,0 +1,15 @@
+<view class="not-data" style="{{boxStyle&&boxStyle}}">
+    <view class="img">
+        <image mode="widthFix" src="{{imgUrl}}" style="{{imgStyle&&imgStyle}}"></image>
+    </view>
+    <view class="tips">
+        <view style="{{textStyle&&textStyle}}" wx:for="{{tipsData}}" wx:key="index">{{item}}</view>
+    </view>
+    <view bindtap="btnClick" class="no-data-btn" disabled="{{btnDisabled}}" style="{{btnStyle&&btnStyle}}" wx:if="{{btnName}}">
+        <view class="btn-info">
+            <view class="iconfont icon-jiahao icon" wx:if="{{isAdd}}"></view>
+            <view>{{btnName}}<text class="fhyfont iconyoujiantou"></text>
+            </view>
+        </view>
+    </view>
+</view>

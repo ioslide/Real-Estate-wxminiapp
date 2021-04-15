@@ -1,0 +1,258 @@
+<view class="address-search-map-layer" style="height: 50px;">
+  <view class="search-content-box" style="background-color: #FFF;border:0.5px #EEEEEE solid">
+    <view bindtap="selectCity" class="address" wx:if="{{isShowLocation}}">
+      <view class="current">成都</view>
+      <text class="fhyfont iconxiala_fuzhi"></text>
+    </view>
+    <view class="line"></view>
+    <view class="search-icon-layer">
+      <text class="fhyfont icon-search"></text>
+    </view>
+    <view class="search">
+      <input bindconfirm="searchArean" class="input" confirmType="搜索" placeholder="请搜索楼盘/城市/顾问关键字"
+        type="text">请搜索楼盘/城市/顾问关键字</input>
+    </view>
+    <view catchtap="openMessage" class="map" style="color:{{mapFontColor}}" wx:if="{{showMessge}}">
+      <text class="fhyfont iconmessage2 img"></text>
+      <view class="redDots" wx:if="{{newsInt}}"></view>
+    </view>
+  </view>
+</view>
+
+
+<swiper class="card-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
+  duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+  <swiper-item wx:for="{{$.swiperList}}" wx:key class="{{cardCur==index?'cur':''}}">
+    <view class="swiper-item">
+      <image src="{{item.lunbotutupian}}" mode="aspectFill" wx:if="{{item.shifouweitupian== true}}"></image>
+      <video src="{{item.lunbotushipin}}" poster="{{item.lunbotutupian}}" loop="{{false}}" muted="{{false}}"
+        show-fullscreen-btn="true" title="{{item.lunbotubiaoti}}" enable-progress-gesture="{{true}}"
+        show-play-btn="{{true}}" controls="{{true}}" objectFit="cover"
+        wx:if="{{item.shifouweitupian == false}}"></video>
+    </view>
+  </swiper-item>
+</swiper>
+<view class="service-swiper">
+  <view class="service-swiper-item">
+    <view class="grid col-4 margin-bottom-15 text-center" style="width:100%">
+      <view data-index="0">
+        <view class="item-inner-light">
+          <image class="square-28" mode="aspectFit"
+            src="../../assets/image/dituzhaofang.svg"></image>
+          <text class="margin-top-10 cell-col-light">地图找房</text>
+        </view>
+      </view>
+      <view data-index="0">
+        <view class="item-inner-light">
+          <image class="square-28" mode="aspectFit"
+            src="../../assets/image/zuixinhuodong.svg"></image>
+          <text class="margin-top-10 cell-col-light">最新活动</text>
+        </view>
+      </view>
+      <view data-index="0">
+        <view class="item-inner-light">
+          <image class="square-28" mode="aspectFit"
+            src="../../assets/image/zuixinzixun.svg"></image>
+          <text class="margin-top-10 cell-col-light">房产资讯</text>
+        </view>
+      </view>
+      <view data-index="0">
+        <view class="item-inner-light">
+          <image class="square-28" mode="aspectFit"
+            src="../../assets/image/yaoqinghaoyou.svg"></image>
+          <text class="margin-top-10 cell-col-light">邀请好友</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="common-title ">
+    <view class="cuIcon-titles common-title-left">地图找房</view>
+  </view>
+<view class="cu-card article margin-30">
+  <map style="width: 100%;height: 240rpx;" bindcallouttap="gotoMap" bindcontroltap="gotoMap" bindlabeltap="gotoMap"
+    bindmarkertap="gotoMap" bindpoitap="gotoMap" bindtap="gotoMap" id="myMap" latitude="30.65984" longitude="104.10194"
+    scale="10" markers=""></map>
+</view>
+
+
+<view class="common-title ">
+    <view class="cuIcon-titles common-title-left">推荐好盘</view>
+  </view>
+
+<view class="cu-card article" style="background:#f6f6f6">
+
+  <!-- 广告轮播图 -->
+  <swiper class="screen-swiper square-dot margin-20" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" style="height:110px;border-radius:10px">
+    <swiper-item style="border-radius:10px" wx:for="{{$.adSwiperList}}" wx:key class="{{cardCur==index?'cur':''}}" >
+      <view class="swiper-item"  style="border-radius:10px">
+        <image src="{{item.lunbotutupian}}" mode="aspectFill" wx:if="{{item.shifouweitupian== true}}" style="border-radius:10px"></image>
+        <video  style="border-radius:10px" src="{{item.lunbotushipin}}" poster="{{item.lunbotutupian}}" loop="{{false}}" muted="{{false}}"
+          show-fullscreen-btn="true" title="{{item.lunbotubiaoti}}" enable-progress-gesture="{{true}}"
+          show-play-btn="{{true}}" controls="{{true}}" objectFit="cover"
+          wx:if="{{item.shifouweitupian == false}}"></video>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 推荐好盘 -->
+
+  <view class="cu-item shadow margin-20" wx:for="{{$.allHouseList}}" wx:key="index"
+    wx:if="{{item&&item.shifoushouyetuijian == true}}">
+    <view class="title" bindtap="navHousedetail" data-id="{{item._id}}">
+      <view class="text-cut">{{item.loupanmingcheng}}</view>
+    </view>
+    <view class="content" bindtap="navHousedetail" data-id="{{item._id}}">
+      <image src="{{item.loupanxiangce[0]}}" mode="aspectFill"></image>
+      <view class="desc">
+        <view class=""> 建筑面积：{{item.jianzumianji}}</view>
+        <view class="">{{item.chengshi}}</view>
+        <view class="text-red">{{item.loupandanjia}}</view>
+        <view>
+          <view wx:for="{{item.biaoqian}}" class="cu-tag bg-grey light sm"
+            style="border-radius:24px;margin: 5px 5px 0 0;">{{item}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+
+<view class="apartment-box border-box margin-top-20 margin-bottom-20">
+  <view class="common-title ">
+    <view class="cuIcon-titles common-title-left">销售顾问</view>
+    <view class="logo">
+      <image class="logo-img" lazyLoad="true" src="../../assets/image/renz.png"></image>
+      <view class="logo-label">第四元素官方认证</view>
+    </view>
+    <view bind:tap="goToList" class="more-apartment common-title-right">查看全部</view>
+  </view>
+  
+  <view class="saleman-scroll-box detail-margin border-box">
+
+    <!-- 销售顾问 -->
+    <view bind:tap="goSale" class="saleman-item border-box">
+      <view class="saleman-item-left border-box">
+        <view class="left-img first">
+          <view class="saleman-img-box">
+            <image binderror="imgError" class="saleman-item-left-img border-box" data-index="0" mode="aspectFill"
+              src="https://xsfile.bgy.com.cn/fileservice/file/view?fileId=FE5F6E9C-332C-4C4F-AADC-20090B0A383F"
+              role="img"></image>
+          </view>
+          <view class="comImg" wx:if="{{item.dengji == '金牌'}}">
+            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9925.png"
+              role="img"></image>
+          </view>
+          <view class="comImg" wx:if="{{item.dengji == '银牌'}}">
+            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9939.png"
+              role="img"></image>
+          </view>
+          <view class="comImg" wx:if="{{item.dengji == '铜牌'}}">
+            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de993a.png"
+              role="img"></image>
+          </view>
+        </view>
+        <view class="saleman-item-left-label border-box">
+          <view class="saleman-item-label-top border-box">郭建</view>
+          <view class="saleman-item-label-bot border-box">银牌顾问</view>
+        </view>
+      </view>
+      <view class="saleman-item-right">
+        <view catch:tap="handleChat" class="saleman-round saleman-round-1" data-level="银牌顾问" data-name="郭建"
+          >
+          <text class="fhyfont iconIMliaotiantubiao iconText"></text></view>
+        <view catch:tap="handlePhone" class="saleman-round saleman-round-2" data-phone="18140368633">
+          <text class="fhyfont iconphone1 iconText"></text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:for="{{$.dailiren}}" wx:key wx:if="{{item&&item.shifoushouyetuijian == true}}" bind:tap="goSale" class="saleman-item border-box">
+      <view class="saleman-item-left border-box">
+        <view class="left-img first">
+          <view class="saleman-img-box">
+            <image binderror="imgError" class="saleman-item-left-img border-box" data-index="0" mode="aspectFill"
+              src="{{item.zhaopian[0]}}"
+              role="img"></image>
+          </view>
+          <view class="comImg" wx:if="{{item.dailidengji == '金牌'}}">
+            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9925.png"
+              role="img"></image>
+          </view>
+          <view class="comImg" wx:if="{{item.dailidengji == '银牌'}}">
+            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9939.png"
+              role="img"></image>
+          </view>
+          <view class="comImg" wx:if="{{item.dailidengji == '铜牌'}}">
+            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de993a.png"
+              role="img"></image>
+          </view>
+        </view>
+        <view class="saleman-item-left-label border-box">
+          <view class="saleman-item-label-top border-box">{{item.mingcheng}}</view>
+          <view class="saleman-item-label-bot border-box">{{item.dailidengji}}顾问</view>
+        </view>
+      </view>
+      <view class="saleman-item-right">
+        <view catch:tap="handleChat" class="saleman-round saleman-round-1" data-level="{{item.dailidengji}}顾问" data-name="{{item.mingcheng}}}}"
+          >
+          <text class="fhyfont iconIMliaotiantubiao iconText"></text></view>
+        <view catch:tap="handlePhone" class="saleman-round saleman-round-2" data-phone="18140368633">
+          <text class="fhyfont iconphone1 iconText"></text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+
+<view class="common-title margin-top-20 ">
+    <view class="cuIcon-titles common-title-left">楼盘大全</view>
+    <view bind:tap="goToList" class="more-apartment common-title-right">查看全部</view>
+  </view>
+
+<view class="cu-card article padding-bottom-30" id="loupandaquan" style="background:#f6f6f6">
+  <view class="cu-item shadow margin-20" wx:for="{{$.allHouseList}}" wx:key="index">
+    <view bindtap="navHousedetail" data-id="{{item._id}}">
+      <view class="title">
+        <view class="text-cut">{{item.loupanmingcheng}}</view>
+      </view>
+      <view class="content">
+        <image src="{{item.loupanxiangce[0]}}" mode="aspectFill"></image>
+        <view class="desc">
+          <view class=""> 建筑面积：{{item.jianzumianji}}</view>
+          <view class="">{{item.chengshi}}</view>
+          <view class="text-red">{{item.loupandanjia}}</view>
+          <view>
+            <view wx:for="{{item.biaoqian}}" class="cu-tag bg-grey light sm"
+              style="border-radius:24px;margin: 5px 5px 0 0;">{{item}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action" bindtap="NavChange" data-cur="basics">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/homepage.svg"></image>
+    </view>
+    <view class="{{PageCur=='basics'?'text-green':'text-gray'}}">首页</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="component">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/homefound.svg"></image>
+    </view>
+    <view class="{{PageCur=='component'?'text-green':'text-gray'}}">发现</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="plugin">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/homelocation.svg"></image>
+    </view>
+    <view class="{{PageCur=='plugin'?'text-green':'text-gray'}}">找房</view>
+  </view>
+</view>
