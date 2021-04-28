@@ -1,0 +1,16 @@
+.cu-list.menu-avatar>.cu-item .content {
+  left:30px
+}
+.cu-list.menu-avatar>.cu-item .content.flex-sub {
+  width: calc(100% - 96rpx);
+}
+.cu-list.menu-avatar>.cu-item .content .cu-tag.sm {
+  display: inline-block;
+  margin-left: 10rpx;
+  height: 20px;
+  font-size: 12px;
+  line-height: 20px;
+}
+page:last-child {
+  margin-bottom: 100px
+}

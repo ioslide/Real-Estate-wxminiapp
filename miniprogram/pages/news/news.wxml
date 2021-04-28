@@ -1,0 +1,64 @@
+
+<form bindsubmit="submitSearch">
+  <view class="cu-bar bg-white search ">
+    <view class="search-form round">
+      <text class="cuIcon-search"></text>
+      <input bindinput="nameInput" name="nameInput" type="text" placeholder="输入搜索的资讯" confirm-type="search"></input>
+    </view>
+    <view class="action">
+      <button form-type="submit" class="cu-btn bg-gradual-green shadow-blur round " style="width: 100px;">搜索</button>
+    </view>
+  </view>
+</form>
+
+<view class="common-title" style="margin-left: 20px;margin-bottom:0">
+  <view class="cuIcon-titles common-title-left">房产资讯</view>
+</view>
+
+<view class="cu-card article padding-bottom-30" id="loupandaquan">
+  <view class="cu-item shadow margin-20" style="background:#F9F9F9"  wx:for="{{zixunxinxi}}" wx:key="_id">
+    <view bindtap="navDetail" data-id="{{item._id}}">
+      <view class="title">
+        <view class="text-cut">{{item.zixunbiaoti}}</view>
+      </view>
+      <view class="content">
+        <image src="{{item.zixuntupian[0]}}" mode="aspectFill"></image>
+        <view class="desc">
+          <view class=""> 日期: {{item.faburiqi}}</view>
+          <view class="text-red">发布人: {{item.faburen}}</view>
+          <view>
+            <view wx:for="{{item.biaoqian}}" class="cu-tag bg-grey light sm"
+            style="border-radius:24px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{item}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action" bindtap="navHome" >
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/homepage.svg"></image>
+    </view>
+    <view>首页</view>
+  </view>
+  <view class="action" bindtap="navZixun">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/homefound.svg"></image>
+    </view>
+    <view >发现</view>
+  </view>
+  <view class="action" bindtap="navMap">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/homelocation.svg"></image>
+    </view>
+    <view>找房</view>
+  </view>
+  <view class="action" bindtap="navHuodong">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/gift.svg"></image>
+    </view>
+    <view>活动</view>
+  </view>
+</view>

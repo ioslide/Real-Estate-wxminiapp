@@ -1,0 +1,122 @@
+<view class="storeTop">
+  <view class="greenPart"></view>
+  <view class="userPart">
+    <view class="userParttop">
+      <view class="userHeadimg van-image van-image--round">
+        <image src="{{detailDailiren.zhaopian}}" class="van-image__img" mode="aspectFill" style="object-fit: cover;">
+        </image>
+      </view>
+      <view class="userInfo">
+        <view class="userInfo1"><span class="username"> {{detailDailiren.mingcheng}} </span><span
+            class="userRankname">{{detailDailiren.dailidengji}}顾问</span>
+          <image src="https://cdn-fhy-file.bgy.com.cn/bu00310-prd1/5f705a93e4b0ebfd8e18d220" alt=""
+            class="official-icon" mode="aspectFill"></image>
+        </view>
+        <view class="userInfo2">
+        </view>
+        <view class="phone">
+          <image
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAACcUlEQVRIS82VO2gUURSG/39m8+pEZN07O7ujgr0vMKKlQoKgVkmIBC2UIJaKgsFOsRAbsYkEDTYGFSwEhQQtIoIoAREUFPLYx52MRUhjYhYyc2SFlSQ7s5vsLtFp7z3/d/5zzpxLbPLHTebh/wBOz89vMRZ/XQWwj8REs2HcTCQSC42oRpnDSa3TTeBbAdIrAGNpS3WQDOqFrgKKiJl1Zz8C2LtW2DB4JaXU7YYCs57XLX4wEiFaMCXWbtvxT/VAVznM5N1hEGcqCH4NLLV/J7lUK3Q1ULtjAI5WEhPh5R22utMQYFa7owIcqyzGJ05SdTcEmNH6IcCzFcWIfsey7jcEOKP1RYL3IsWIwbRSF0hKQ4BTruvEwCkRMcIEW0xjVyKRmK4VVowr+/Gz2n0lQEeYKInRlFKd9SyAMmBG6yOkMS4iUXt2yEla52t1GSqa1bOPBdJToZdDaaX6S05znndQApwMEHxxlBoh6UfFhgK/ue62VvAzRFS0E75Ybmvpiy0tnSD4QERif3pEfjACv8+27e+hbYkSzOgfh0WW35BsjsyWXBSRtpBZWDBpXrKt7YNrYyu+hzOue5qCRwBCp7ZaHwk89y3Vu3IVVn2Ac553LvCDYqY1QSG45djWtVJyVYHFi1mtewQcBtBSzVX5OV87SfV3P68LWBTJe1677wfPACQ3AiVxI21Z1zfksHQ5l8ttDQzzLoDesKVRNiDkZGvM3BOPx3/WBCwFzeTzh2iYAxDpjOotyYlC4J/abdv5lYmsu6RhZczPzdl+Yfk44B8gmBJBE0Q0abx8/278aVdXV9kCqAu4kV7WVdJaQP8M+BuvX8sd2aowXgAAAABJRU5ErkJggg=="
+            alt="" mode="aspectFill" class="icon"></image>
+          <span bind:tap="handlePhone" data-phone="{{detailDailiren.dianhua}}" class="text"> {{detailDailiren.dianhua}}
+          </span>
+          <!-- <span bind:tap="handlePhone" data-phone="{{detailDailiren.dianhua}}" class="phonebtn">一键拨打</span> -->
+        </view>
+        <view class="local">
+          <image
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAABHVBMVEUAAAD///////+////////V1dXb29vb///j4+Pm5ubr6+vu7u7n5+ff6uri4uLl7e3i4uLj6urd5OTk5OTl6+vj6Ojl5erf4+jh5eXe5ubg5Ojh5eXh5eng5+fk6Ojh5eXl6Oji5eXg5ubj5ubi5eXh4+bh5ubh5Ofh5+fi5+fh5ubi5Ofh5ubi5ubi5ubi5+fi5ubh5Obi5efh5ubi5ubi5efg5eXh5eXi5efi5ufh5Obh5ubh5eXi5Obj5efh5ebi5ubh5ebh5ebi5efi5ufi5ufh5ufh5ebi5ebh5ebi5ufg5ebi5ebh5ebh5efh5Obg5ebh5ebh5ebh5ebh5efh5ebi5ufh5ebh5ebh5ebh5ebh5ufi5ufi5ufh5ebQO/qAAAAAXnRSTlMAAQIEBAYHBwkKDQ8VGBodIyUmJictMTc7PkJERUpMTU1OU1NZXFxfX2BlaXByen2DhpOXnJ2en5+hoqKorbO5ubvFx8rL0tba3t7h4eTl5unr7e/w8fT29/j5+v3+/pa4RAAAARRJREFUGBl1wQc/AgEcBuC3TmWmjKzQtik0rIQWKaLpeL//x3C//13X3cnzwOSJXlZarcpl1IM/Es80PCdg5y3QouCFhbtIm6IbYxk6ZGBaUumgBjFyQ8P3Nw03MHi6FM2YzxdrUnQ90G1Q9JehWe5TbECXpMhD5CmS0B1TnEKcUhxDd0CRhchS7EG3SdELQBPoUaxDNz2gaOwoym6D4lOB4Y4GVaXhHCNrdBoswnRFhxOMzb3QpuiCRfCdFo8zsFl9pel+Fg4LTzRcTOEP5eyLmo84Jlp94M+tH//Z3sIELn8oHN8/PDo63I+HQ34XTJFcdUibYTUXgZivcYLaPHQrqfR1qVx/a3c67bd6uXSdTq1A8wunT4qpim3IcAAAAABJRU5ErkJggg=="
+            alt="" mode="aspectFill" class="icon"></image>
+          <span class="text">{{detailDailiren.chengshi}}</span>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="services storeItem">
+  <view class="servicesleft">
+    <!-- <view class="servicesimg justify-center">
+      <image src="https://cdn-fhy-file.bgy.com.cn/bu00310-prd1/5f913118e4b0ebfd8e18e879" style="width:40px;height:40px;" mode="aspectFill"></image>
+    </view> -->
+    <view class="servicesp grid col-1 ">
+      <view class="servicesp1">邀请您体验一对一专属服务</view>
+      <view class="servicesp2">{{detailDailiren.mingcheng}}将竭诚为您服务</view>
+    </view>
+  </view>
+  <view bind:tap="handleChat" data-target="formChat" class="servicesbtn">申请服务</view>
+</view>
+
+
+<view class="common-title padding-left-20 padding-right-20" style="margin-top:0;margin-bottom:0">
+  <view class="cuIcon-titles common-title-left">代理楼盘</view>
+</view>
+
+<view class="cu-card article padding-bottom-30" id="loupandaquan">
+  <view class="cu-item shadow margin-20" wx:for="{{dailirenHouseGroup}}" wx:key="_id">
+    <view bindtap="navHousedetail" data-id="{{item._id}}" style="background:#F9F9F9">
+      <view class="title">
+        <view class="text-cut">{{item.loupanmingcheng}}</view>
+      </view>
+      <view class="content">
+        <image src="{{item.loupanxiangce[0]}}" mode="aspectFill"></image>
+        <view class="desc">
+          <view class=""> 建筑面积：{{item.jianzumianji}}</view>
+          <view class="">{{item.chengshi}}</view>
+          <view class="text-red">{{item.loupandanjia}}</view>
+          <view>
+            <view wx:for="{{item.biaoqian}}" wx:key="_id" class="cu-tag bg-grey light sm"
+              style="border-radius:24px;margin: 5px 5px 0 0;">{{item}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<view class="consumerShare">
+  <view class="sharebtn">
+    <button open-type="share" style="position:absolute;opacity:0;width:90px;height: 70px;left:0;bottom:10px;z-index:9">
+  </button>
+    <image src="../../assets/image/share.svg" mode="widthFix"></image>
+    <view>分享</view>
+  </view>
+  <view class="share2btn">
+    <view class="btn datebtn" bind:tap="handlePhone" data-phone="{{detailDailiren.dianhua}}">
+      <text class="btnP">联系Ta</text>
+      <text class="btnP2">您的手机号不会泄露</text>
+    </view>
+    <view class="btn chatbtn" bind:tap="handleChat" data-target="formChat">
+      <text class="btnP">申请服务</text>
+      <text class="btnP2">一对一专属服务</text>
+    </view>
+  </view>
+</view>
+
+<view class="cu-modal {{modalName=='formChat'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">预约沟通</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl" style="background: #ffffff;">
+      <form bindsubmit="submitForm">
+        <view class="model-form" slot="form">
+          <input bindinput="nameInput" name="nameInput" class="model-form-input text-left" cursorSpacing="145"
+            placeholder="您的姓名" placeholderClass="model-placeholder" value="{{username}}"></input>
+          <input bindinput="houseInput" name="houseInput" class="model-form-input text-left" cursorSpacing="145"
+            placeholder="意向房源" placeholderClass="model-placeholder" value="{{housename}}"></input>
+          <input bindinput="phoneInput" name="phoneInput" class="model-form-input text-left" cursorSpacing="90"
+            maxlength="11" placeholder="您的手机号" placeholderClass="model-placeholder" value="{{userphone}}"></input>
+        </view>
+        <view class="model-btn" slot="btn">
+          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover">
+            预约沟通
+          </button>
+        </view>
+      </form>
+    </view>
+  </view>
+</view>

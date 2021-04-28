@@ -1,0 +1,73 @@
+<import src="../part/menu.wxml"></import>
+<import src="../part/tabbar.wxml"></import>
+<view class="all-main  {{isIpx?'list-phonex':''}}" scrollY="true">
+    <view class="pagemain" style="padding: 0;">
+        <view class="header">
+            <template is="menu" data="{{menu:menu}}"></template>
+        </view>
+        <view class="main">
+            <view class="lst-item">
+                <view class="txt">
+                公积金贷款金额（万元）
+            </view>
+                <view class="input-con">
+                    <input bindinput="bindGjjAmtInput" class="input" type="number" value="{{gjj.amt>0?gjj.amt:''}}"></input>
+                </view>
+            </view>
+            <view class="lst-item">
+                <view class="txt">
+                公积金贷款利率（%）
+            </view>
+                <view class="input-con">
+                    <input bindinput="bindGjjLilvInput" class="input" type="digit" value="{{gjj.lilv}}"></input>
+                </view>
+            </view>
+            <view class="lst-item">
+                <view class="txt">
+                商业贷款金额（万元）
+            </view>
+                <view class="input-con">
+                    <input bindinput="bindSyAmtInput" class="input" type="number" value="{{dk.amt>0?dk.amt:''}}"></input>
+                </view>
+            </view>
+            <view class="lst-item">
+                <view class="txt">
+                商业贷款利率（%）
+            </view>
+                <view class="input-con">
+                    <input bindinput="bindSyLilvInput" class="input" type="digit" value="{{dk.lilv}}"></input>
+                </view>
+            </view>
+            <view class="lst-item">
+                <view class="txt">
+                贷款年限（年）
+            </view>
+                <view class="input-con">
+                    <input bindblur="bindYearBlur" bindinput="bindYearInput" class="input" maxlength="2" type="number" value="{{dk.year>0?dk.year:''}}"></input>
+                </view>
+            </view>
+            <view class="lst-item">
+                <view class="txt">
+                还款方式
+            </view>
+                <view class="input-con">
+                    <view class="repay-type-main">
+                        <view catchtap="tabfqtype" class="{{dk.fqtype==1?'repay-type-left on':'repay-type-left'}}" data-fqtype="1">等额本息</view>
+                        <view catchtap="tabfqtype" class="{{dk.fqtype==2?'repay-type-right on':'repay-type-right'}}" data-fqtype="2">等额本金</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="tips">
+            <view class="tipscontent">
+            最新商贷利率4.9%，公积金利率3.25%，查看<navigator class="lilv-nav" url="../lilv/lilv">
+                    <text class="tips-lilv">利率表</text>
+                </navigator>
+            </view>
+        </view>
+        <view class="calc-btn-con">
+            <button catchtap="calctap" class="calc-btn" hoverClass="calc-btn-hover" size="default" type="primary">计算</button>
+        </view>
+    </view>
+    <template is="tabbar" data="{{tabbar:tabbar,isIpx:isIpx}}"></template>
+</view>

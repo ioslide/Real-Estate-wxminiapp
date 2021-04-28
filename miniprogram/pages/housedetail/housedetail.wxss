@@ -16,6 +16,7 @@
 page {
   --themeColor: #30A690;
   background:#ffffff;
+  padding-bottom:40px
 }
 
 .themeColor {

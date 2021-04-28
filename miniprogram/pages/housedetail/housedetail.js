@@ -6,6 +6,14 @@ const groupEnd = console.groupEnd.bind(console)
 const error = console.error.bind(console)
 const db = wx.cloud.database()
 const _ = db.command
+const QQMapWX = require('../../util/qqmap-wx-jssdk.min.js');
+var qqmapsdk = new QQMapWX({
+  key: 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7'
+});
+import {
+  promisifyAll
+} from 'wx-promise-pro'
+promisifyAll()
 import create from '../../util/create'
 import store from '../../store/index'
 
@@ -16,77 +24,189 @@ create(store, {
     'dailiren',
     'allHouseList',
     'maifangliucheng',
-    'goufangzhengce'
+    'goufangzhengce',
+    'markersData'
   ],
   data: {
-    searchWord:"",
-    hasHouseList:false,
+    curDaili: {
+      name: '',
+      level: '',
+      phone: '',
+      id: ''
+    },
+    mapsetting: {
+      skew: 0,
+      rotate: 0,
+      showLocation: false,
+      showScale: false,
+      subKey: 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7',
+      layerStyle: 1,
+      enableZoom: true,
+      enableScroll: true,
+      enableRotate: false,
+      showCompass: false,
+      enable3D: false,
+      enableOverlooking: false,
+      enableSatellite: false,
+      enableTraffic: false,
+    },
+    latitude: '31.46751',
+    longitude: '104.6796',
+    searchWord: "",
+    hasHouseList: false,
   },
   onLoad: function (options) {
     const t = this
     let allHouseList = this.store.data.allHouseList
-    var results = allHouseList.filter(function (entry) { return entry._id === options.houseId; });
+    var results = allHouseList.filter(function (entry) {
+      return entry._id === options.houseId;
+    });
     log(results[0])
+    let jingweidu = results[0].jingweidu.split(',')
+    let latitude = jingweidu[0]
+    let longitude = jingweidu[1]
+    log('jingweidu',jingweidu)
     t.setData({
-      houseDetail:results[0]
+      longitude: Number(longitude),
+      latitude : Number(latitude),
+      houseDetail: results[0]
     })
     db.collection('huxingleixing').where({
-      suoshuloupan:options.houseId
+      suoshuloupan: options.houseId
     }).get().then(res => {
-      log('huxing',res.data)
+      log('huxing', res.data)
       t.setData({
-        huxing:res.data
+        huxing: res.data
       })
     })
     db.collection('dailiren').where({
-      daililoupanliebiao:options.houseId
+      daililoupanliebiao: options.houseId
     }).get().then(res => {
-      log('daliren',res.data)
+      log('daliren', res.data)
       t.setData({
-        dailiren:res.data
+        dailiren: res.data
       })
     })
   },
-
-  onReady: function () {
-
+  navNearBuilding() {
+    log('[navNearBuilding]')
+    const t = this
+    let locationKey = 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7'
+    const appReferer = '搜房客';
+    const locationCategory = '学校,公交,医院';
+    const location = JSON.stringify({
+      'latitude': Number(t.data.latitude),
+      'longitude': Number(t.data.longitude),
+    });
+    wx.navigateTo({
+      url: 'plugin://chooseLocation/index?key=' + locationKey + '&referer=' + appReferer + '&category=' + locationCategory + '&location=' + location
+    });
   },
+  handleChat(e) {
+    this.setData({
+      'curDaili.name': e.currentTarget.dataset.name,
+      'curDaili.level': e.currentTarget.dataset.level,
+      'curDaili.phone': e.currentTarget.dataset.phone,
+      'curDaili.id': e.currentTarget.dataset.id,
+      modalName: e.currentTarget.dataset.target
+    })
+    log(e.currentTarget.dataset)
+  },
+  hideModal(e) {
+    this.setData({
+      modalName: null
+    })
+  },
+  navDetailDailiren(e){
+    log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: '../detailDailiren/detailDailiren?dailirenId=' + e.currentTarget.dataset.id,
+    })
+  },
+  getCurrentTime () {
+    let date = new Date()
+    let Y = date.getFullYear()
+    let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
+    let D = date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate()
+    let hours = date.getHours()
+    let minutes = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+    let seconds = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+    date = Y + '-' + M + '-' + D + ' ' + hours + ':' + minutes + ':' + seconds
+     console.log(date)  							// 2019-10-12 15:19:28
+    return date
+  },
+  submitForm(e) {
+    log(e)
+    const t = this
+    wx.pro.showLoading({
+      title: '提交中',
+    })
+    db.collection('gukeyuyue').add({
+        data: {
+          username: e.detail.value.nameInput,
+          yixiangfangyuan: e.detail.value.houseInput,
+          userphone: e.detail.value.phoneInput,
+          jiedaidailixingming: t.data.curDaili.name,
+          jiedaidailidianhua: t.data.curDaili.phone,
+          dailiid: t.data.curDaili.id,
+          tijiaoshijian:t.getCurrentTime()
+        }
+      })
+      .then(res => {
+        console.log(res)
+        wx.pro.hideLoading()
+        t.hideModal()
+      })
+      .catch(console.error)
+  },
+  guideTo() {
+    const t = this
+    let plugin = requirePlugin('routePlan');
+    let endPoint = JSON.stringify({
+      'name': t.data.houseDetail.loupanmingcheng,
+      'latitude': Number(t.data.latitude),
+      'longitude': Number(t.data.longitude),
+    });
+    let key = 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7'
+    let referer = '搜房客';
+    wx.navigateTo({
+      url: 'plugin://routePlan/index?key=' + key + '&referer=' + referer + '&endPoint=' + endPoint
+    })
+  },
+  handlePhone(e) {
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.phone
+    })
+  },
+  onShareAppMessage() {
+    const t = this
+    const promise = new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          title: '搜房客-' + t.data.houseDetail.loupanmingcheng,
+        })
+      }, 2000)
+    })
+    return {
+      title: '搜房客-' + t.data.houseDetail.loupanmingcheng,
+      path: '/pages/houseDetail/houseDetail?houseId=' + t.data.houseDetail._id,
+      promise
+    }
+  },
+
   onShow: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
   onHide: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
   onUnload: function () {
 
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
   onPullDownRefresh: function () {
 
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
   onReachBottom: function () {
 
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

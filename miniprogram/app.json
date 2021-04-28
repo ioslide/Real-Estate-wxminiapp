@@ -2,13 +2,47 @@
   "pages": [
     "pages/index/index",
     "pages/housedetail/housedetail",
-    "pages/searchPage/searchPage"
+    "pages/searchPage/searchPage",
+    "pages/huodong/huodong",
+    "pages/news/news",
+    "pages/huodong/detail/detail",
+    "pages/news/detail/detail",
+    "pages/allhouseList/allhouseList",
+    "pages/index/mapDetail/mapDetail",
+    "pages/allDailiren/allDailiren",
+    "pages/lowPriceHouseList/lowPriceHouseList",
+    "pages/qiyefuwuhuodong/qiyefuwuhuodong",
+    "pages/detailDailiren/detailDailiren",
+    "pages/fangdaijisuan/sydk/sydk",
+    "pages/fangdaijisuan/result/result",
+    "pages/fangdaijisuan/combdk/combdk",
+    "pages/fangdaijisuan/lilv/lilv",
+    "pages/fangdaijisuan/index/index"
   ],
+  "plugins": {
+    "chooseLocation": {
+      "version": "1.0.5",
+      "provider": "wx76a9a06e5b4e693e"
+    },
+    "citySelector": {
+      "version": "1.0.0",
+      "provider": "wx63ffb7b7894e99ae"
+    },
+    "routePlan": {
+      "version": "1.0.12",
+      "provider": "wx50b5593e81dd937a"
+    }
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于提供周边优惠房源"
+    }
+  },
   "window": {
     "backgroundColor": "#ffffff",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTitleText": "碧桂园",
+    "navigationBarTitleText": "搜房客",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",

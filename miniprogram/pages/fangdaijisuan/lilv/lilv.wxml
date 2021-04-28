@@ -1,0 +1,29 @@
+<view class="pagemain" style="padding: 0;">
+    <view class="lilv-main">
+        <view class="lilv-header">
+            <view class="lilv-col">
+                贷款期限
+            </view>
+            <view class="lilv-col col-border">
+                商业贷款(%)
+            </view>
+            <view class="lilv-col">
+                公积金贷款(%)
+            </view>
+        </view>
+        <view class="lilv-row" wx:for="{{lilvList}}" wx:for-item="lilv">
+            <view class="lilv-col year">
+                    {{lilv.d_type}}
+                </view>
+            <view class="lilv-col col-border">
+                    {{lilv.b_rate}}
+                </view>
+            <view class="lilv-col">
+                    {{lilv.a_rate}}
+                </view>
+        </view>
+    </view>
+    <view class="lilv-tip">
+        <text class="lilv-tip-warn">*</text> 以上为央行2015年最新公布贷款的基准利率
+    </view>
+</view>

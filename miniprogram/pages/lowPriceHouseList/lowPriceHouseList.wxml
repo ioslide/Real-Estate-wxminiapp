@@ -1,0 +1,53 @@
+
+<view class="common-title" style="margin-left: 20px;">
+  <view class="cuIcon-titles common-title-left">低单价楼盘</view>
+</view>
+
+<view class="cu-card article padding-bottom-30" id="loupandaquan" style="background:#f6f6f6">
+  <view class="cu-item shadow margin-20" wx:for="{{allHouseList}}" wx:key="_id">
+    <view bindtap="navDetail" data-id="{{item._id}}">
+      <view class="title">
+        <view class="text-cut">{{item.loupanmingcheng}}</view>
+      </view>
+      <view class="content">
+        <image src="{{item.loupanxiangce[0]}}" mode="aspectFill"></image>
+        <view class="desc">
+          <view class=""> 楼盘单价: {{item.loupandanjia}}</view>
+          <view class=""> 建筑面积: {{item.jianzumianji}}</view>
+          <view class="text-red">城市: {{item.chengshi}}</view>
+          <view>
+            <view wx:for="{{item.biaoqian}}" class="cu-tag bg-grey light sm"
+            style="border-radius:24px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{item}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action" bindtap="navHome" >
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/homepage.svg"></image>
+    </view>
+    <view>首页</view>
+  </view>
+  <view class="action" bindtap="navQiyefuwu">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/homefound.svg"></image>
+    </view>
+    <view >服务</view>
+  </view>
+  <view class="action" bindtap="navMap">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/homelocation.svg"></image>
+    </view>
+    <view>找房</view>
+  </view>
+  <view class="action" bindtap="navHuodong">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/gift.svg"></image>
+    </view>
+    <view>活动</view>
+  </view>
+</view>

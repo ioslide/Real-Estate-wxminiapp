@@ -1,32 +1,29 @@
 <swiper class="card-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
   duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
-  <swiper-item wx:for="{{houseDetail.loupanxiangce}}" wx:key class="{{cardCur==index?'cur':''}}">
+  <swiper-item wx:for="{{houseDetail.lunbotu}}" wx:key="_id" class="{{cardCur==index?'cur':''}}">
     <view class="swiper-item">
       <image src="{{item}}" mode="aspectFill"></image>
     </view>
   </swiper-item>
 </swiper>
+
 <view class="detail-price border-box">
   <view class="detail-title-box detail-margin border-box margin-bottom-20">
     <view class="detail-title-text border-box">{{houseDetail.loupanmingcheng}}</view>
   </view>
   <view class="detail-label-box border-box detail-margin">
     <view class="detail-label-item detail-vr-background" wx:if="{{detail.vrCnt}}">VR看房</view>
-    <view class="detail-label-item" wx:for="{{houseDetail.biaoqian}}" wx:key="*this">{{item}}</view>
+    <view class="detail-label-item" wx:for="{{houseDetail.biaoqian}}" wx:key="_id">{{item}}</view>
   </view>
 </view>
 <view class="floor-detail border-box">
   <view class="detail-line-box detail-margin border-box"></view>
-  <view class="detail-price-box detail-margin">
-    <view class="price">{{util.nullToTips(detail.AveragePriceJoin,'待定')}}</view>
-    <view bind:tap="toDetailPage" class="more">更多<text class="fhyfont iconyoujiantou"></text>
-    </view>
-  </view>
+
   <view class="detail-area-box detail-common border-box">
     <view class="detail-area-label border-box">参考均价</view>
     <view class="detail-area-num border-box detail-area-beyond">
       {{houseDetail.loupandanjia}}
-        </view>
+    </view>
   </view>
   <view class="detail-area-wrap">
     <view class="detail-left-box">
@@ -77,10 +74,9 @@
   <view class="detail-area-box detail-address border-box">
     <view class="detail-area-label border-box address">楼盘地址</view>
     <view class="detail-area-num border-box area-address">{{houseDetail.jutidizhi}}</view>
-    <view bind:tap="tapMap" class="detail-right-map">
-      <image class="detail-right-map-img"
-        src="{{iconList['周边']||'https://cdn-fhy-file.bgy.com.cn/bu00310-prd1/5f684b94e4b0ebfd8e18c8e8'}}"></image>
-      <view class="detail-right-map-txt">周边</view>
+    <view bind:tap="guideTo" class="detail-right-map">
+      <image class="detail-right-map-img" src="../../assets/image/guideTp.svg"></image>
+      <view class="detail-right-map-txt">导航</view>
     </view>
   </view>
 </view>
@@ -100,8 +96,8 @@
         <view class="apartment-top-font border-box textOverflow">{{item.huxingmingcheng}}</view>
       </view>
       <view class="apartment-cen border-box">
-          <view class="apartment-cen-font-1">建面</view>
-          <view class="apartment-cen-font-2">{{item.jianzumianji}}</view>
+        <view class="apartment-cen-font-1">建面</view>
+        <view class="apartment-cen-font-2">{{item.jianzumianji}}</view>
       </view>
       <view class="apartment-bot border-box">
         <view>{{item.huxingleixing}}</view>
@@ -116,36 +112,28 @@
     <view class="common-title-left">楼盘周边</view>
   </view>
   <view class="map-box detail-margin border-box">
-    <map bindcallouttap="tapMap" bindtap="tapMap" class="map" data-active-index="0" enableScroll="{{false}}"
-      enableZoom="{{false}}" id="map" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" scale="14"
-      showLocation="{{false}}"></map>
+    <map bindcallouttap="tapMap" setting="{{mapsetting}}" bindtap="tapMap" class="map" data-active-index="0" enableScroll="{{false}}"
+      enableZoom="{{false}}" id="map" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{$.markersData}}"
+      scale="14" showLocation="{{false}}"></map>
   </view>
   <view class="around-btn border-box">
     <view class="around-btn">
-      <view bindtap="tapMap" class="around-btn-item" data-active-index="0" data-name="交通"
-        data-url="/packages_map/pages/map/qqmap/index?name={{name}}&lng={{longitude}}&lat={{latitude}}&activeIndex=0&areaId={{areaId}}">
-        <image class="around-item-img" lazyLoad="true"
-          src="https://cdn-fhy-file.bgy.com.cn/bu00310-prd1/5fd855fce4b03eca0c208d20"></image>
+      <view bindtap="navNearBuilding" class="around-btn-item">
+        <image class="around-item-img" lazyLoad="true" src="../../assets/image/bus.svg"></image>
         <view class="around-item-label">交通</view>
       </view>
-      <view bindtap="tapMap" class="around-btn-item" data-active-index="1" data-name="教育"
-        data-url="/packages_map/pages/map/qqmap/index?name={{name}}&lng={{longitude}}&lat={{latitude}}&activeIndex=1&areaId={{areaId}}">
-        <image class="around-item-img" lazyLoad="true"
-          src="https://cdn-fhy-file.bgy.com.cn/bu00310-prd1/5fd855c0e4b03eca0c208d1f"></image>
+      <view bindtap="navNearBuilding" class="around-btn-item">
+        <image class="around-item-img" lazyLoad="true" src="../../assets/image/education.svg"></image>
         <view class="around-item-label">教育</view>
       </view>
-      <view bindtap="tapMap" class="around-btn-item" data-active-index="2" data-name="医疗"
-        data-url="/packages_map/pages/map/qqmap/index?name={{name}}&lng={{longitude}}&lat={{latitude}}&activeIndex=2&areaId={{areaId}}">
-        <image class="around-item-img" lazyLoad="true"
-          src="https://cdn-fhy-file.bgy.com.cn/bu00310-prd1/5fd85645e4b03eca0c208d22"></image>
+      <view bindtap="navNearBuilding" class="around-btn-item">
+        <image class="around-item-img" lazyLoad="true" src="../../assets/image/hospital.svg"></image>
         <view class="around-item-label">医疗</view>
       </view>
-      <view bindtap="tapMap" class="around-btn-item" data-active-index="3" data-name="商业"
-        data-url="/packages_map/pages/map/qqmap/index?name={{name}}&lng={{longitude}}&lat={{latitude}}&activeIndex=3&areaId={{areaId}}">
-        <image class="around-item-img" lazyLoad="true"
-          src="https://cdn-fhy-file.bgy.com.cn/bu00310-prd1/5fd85626e4b03eca0c208d21"></image>
+      <!-- <view bindtap="navNearBuilding" class="around-btn-item">
+        <image class="around-item-img" lazyLoad="true" src="../../assets/image/shop.svg"></image>
         <view class="around-item-label">商业</view>
-      </view>
+      </view> -->
     </view>
   </view>
 </view>
@@ -156,30 +144,8 @@
   <view class="common-title border-box">
     <view class="common-title-left">楼盘亮点</view>
   </view>
-  <view class="swiper-content">
-    <scroll-view bindscroll="scrollMove" class="swiper-top" scrollLeft="{{scrollLeft}}" scrollWithAnimation="true"
-      scrollX="true">
-      <view bindtap="CheckedIcon" class="swiper-top-main {{listIndex==index?'checked':''}}" data-index="{{index}}"
-        data-title="{{item.title}}" id="scroll-item-{{index}}" wx:if="{{item.src}}" wx:for="{{showList}}"
-        wx:key="index">
-        <view class="">
-          <view class="swiper-icon {{listIndex==index?'swiper-icon-checked':''}}">
-            <image class="iconsrc" data-index="{{index}}" mode="aspectFill" src="{{item.iconsrc}}"></image>
-          </view>
-          <text class="">{{item.title}}</text>
-        </view>
-      </view>
-    </scroll-view>
-    <swiper bindchange="RecommendHouseChange" current="{{listIndex}}" style="height:{{swiperheight}}">
-      <swiper-item class="swiper-bottom" wx:for="{{showList}}" wx:key="index">
-        <view class="swiper-bottom-main">
-          <view class="swiper-item">
-            <image binderror="imgError" bindload="bannerload" class="banner" data-index="{{index}}"
-              id="swiperimg-{{index}}" mode="widthFix" src="{{item.src}}"></image>
-          </view>
-        </view>
-      </swiper-item>
-    </swiper>
+  <view class="margin-20">
+    <view class="">{{houseDetail.liangdianmiaoshu}}</view>
   </view>
 </view>
 
@@ -189,25 +155,27 @@
   <view class="head w90">
     <view class="h1">楼盘相册</view>
   </view>
-  <view class="swiper-nav-type" wx:if="{{list.length>1}}">
-    <view bindtap="RecommendHouseChange" class="swiper-btn {{liseIndex===index?'hover':''}}" data-idx="{{index}}"
-      style="{{list.length==2&&'width: 300rpx;'||list.length==1&&'width: 600rpx;'}}" wx:for="{{list}}" wx:key="index">
-      {{item.name}}
-    </view>
+  <swiper class="screen-swiper square-dot margin-20" indicator-dots="true" circular="true" autoplay="true"
+    interval="5000" duration="500" style="height:160px;border-radius:10px">
+    <swiper-item style="border-radius:10px" wx:for="{{houseDetail.loupanxiangce}}" wx:key="_id"
+      class="{{cardCur==index?'cur':''}}">
+      <view class="swiper-item" style="border-radius:10px">
+        <image src="{{item}}" mode="aspectFill" style="border-radius:10px"></image>
+      </view>
+    </swiper-item>
+  </swiper>
+</view>
+
+<view class="recommend-house-layer" wx:if="{{houseDetail.loupanshipin}}">
+  <view class="head w90">
+    <view class="h1">楼盘视频</view>
   </view>
-  <swiper bindchange="RecommendHouseChange" class="swiper-box" current="{{liseIndex}}" style="{{swiperStyle}}">
-    <swiper-item wx:for="{{list}}" wx:key="index">
-      <view class="house-list-layer w91">
-        <view bind:tap="swiperHandle" class="item {{idx==item.data.length-1&&item.data.length%2!=0&&'lastItem'}}"
-          data-imgId="{{itm.id}}" data-type="{{itm.Type}}" data-webUrl="{{itm.link}}" wx:for="{{item.data}}"
-          wx:for-index="idx" wx:for-item="itm" wx:key="index">
-          <image binderror="imgError" class="banner" data-index="{{idx}}" lazyLoad="true" mode="aspectFix"
-            src="{{itm.imgRelUrl}}"></image>
-          <CenterBtn ani="{{itm.Type=='2'?'ani':''}}"
-            props="width:89rpx;height:89rpx;font-size:28rpx;background:rgba(0, 0, 0, 0.5);"
-            src="/resources/{{itm.Type=='1'?'videoplay':itm.Type=='2'?'iconVR':''}}.png"
-            title="{{itm.Type=='2'?'VR':''}}" wx:if="{{itm.Type=='1'||itm.Type=='2'}}"></CenterBtn>
-        </view>
+  <swiper class="screen-swiper square-dot margin-20" indicator-dots="true" circular="true" autoplay="true"
+    interval="5000" duration="500" style="height:160px;border-radius:10px">
+    <swiper-item style="border-radius:10px" wx:for="{{houseDetail.loupanshipin}}" wx:key="_id"
+      class="{{cardCur==index?'cur':''}}">
+      <view class="swiper-item" style="border-radius:10px">
+          <video src="{{item}}" loop="{{false}}" muted="{{false}}"  controls="{{true}}" show-play-btn="{{true}}" object-fit="{{contain}}" autoplay="{{false}}"></video>
       </view>
     </swiper-item>
   </swiper>
@@ -219,50 +187,76 @@
 <view class="apartment-box border-box">
   <view class="common-title ">
     <view class="common-title-left">销售顾问</view>
-    <view class="logo">
-      <image class="logo-img" lazyLoad="true" src="/packages_FloorDetail/resources/floorDetail/renz.png"></image>
+    <!-- <view class="logo">
       <view class="logo-label">碧桂园官方认证</view>
     </view>
     <view bind:tap="goToList" class="more-apartment common-title-right"
-      data-url="/packages_FloorDetail/pages/FloorDetail/ApartmentList/index?areaId={{areaId}}">查看全部</view>
+      data-url="/packages_FloorDetail/pages/FloorDetail/ApartmentList/index?areaId={{areaId}}"></view> -->
   </view>
   <view class="saleman-scroll-box detail-margin border-box">
 
-<!-- 销售顾问 -->
-<view wx:for="{{dailiren}}" wx:key wx:if="{{item&&item.shifoushouyetuijian == true}}" bind:tap="goSale" class="saleman-item border-box">
-  <view class="saleman-item-left border-box">
-    <view class="left-img first">
-      <view class="saleman-img-box">
-        <image binderror="imgError" class="saleman-item-left-img border-box" data-index="0" mode="aspectFill"
-          src="{{item.zhaopian[0]}}"
-          role="img"></image>
+    <!-- 销售顾问 -->
+    <view wx:for="{{dailiren}}" wx:key="_id" bind:tap="goSale" class="saleman-item border-box">
+      <view bind:tap="navDetailDailiren" data-id="{{item._id}}" class="saleman-item-left border-box">
+        <view class="left-img first">
+          <view class="saleman-img-box">
+            <image binderror="imgError" class="saleman-item-left-img border-box" data-index="0" mode="aspectFill"
+              src="{{item.zhaopian[0]}}" role="img"></image>
+          </view>
+          <view class="comImg" wx:if="{{item.dailidengji == '金牌'}}">
+            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9925.png"
+              role="img"></image>
+          </view>
+          <view class="comImg" wx:if="{{item.dailidengji == '银牌'}}">
+            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9939.png"
+              role="img"></image>
+          </view>
+          <view class="comImg" wx:if="{{item.dailidengji == '铜牌'}}">
+            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de993a.png"
+              role="img"></image>
+          </view>
+        </view>
+        <view class="saleman-item-left-label border-box">
+          <view class="saleman-item-label-top border-box">{{item.mingcheng}}</view>
+          <view class="saleman-item-label-bot border-box">{{item.dailidengji}}顾问</view>
+        </view>
       </view>
-      <view class="comImg" wx:if="{{item.dailidengji == '金牌'}}">
-        <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9925.png"
-          role="img"></image>
+      <view class="saleman-item-right">
+        <view bindtap="handleChat" data-target="formChat" class="saleman-round saleman-round-1" data-id="{{item._id}}"
+          data-level="{{item.dailidengji}}顾问" data-name="{{item.mingcheng}}" data-phone="{{item.dianhua}}">
+          <text class="fhyfont iconIMliaotiantubiao iconText"></text></view>
+        <view bindtap="handlePhone" class="saleman-round saleman-round-2" data-phone="{{item.dianhua}}">
+          <text class="fhyfont iconphone1 iconText"></text>
+        </view>
       </view>
-      <view class="comImg" wx:if="{{item.dailidengji == '银牌'}}">
-        <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9939.png"
-          role="img"></image>
-      </view>
-      <view class="comImg" wx:if="{{item.dailidengji == '铜牌'}}">
-        <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de993a.png"
-          role="img"></image>
-      </view>
-    </view>
-    <view class="saleman-item-left-label border-box">
-      <view class="saleman-item-label-top border-box">{{item.mingcheng}}</view>
-      <view class="saleman-item-label-bot border-box">{{item.dailidengji}}顾问</view>
-    </view>
-  </view>
-  <view class="saleman-item-right">
-    <view catch:tap="handleChat" class="saleman-round saleman-round-1" data-level="{{item.dailidengji}}顾问" data-name="{{item.mingcheng}}}}"
-      >
-      <text class="fhyfont iconIMliaotiantubiao iconText"></text></view>
-    <view catch:tap="handlePhone" class="saleman-round saleman-round-2" data-phone="18140368633">
-      <text class="fhyfont iconphone1 iconText"></text>
     </view>
   </view>
 </view>
-</view>
+
+<view class="cu-modal {{modalName =='formChat'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">预约沟通</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl" style="background: #ffffff;">
+      <form bindsubmit="submitForm">
+        <view class="model-form" slot="form">
+          <input bindinput="nameInput" name="nameInput" class="model-form-input text-left" cursorSpacing="145" placeholder="您的姓名"
+            placeholderClass="model-placeholder" value="{{username}}"></input>
+          <input bindinput="houseInput" name="houseInput" class="model-form-input text-left" cursorSpacing="145" placeholder="意向房源"
+            placeholderClass="model-placeholder" value="{{houseDetail.loupanmingcheng}}">{{houseDetail.loupanmingcheng}}</input>
+          <input bindinput="phoneInput" name="phoneInput" class="model-form-input text-left" cursorSpacing="90" maxlength="11"
+            placeholder="您的手机号" placeholderClass="model-placeholder" value="{{userphone}}"></input>
+        </view>
+        <view class="model-btn" slot="btn">
+          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover">
+            预约沟通
+          </button>
+        </view>
+      </form>
+    </view>
+  </view>
 </view>

@@ -1,0 +1,12 @@
+<import src="../part/menu.wxml"></import>
+<import src="../part/daikuan.wxml"></import>
+<import src="../part/tabbar.wxml"></import>
+<view class="all-main  {{isIpx?'list-phonex':''}}" scrollY="true">
+    <view class="pagemain" style="padding: 0;">
+        <view class="header">
+            <template is="menu" data="{{menu:menu}}"></template>
+        </view>
+        <template is="daikuan" data="{{dk:dk}}"></template>
+    </view>
+    <template is="tabbar" data="{{tabbar:tabbar,isIpx:isIpx}}"></template>
+</view>

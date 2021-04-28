@@ -1,0 +1,34 @@
+
+<swiper class="card-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
+  duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+  <swiper-item wx:for="{{detailhuodong.image}}" wx:key="_id" class="{{cardCur==index?'cur':''}}">
+    <view class="swiper-item">
+      <image src="{{item}}" mode="aspectFill"></image>
+    </view>
+  </swiper-item>
+</swiper>
+
+<view class="common-title" style="margin-left: 20px;">
+  <view class="cuIcon-titles common-title-left">{{detailhuodong.title}}</view>
+</view>
+
+<view class="flex solid-bottom padding-30 align-center" style="padding-top: 0;padding-bottom:0;" wx:if="{{detailhuodong.huodongshipin}}">
+  <video style="border-radius:10px;width:100%;height:150px" src="{{detailhuodong.huodongshipin[0]}}" poster="{{detailhuodong.image[0]}}" loop="{{false}}"
+    muted="{{false}}" show-fullscreen-btn="true" title="{{detailhuodong.title}}" enable-progress-gesture="{{true}}"
+    show-play-btn="{{true}}" controls="{{true}}" objectFit="cover"></video>
+</view>
+
+<view class="padding-30 bg-white">
+  <view class="text-left text-grey" style="line-height:30px">
+    日期: {{detailhuodong.huodongriqi}}  区域: {{detailhuodong.huodongchengshi}}
+  </view>
+  <view class="text-left" style="line-height:30px">
+    {{detailhuodong.content}}
+  </view>
+
+  <button bindtap="navApp" data-appid="{{detailhuodong.navappid}}" data-route="{{detailhuodong.navRoute}}"  wx:if="{{detailhuodong.navappid}}" class="cu-btn bg-red margin-tb-sm lg button-hover" aria-disabled="false" role="button" style="margin-top: 30px;">立刻前往</button>
+</view>
+
+<view class="im" bindtap="navApp" data-appid="{{detailhuodong.navappid}}" data-route="{{detailhuodong.navRoute}}" wx:if="{{detailhuodong.navappid}}">
+  <image src="../../../assets/image/gift.gif" class="im-readCount"></image>
+</view>

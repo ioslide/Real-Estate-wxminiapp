@@ -1,0 +1,12 @@
+page {
+    background-color: #f5f5f5;
+}
+
+.pagemain {
+    padding-top: 0;
+}
+
+.all-main {
+    padding-top: 20rpx;
+    box-sizing: border-box;
+}

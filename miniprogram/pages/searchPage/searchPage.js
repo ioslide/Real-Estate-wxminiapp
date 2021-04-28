@@ -26,14 +26,22 @@ create(store, {
     log(options)
     let key = options.searchWord
     db.collection('dangeloupanxiangqing').where(_.or([{
-        name: db.RegExp({
-          regexp: '.*' + key,
+        loupanmingcheng: db.RegExp({
+          regexp: '.*' + key + '.*' ,
+          options: 'i',
+        }),
+        chengshi: db.RegExp({
+          regexp: '.*' + wx.getStorageSync('curCity'),
           options: 'i',
         })
       },
       {
-        chengshi: db.RegExp({
+        jutidizhi: db.RegExp({
           regexp: '.*' + key,
+          options: 'i',
+        }),
+        chengshi: db.RegExp({
+          regexp: '.*' + wx.getStorageSync('curCity'),
           options: 'i',
         })
       }

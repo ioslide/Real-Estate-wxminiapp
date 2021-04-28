@@ -7,6 +7,7 @@
 import obaa from './obaa'
 import { getPath, needUpdate, fixPath, getUsing } from './path'
 
+
 function create(store, option) {
   if (arguments.length === 2) {
     if (!store.instances) {
@@ -161,8 +162,8 @@ create.Component = function (store, option) {
 
     option.ready = option.lifetimes.ready = function (e) {
       const store = this.store
-      store.instances[this.is] = store.instances[this.is] || []
-      store.instances[this.is].push(this)
+      store.instances[this.route] = store.instances[this.route] || []
+      store.instances[this.route].push(this)
       this.computed = option.computed
       this.setData(option.data)
       const using = getUsing(store.data, option.use)
@@ -174,7 +175,7 @@ create.Component = function (store, option) {
     }
 
     option.lifetimes.detached = option.detached = function (e) {
-      this.store.instances[this.is] = (this.store.instances[this.is] || []).filter(ins => ins !== this)
+      this.store.instances[this.route] = this.store.instances[this.route].filter(ins => ins !== this)
       detached && detached.call(this, e)
     }
 
@@ -234,17 +235,6 @@ function observeStore(store) {
       obaa.set(obj, prop, val, oba)
     }
   }
-
-  const backer = store.data
-  Object.defineProperty(store, 'data', {
-    enumerable: true,
-    get: function() {
-      return backer
-    },
-    set: function() {
-      throw new Error('You must not replace store.data directly, instead assign nest prop')
-    }
-  })
 }
 
 function _update(kv, store) {
@@ -265,48 +255,27 @@ function _update(kv, store) {
 }
 
 function _updateOne(kv, store, ins){
-  if (!(store.updateAll || ins.__updatePath && needUpdate(kv, ins.__updatePath))) {
-    return
-  }
-  if (!ins.__hasData) {
-    return _updateImpl(kv, store, ins)
-  }
-  const patch = Object.assign({}, kv)
-  for (let pk in patch) {
-    if (!/\$\./.test(pk)) {
-      patch['$.' + pk] = kv[pk]
-      delete patch[pk]
+  if (store.updateAll || ins.__updatePath && needUpdate(kv, ins.__updatePath)) {
+    if (ins.__hasData) {
+      const patch = Object.assign({}, kv)
+      for (let pk in patch) {
+        if (!/\$\./.test(pk)) {
+          patch['$.' + pk] = kv[pk]
+          delete patch[pk]
+        }
+      }
+      ins.setData.call(ins, patch)
+    } else {
+      ins.setData.call(ins, kv)
     }
-  }
-  _updateImpl(patch, store, ins)
-}
 
-function _updateImpl(data, store, ins) {
-  if (!wx.nextTick) {
-    return _doUpdate(data, store, ins)
-  }
-  if (ins._omixDataBuffer === undefined) {
-    ins._omixDataBuffer = {}
-  }
-  Object.assign(ins._omixDataBuffer, data)
-  if (!ins._omixTickScheduled) {
-    wx.nextTick(function() {
-      _doUpdate(ins._omixDataBuffer, store, ins)
-      ins._omixDataBuffer = {}
-      ins._omixTickScheduled = false
-    })
-    ins._omixTickScheduled = true
-  }
-}
+    const using = getUsing(store.data, ins.__use)
 
-function _doUpdate(data, store, ins) {
-  if (Object.keys(data).length === 0) {
-    return
+    compute(ins.computed, store, using, ins)
+    ins.setData(using)
+
+
   }
-  ins.setData.call(ins, data)
-  const using = getUsing(store.data, ins.__use)
-  ins.computed && compute(ins.computed, store, using, ins)
-  ins.setData.call(ins, using)
 }
 
 function storeChangeLogger(store, diffResult) {
@@ -322,6 +291,7 @@ function storeChangeLogger(store, diffResult) {
   } catch (e) {
     console.log(e)
   }
+
 }
 
 

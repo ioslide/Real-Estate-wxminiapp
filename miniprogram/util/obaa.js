@@ -11,12 +11,15 @@ export default function obaa(target, arr, callback) {
     var eventPropArr = []
     if (obaa.isArray(target)) {
       if (target.length === 0) {
-        $observer.track(target)
+        Object.defineProperty(target, '$observeProps', {
+          configurable: true,
+          enumerable: false,
+          writable: true,
+          value: {}
+        })
+        target.$observeProps.$observerPath = '#'
       }
       $observer.mock(target)
-    }
-    if (target && typeof target === 'object' && Object.keys(target).length === 0) {
-      $observer.track(target)
     }
     for (var prop in target) {
       if (target.hasOwnProperty(prop)) {
@@ -125,7 +128,6 @@ export default function obaa(target, arr, callback) {
       var self = this
       var currentValue = (target.$observeProps[prop] = target[prop])
       Object.defineProperty(target, prop, {
-        configurable: true,
         get: function () {
           return this.$observeProps[prop]
         },
@@ -146,11 +148,20 @@ export default function obaa(target, arr, callback) {
           this.mock(currentValue)
           //为0，就不会进下面的 for 循环，就不会执行里面的 watch，就不会有 $observeProps 属性
           if (currentValue.length === 0) {
-            this.track(currentValue, prop, path)
+            if (!currentValue.$observeProps) {
+              Object.defineProperty(currentValue, '$observeProps', {
+                configurable: true,
+                enumerable: false,
+                writable: true,
+                value: {}
+              })
+            }
+            if (path !== undefined) {
+              currentValue.$observeProps.$observerPath = path + '-' + prop
+            } else {
+              currentValue.$observeProps.$observerPath = '#' + '-' + prop
+            }
           }
-        }
-        if (currentValue && Object.keys(currentValue).length === 0) {
-          this.track(currentValue, prop, path)
         }
         for (var cprop in currentValue) {
           if (currentValue.hasOwnProperty(cprop)) {
@@ -160,26 +171,6 @@ export default function obaa(target, arr, callback) {
               target.$observeProps.$observerPath + '-' + prop
             )
           }
-        }
-      }
-    },
-    track: function(obj, prop, path) {
-      if (obj.$observeProps) {
-        return
-      }
-      Object.defineProperty(obj, '$observeProps', {
-        configurable: true,
-        enumerable: false,
-        writable: true,
-        value: {}
-      })
-      if (path !== undefined && path !== null) {
-        obj.$observeProps.$observerPath = path + '-' + prop
-      } else {
-        if (prop !== undefined && prop !== null) {
-          obj.$observeProps.$observerPath = '#' + '-' + prop
-        } else {
-          obj.$observeProps.$observerPath = '#'
         }
       }
     }
@@ -268,10 +259,8 @@ obaa.set = function (obj, prop, value, oba) {
   // if (exec) {
   //   obj[prop] = value
   // }
-  if (obj[prop] === undefined) {
-    var $observer = obj.$observer || oba
-    $observer.watch(obj, prop, obj.$observeProps.$observerPath)
-  }
+  var $observer = obj.$observer || oba
+  $observer.watch(obj, prop, obj.$observeProps.$observerPath)
   //if (!exec) {
   obj[prop] = value
   //}

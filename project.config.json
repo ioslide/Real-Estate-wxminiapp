@@ -39,7 +39,7 @@
   },
   "appid": "wx28048b96a99a186f",
   "projectname": "%E7%A2%A7%E6%A1%82%E5%9B%AD",
-  "libVersion": "2.14.4",
+  "libVersion": "2.14.0",
   "condition": {
     "plugin": {
       "list": []
@@ -67,6 +67,12 @@
         {
           "name": "pages/searchPage/searchPage",
           "pathName": "pages/searchPage/searchPage",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/allDailiren/allDailiren",
+          "pathName": "pages/allDailiren/allDailiren",
           "scene": null
         }
       ]

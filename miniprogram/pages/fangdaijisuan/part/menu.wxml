@@ -1,0 +1,35 @@
+<template name="menu">
+    <view class="menu">
+        <view catchtap="navshangyedaikuan" class="{{menu==1?'menuitm on':'menuitm'}}" data-type="1">商业贷款</view>
+        <view catchtap="navgongjijin" class="{{menu==2?'menuitm c on':'menuitm c'}}" data-type="2">公积金贷款</view>
+        <view catchtap="navzuhedaikuan" class="{{menu==3?'menuitm on':'menuitm'}}" data-type="3">组合贷款</view>
+    </view>
+    
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action" bindtap="navHome" >
+    <view class='cuIcon-cu-image'>
+      <image src="../../../assets/image/homepage.svg"></image>
+    </view>
+    <view>首页</view>
+  </view>
+  <view class="action" bindtap="navQiyefuwu">
+    <view class='cuIcon-cu-image'>
+      <image src="../../../assets/image/homefound.svg"></image>
+    </view>
+    <view >服务</view>
+  </view>
+  <view class="action" bindtap="navMap">
+    <view class='cuIcon-cu-image'>
+      <image src="../../../assets/image/homelocation.svg"></image>
+    </view>
+    <view>找房</view>
+  </view>
+  <view class="action" bindtap="navHuodong">
+    <view class='cuIcon-cu-image'>
+      <image src="../../../assets/image/gift.svg"></image>
+    </view>
+    <view>活动</view>
+  </view>
+</view>
+
+</template>

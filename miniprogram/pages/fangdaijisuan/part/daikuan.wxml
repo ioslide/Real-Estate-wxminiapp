@@ -1,0 +1,49 @@
+<template name="daikuan">
+    <view class="main">
+        <view class="lst-item">
+            <view class="txt">
+                贷款金额（万元）
+            </view>
+            <view class="input-con">
+                <input bindinput="bindAmtInput" class="input" maxlength="5" type="number" value="{{dk.amt>0?dk.amt:''}}"></input>
+            </view>
+        </view>
+        <view class="lst-item">
+            <view class="txt">
+                贷款年限（年）
+            </view>
+            <view class="input-con">
+                <input bindinput="bindYearInput" class="input" maxlength="2" type="number" value="{{dk.year>0?dk.year:''}}"></input>
+            </view>
+        </view>
+        <view class="lst-item">
+            <view class="txt">
+                贷款利率（%）
+            </view>
+            <view class="input-con">
+                <input bindinput="bindLilvInput" class="input" type="digit" value="{{dk.lilv}}"></input>
+            </view>
+        </view>
+        <view class="lst-item">
+            <view class="txt">
+                还款方式
+            </view>
+            <view class="input-con">
+                <view class="repay-type-main">
+                    <view catchtap="tabfqtype" class="{{dk.fqtype==1?'repay-type-left on':'repay-type-left'}}" data-fqtype="1">等额本息</view>
+                    <view catchtap="tabfqtype" class="{{dk.fqtype==2?'repay-type-right on':'repay-type-right'}}" data-fqtype="2">等额本金</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="tips">
+        <view class="tipscontent">
+            最新商贷利率{{dk.deflilv.b_rate}}%，公积金利率{{dk.deflilv.a_rate}}%，查看<navigator class="lilv-nav" url="../lilv/lilv">
+                <text class="tips-lilv">利率表</text>
+            </navigator>
+        </view>
+    </view>
+    <view class="calc-btn-con">
+        <button catchtap="calctap" class="calc-btn" hoverClass="calc-btn-hover" size="default" type="primary">计算</button>
+    </view>
+</template>

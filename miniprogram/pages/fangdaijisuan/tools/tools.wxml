@@ -1,0 +1,29 @@
+<import src="../part/menu.wxml"></import>
+<import src="../part/daikuan.wxml"></import>
+<import src="../part/tabbar.wxml"></import>
+<view class="all-main {{isIpx?'list-phonex':''}}" scrollY="true">
+    <view class="pagemain">
+        <view class="app-list">
+            <view catchtap="tapApp" class="app-itm" data-app="wx6d5af84d354f6717" hoverClass="app-itm-on">
+                <view class="app-pic-con">
+                    <image class="app-pic" src="../../images/shark@3x.png"></image>
+                </view>
+                <view class="app-name">
+                    <text>鲨鱼记账</text>
+                </view>
+            </view>
+            <view catchtap="tapApp" class="app-itm" data-app="wx72945fc1ea879a6b" hoverClass="app-itm-on">
+                <view class="app-pic-con">
+                    <image class="app-pic" src="../../images/exchange@3x.png"></image>
+                </view>
+                <view class="app-name noborder">
+                    <text>汇率换算器</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="tips-info">
+        <text>更多小工具即将推出，敬请期待！</text>
+    </view>
+    <template is="tabbar" data="{{tabbar:tabbar,isIpx:isIpx}}"></template>
+</view>

@@ -1,0 +1,85 @@
+<scroll-view class="all-main" scrollY="true">
+    <view class="pagemain" style="padding: 0;">
+        <view class="res-head">
+            <view class="res-head-month">
+                <view class="m-fldname">{{monthDesc}}</view>
+                <view class="m-fldval">
+                    <text class="lft-txt">{{monthAmt.l}}</text>.<text class="right-txt">{{monthAmt.r}}</text>
+                    <text class="money">元</text>
+                </view>
+            </view>
+            <view class="res-head-dk dk-gjj" wx:if="{{dktype!=1}}">
+                <view class="row-cell">
+                    <view class="fldname">公积金贷款总额</view>
+                    <view class="fldval">
+                        <text>{{gjjCalcRes.amt}}</text>万元</view>
+                </view>
+                <view class="row-cell">
+                    <view class="fldname">公积金利率</view>
+                    <view class="fldval">
+                        <text>{{gjjCalcRes.lilv}}</text>%</view>
+                </view>
+                <view class="row-cell">
+                    <view class="fldname">公积金贷款年限</view>
+                    <view class="fldval">
+                        <text>{{gjjCalcRes.year}}</text>年</view>
+                </view>
+            </view>
+            <view class="res-head-dk dk-sy" wx:if="{{dktype!=2}}">
+                <view class="row-cell">
+                    <view class="fldname">商业贷款总额</view>
+                    <view class="fldval">
+                        <text>{{syCalcRes.amt}}</text>万元</view>
+                </view>
+                <view class="row-cell">
+                    <view class="fldname">商业利率</view>
+                    <view class="fldval">
+                        <text>{{syCalcRes.lilv}}</text>%</view>
+                </view>
+                <view class="row-cell">
+                    <view class="fldname">商业贷款年限</view>
+                    <view class="fldval">
+                        <text>{{syCalcRes.year}}</text>年</view>
+                </view>
+            </view>
+            <view class="res-head-line-con">
+                <view class="res-head-line"></view>
+            </view>
+            <view class="res-head-lixi">
+                <view class="lixi-fld">
+                    <text class="txt1">累计利息（元）</text>：<text class="txt2">{{lxtotal}}</text>
+                </view>
+                <view class="lixi-fld">
+                    <text class="txt1">累计还款金额（元）：</text>
+                    <text class="txt2">{{alltotal}}</text>
+                </view>
+            </view>
+            <view class="res-head-share">
+                <view class="share-txt">
+                分享结果：
+            </view>
+                <view>
+                    <button class="sharebtn" openType="share">微信好友</button>
+                </view>
+            </view>
+            <view class="grid-head">
+                <view class="grid-head-row">
+                    <view class="res-itm amt-stage">期数</view>
+                    <view class="res-itm amt-month">月供（元）</view>
+                    <view class="res-itm amt-benjin">本金（元）</view>
+                    <view class="res-itm amt-lixi">利息（元）</view>
+                    <view class="res-itm amt-left">剩余（元）</view>
+                </view>
+            </view>
+        </view>
+        <view class="res-list">
+            <view class="res-lst-itm" wx:for="{{details}}" wx:for-item="itm">
+                <view class="res-lst-itm-fld amt-stage" style="{{ft}}">第{{itm.fld+1}}期</view>
+                <view class="res-lst-itm-fld amt-month" style="{{ft}}">{{itm.emtotal}}</view>
+                <view class="res-lst-itm-fld amt-benjin" style="{{ft}}">{{itm.em}}</view>
+                <view class="res-lst-itm-fld amt-lixi" style="{{ft}}">{{itm.lx}}</view>
+                <view class="res-lst-itm-fld amt-left" style="{{ft}}">{{itm.leftall}}</view>
+            </view>
+        </view>
+    </view>
+</scroll-view>

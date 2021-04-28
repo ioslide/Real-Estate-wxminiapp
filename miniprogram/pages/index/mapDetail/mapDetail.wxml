@@ -1,0 +1,1 @@
+<map style="width:{{windowWidth}}px;height:{{windowHeight}}px" show-location="true" bindmarkertap="markertap" bindcallouttap="markertap" subkey="NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7" setting="{{mapsetting}}" longitude="{{$.longitude}}" latitude="{{$.latitude}}" scale="9" min-scale="6" markers="{{$.markersData}}"></map>
