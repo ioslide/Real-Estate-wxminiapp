@@ -2,6 +2,7 @@ const log = console.log.bind(console)
 const group = console.group.bind(console)
 const groupEnd = console.groupEnd.bind(console)
 const error = console.error.bind(console)
+import pinyin from "wl-pinyin"
 const db = wx.cloud.database()
 const _ = db.command
 
@@ -17,8 +18,9 @@ let $$ = {
   adSwiperList: [],
   maifangliucheng: [],
   goufangzhengce: [],
-  homepageHouseList:[],
+  // homepageHouseList:[],
   markersData:[],
+  curCity:'锦江区',
   latitude:30.5702,
   longitude:104.06476,
 }
@@ -35,7 +37,8 @@ export default {
     allHouseList: $$.allHouseList,
     maifangliucheng: $$.maifangliucheng,
     goufangzhengce: $$.goufangzhengce,
-    homepageHouseList:$$.homepageHouseList,
+    // homepageHouseList:$$.homepageHouseList,
+    curCity:$$.curCity,
     latitude:$$.latitude,
     longitude:$$.longitude
   },
@@ -54,7 +57,7 @@ const judgeTime = () => { //判断缓存是否过期
 let isLessThanFurtureTime = judgeTime()
 
 const furtureTime = () => {
-  return Date.now() + 1800000; //毫秒(72小时)
+  return Date.now() + 900000; //毫秒(15分钟)
 }
 
 const getdailirenList = () => {
@@ -62,17 +65,13 @@ const getdailirenList = () => {
   if(wx.getStorageSync('curCity')){
     key = wx.getStorageSync('curCity')
   }else{
-    key = '成都市'
+    key = '锦江区'
   }
-  log('getdailirenList key',key)
-  db.collection('dailiren').where(_.or([
-  {
-    chengshi: db.RegExp({
-      regexp: '.*' + key,
-      options: 'i',
-    })
-  }
-])).orderBy('paimingshunxu', 'desc').get().then(res => {
+  let temp = key + 'dailiren'
+  let database =pinyin.getPinyin(temp).replace(/\s+/g,"");_
+  log('代理人数据库',database)
+
+  db.collection(database).orderBy('paimingshunxu', 'desc').get().then(res => {
     module.exports.default.data.dailiren = res.data
     wx.setStorage({
       key:"dailiren",
@@ -85,16 +84,13 @@ const getSwiper = () => {
   if(wx.getStorageSync('curCity')){
     key = wx.getStorageSync('curCity')
   }else{
-    key = '成都市'
+    key = '锦江区'
   }
-  db.collection('shouyelunbotu').where(_.or([
-    {
-      chengshi: db.RegExp({
-        regexp: '.*' + key,
-        options: 'i',
-      })
-    }
-  ])).orderBy('_createTime', 'desc').get().then(res => {
+  let temp = key + 'shouyelunbotu'
+  let database =pinyin.getPinyin(temp).replace(/\s+/g,"");_
+  log('首页轮播图数据库',database)
+
+  db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
     module.exports.default.data.swiperList = res.data
     wx.setStorage({
       key:"swiperList",
@@ -103,29 +99,36 @@ const getSwiper = () => {
   })
 }
 const getadSwiper = () => {
+  // let key = ''
+  // if(wx.getStorageSync('curCity')){
+  //   key = wx.getStorageSync('curCity')
+  // }else{
+  //   key = '锦江区'
+  // }
+  // let temp = key + 'shouyezhongjianguanggaolunbotu'
+  // let database =pinyin.getPinyin(temp).replace(/\s+/g,"");_
+  // log('首页中间轮播图数据库',database)
+
+  // db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
+  //   module.exports.default.data.adSwiperList = res.data
+  //   wx.setStorage({
+  //     key:"adSwiperList",
+  //     data:res.data
+  //   })
+  // })
+}
+const getNews = () => {
   let key = ''
   if(wx.getStorageSync('curCity')){
     key = wx.getStorageSync('curCity')
   }else{
-    key = '成都市'
+    key = '锦江区'
   }
-  db.collection('shouyezhongjianguanggaolunbotu').where(_.or([
-    {
-      chengshi: db.RegExp({
-        regexp: '.*' + key,
-        options: 'i',
-      })
-    }
-  ])).orderBy('_createTime', 'desc').get().then(res => {
-    module.exports.default.data.adSwiperList = res.data
-    wx.setStorage({
-      key:"adSwiperList",
-      data:res.data
-    })
-  })
-}
-const getNews = () => {
-  db.collection('zixunxinxi').orderBy('_createTime', 'desc').get().then(res => {
+  let temp = key + 'zixunxinxi'
+  let database =pinyin.getPinyin(temp).replace(/\s+/g,"");_
+  log('资讯信息数据库',database)
+
+  db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
     module.exports.default.data.zixunxinxi = res.data
     wx.setStorage({
       key:"zixunxinxi",
@@ -134,8 +137,17 @@ const getNews = () => {
   })
 }
 const getStartImage = () => {
-  db.collection('shouyetanchucengguanggao').orderBy('_createTime', 'desc').get().then(res => {
-    log(res)
+  let key = ''
+  if(wx.getStorageSync('curCity')){
+    key = wx.getStorageSync('curCity')
+  }else{
+    key = '锦江区'
+  }
+  let temp = key + 'shouyetanchucengguanggao'
+  let database =pinyin.getPinyin(temp).replace(/\s+/g,"");_
+  log('首页弹出层广告数据库',database)
+
+  db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
     module.exports.default.data.startImage = res.data
     wx.setStorage({
       key:"startImage",
@@ -148,29 +160,20 @@ const getAllHouseList = () => {
   if(wx.getStorageSync('curCity')){
     key = wx.getStorageSync('curCity')
   }else{
-    key = '成都市'
-    wx.setStorageSync('curCity', '成都市')
+    key = '锦江区'
+    wx.setStorageSync('curCity', '锦江区')
   }
-//   db.collection('dangeloupanxiangqing').limit(10).where(_.or([{
-//     name: db.RegExp({
-//       regexp: '.*' + key,
-//       options: 'i',
-//     })
-//   },
-//   {
-//     chengshi: db.RegExp({
-//       regexp: '.*' + key,
-//       options: 'i',
-//     })
-//   }
-// ])).get().then(res => {
-  db.collection('dangeloupanxiangqing').orderBy('_createTime', 'desc').get().then(res => {
+  let temp = key + 'dangeloupanxiangqing'
+  let database =pinyin.getPinyin(temp).replace(/\s+/g,"");_
+  log('楼盘详情数据库',database)
+
+  db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
     let houselist = res.data
     log('[houselist]',houselist)
     for (var i = 0, markersData = []; i < houselist.length; i++) {
       let jingweidu = houselist[i]['jingweidu'].split(',')
       markersData.push({
-        "iconPath": "../../assets/image/location.png",
+        "iconPath": "https://weather.ioslide.com/bgylocation.png",
         "id": houselist[i]['_id'],
         "latitude": jingweidu[0],
         "longitude": jingweidu[1],
@@ -197,16 +200,12 @@ const getAllHouseList = () => {
         }
       });
     }
-    let homepageHouseList = res.data.filter(function (entry) {
-      return entry.chengshi === key;
-    });
+    // let homepageHouseList = res.data.filter(function (entry) {
+    //   return entry.chengshi === key;
+    // });
     wx.setStorage({
       key:"allHouseList",
       data:res.data
-    })
-    wx.setStorage({
-      key:"homepageHouseList",
-      data:homepageHouseList
     })
     wx.setStorage({
       key:"markersData",
@@ -214,35 +213,34 @@ const getAllHouseList = () => {
     })
     module.exports.default.data.markersData = markersData
     module.exports.default.data.allHouseList = res.data
-    module.exports.default.data.homepageHouseList = homepageHouseList
   })
 }
-const getGoufangzhengce = () => {
-  wx.pro.request({
-    url: apiLists.goufangzhengce,
-    data: {},
-    method: 'GET',
-  }).then(res => {
-    wx.setStorage({
-      key:"goufangzhengce",
-      data:res.data.data.list
-    })
-    module.exports.default.data.goufangzhengce = res.data.data.list
-  })
-}
-const getMaifangliucheng = () => {
-  wx.pro.request({
-    url: apiLists.maifangliucheng,
-    data: {},
-    method: 'GET',
-  }).then(res => {
-    wx.setStorage({
-      key:"maifangliucheng",
-      data:res.data.data.list
-    })
-    module.exports.default.data.maifangliucheng = res.data.data.list
-  })
-}
+// const getGoufangzhengce = () => {
+//   wx.pro.request({
+//     url: apiLists.goufangzhengce,
+//     data: {},
+//     method: 'GET',
+//   }).then(res => {
+//     wx.setStorage({
+//       key:"goufangzhengce",
+//       data:res.data.data.list
+//     })
+//     module.exports.default.data.goufangzhengce = res.data.data.list
+//   })
+// }
+// const getMaifangliucheng = () => {
+//   wx.pro.request({
+//     url: apiLists.maifangliucheng,
+//     data: {},
+//     method: 'GET',
+//   }).then(res => {
+//     wx.setStorage({
+//       key:"maifangliucheng",
+//       data:res.data.data.list
+//     })
+//     module.exports.default.data.maifangliucheng = res.data.data.list
+//   })
+// }
 const initData = async () => {
   getSwiper()
   getadSwiper()
@@ -250,8 +248,8 @@ const initData = async () => {
   getNews()
   getStartImage()
   getdailirenList()
-  getGoufangzhengce()
-  getMaifangliucheng()
+  // getGoufangzhengce()
+  // getMaifangliucheng()
 }
 const initStorageData =async () =>{
   module.exports.default.data.zixunxinxi = wx.getStorageSync('zixunxinxi')
@@ -262,23 +260,26 @@ const initStorageData =async () =>{
   module.exports.default.data.allHouseList = wx.getStorageSync('allHouseList')
   module.exports.default.data.goufangzhengce = wx.getStorageSync('goufangzhengce')
   module.exports.default.data.maifangliucheng = wx.getStorageSync('maifangliucheng')
-  module.exports.default.data.homepageHouseList = wx.getStorageSync('homepageHouseList')
+  // module.exports.default.data.homepageHouseList = wx.getStorageSync('homepageHouseList')
   module.exports.default.data.markersData = wx.getStorageSync('markersData')
 }
 const onReadyEvnet = async () => {
-  await wx.pro.showLoading({
-    title: '加载中',
-    mask: true
-  })  
-  log('[isLessThanFurtureTime]',isLessThanFurtureTime)
-  if (isLessThanFurtureTime == false) {  //过期了
-    wx.setStorageSync('furtureTime', furtureTime());
-    await initData()
-  }else if(isLessThanFurtureTime == true){ //没过期
-    await initStorageData()
-  }
-  // await initData()
-  await wx.pro.hideLoading()
+  // await wx.pro.showLoading({
+  //   title: '加载中',
+  //   mask: true
+  // })  
+  await initData()
+  // log('[isLessThanFurtureTime]',isLessThanFurtureTime)
+  // if (isLessThanFurtureTime == false) {  //过期了
+  //   log('[isLessThanFurtureTime] 过期了')
+  //   wx.setStorageSync('furtureTime', furtureTime());
+  //   wx.setStorageSync('hongbuyuCishu', 1)
+  //   await initData()
+  // }else if(isLessThanFurtureTime == true){ //没过期
+  //   log('[isLessThanFurtureTime] 没过期')
+  //   await initStorageData()
+  // }
+  // await wx.pro.hideLoading()
 }
 onReadyEvnet()
 

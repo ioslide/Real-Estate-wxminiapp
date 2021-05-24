@@ -1,4 +1,4 @@
-<view class="storeTop">
+<!-- <view class="storeTop">
   <view class="greenPart"></view>
   <view class="userPart">
     <view class="userParttop">
@@ -20,13 +20,62 @@
             alt="" mode="aspectFill" class="icon"></image>
           <span bind:tap="handlePhone" data-phone="{{detailDailiren.dianhua}}" class="text"> {{detailDailiren.dianhua}}
           </span>
-          <!-- <span bind:tap="handlePhone" data-phone="{{detailDailiren.dianhua}}" class="phonebtn">一键拨打</span> -->
         </view>
         <view class="local">
           <image
             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAABHVBMVEUAAAD///////+////////V1dXb29vb///j4+Pm5ubr6+vu7u7n5+ff6uri4uLl7e3i4uLj6urd5OTk5OTl6+vj6Ojl5erf4+jh5eXe5ubg5Ojh5eXh5eng5+fk6Ojh5eXl6Oji5eXg5ubj5ubi5eXh4+bh5ubh5Ofh5+fi5+fh5ubi5Ofh5ubi5ubi5ubi5+fi5ubh5Obi5efh5ubi5ubi5efg5eXh5eXi5efi5ufh5Obh5ubh5eXi5Obj5efh5ebi5ubh5ebh5ebi5efi5ufi5ufh5ufh5ebi5ebh5ebi5ufg5ebi5ebh5ebh5efh5Obg5ebh5ebh5ebh5ebh5efh5ebi5ufh5ebh5ebh5ebh5ebh5ufi5ufi5ufh5ebQO/qAAAAAXnRSTlMAAQIEBAYHBwkKDQ8VGBodIyUmJictMTc7PkJERUpMTU1OU1NZXFxfX2BlaXByen2DhpOXnJ2en5+hoqKorbO5ubvFx8rL0tba3t7h4eTl5unr7e/w8fT29/j5+v3+/pa4RAAAARRJREFUGBl1wQc/AgEcBuC3TmWmjKzQtik0rIQWKaLpeL//x3C//13X3cnzwOSJXlZarcpl1IM/Es80PCdg5y3QouCFhbtIm6IbYxk6ZGBaUumgBjFyQ8P3Nw03MHi6FM2YzxdrUnQ90G1Q9JehWe5TbECXpMhD5CmS0B1TnEKcUhxDd0CRhchS7EG3SdELQBPoUaxDNz2gaOwoym6D4lOB4Y4GVaXhHCNrdBoswnRFhxOMzb3QpuiCRfCdFo8zsFl9pel+Fg4LTzRcTOEP5eyLmo84Jlp94M+tH//Z3sIELn8oHN8/PDo63I+HQ34XTJFcdUibYTUXgZivcYLaPHQrqfR1qVx/a3c67bd6uXSdTq1A8wunT4qpim3IcAAAAABJRU5ErkJggg=="
             alt="" mode="aspectFill" class="icon"></image>
           <span class="text">{{detailDailiren.chengshi}}</span>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> -->
+<view class="detail-container data-v-cfeaf816">
+  <view class="broker-info-module data-v-cfeaf816">
+    <view class="broker-card data-v-cfeaf816">
+      <view class="broker-header-box data-v-cfeaf816">
+        <view class="portrait-box data-v-cfeaf816">
+          <image class="portrait data-v-cfeaf816" mode="aspectFit" src="{{detailDailiren.zhaopian}}"></image>
+          <view class="mark data-v-cfeaf816">{{detailDailiren.dengji}} </view>
+        </view>
+        <view class="base-info-box data-v-cfeaf816">
+          <view class="text-box data-v-cfeaf816">
+            <view class="name data-v-cfeaf816">{{detailDailiren.mingcheng}} </view>
+            <image class="icon data-v-cfeaf816" mode="aspectFit"
+              src="https://i.qfangimg.com/resource/qfang-mobile-wx/img/icon-broker-star.png?20200908"></image>
+          </view>
+
+          <view class="info data-v-cfeaf816">服务年限{{detailDailiren.workYear}}</view>
+          <view class="broker-credentials data-v-cfeaf816">
+            <view class="items data-v-cfeaf816">
+              <image class="icon data-v-cfeaf816" mode="aspectFit"
+                src="https://i.qfangimg.com/resource/qfang-mobile-wx/img/icon-broker-1.png?20201228"></image>
+              <view class="text data-v-cfeaf816">经纪人证</view>
+            </view>
+            <view class="items data-v-cfeaf816">
+              <image class="icon data-v-cfeaf816" mode="aspectFit"
+                src="https://i.qfangimg.com/resource/qfang-mobile-wx/img/icon-broker-2.png?20201228"></image>
+              <view class="text data-v-cfeaf816">发房机构</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="broker-tag-box data-v-cfeaf816">
+        <view class="tag data-v-cfeaf816" wx:for="{{detailDailiren.renwubiaoqian}}" wx:key="index">{{item}}</view>
+      </view>
+      <view class="broker-attr-box data-v-cfeaf816">
+        <view class="items data-v-cfeaf816">
+          <view class="label data-v-cfeaf816">主营城市</view>
+          <view class="showServiceArea">{{detailDailiren.chengshi}}</view>
+          <view class="icon data-v-cfeaf816">
+          </view>
+        </view>
+        <view class="items data-v-cfeaf816" bind:tap="handlePhone" data-phone="{{detailDailiren.dianhua}}" >
+          <view class="label data-v-cfeaf816">联系电话</view>
+          <view class="showServiceArea"> {{detailDailiren.dianhua}}</view>
+          <view class="icon data-v-cfeaf816">
+          </view>
         </view>
       </view>
     </view>
@@ -75,20 +124,12 @@
 
 
 <view class="consumerShare">
-  <view class="sharebtn">
-    <button open-type="share" style="position:absolute;opacity:0;width:90px;height: 70px;left:0;bottom:10px;z-index:9">
-  </button>
-    <image src="../../assets/image/share.svg" mode="widthFix"></image>
-    <view>分享</view>
-  </view>
   <view class="share2btn">
     <view class="btn datebtn" bind:tap="handlePhone" data-phone="{{detailDailiren.dianhua}}">
-      <text class="btnP">联系Ta</text>
-      <text class="btnP2">您的手机号不会泄露</text>
+      <text class="btnP font-weight-500">联系Ta</text>
     </view>
     <view class="btn chatbtn" bind:tap="handleChat" data-target="formChat">
-      <text class="btnP">申请服务</text>
-      <text class="btnP2">一对一专属服务</text>
+      <text class="btnP font-weight-500">申请服务</text>
     </view>
   </view>
 </view>
@@ -96,7 +137,7 @@
 <view class="cu-modal {{modalName=='formChat'?'show':''}}">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
-      <view class="content">预约沟通</view>
+      <view class="content">申请服务</view>
       <view class="action" bindtap="hideModal">
         <text class="cuIcon-close text-red"></text>
       </view>

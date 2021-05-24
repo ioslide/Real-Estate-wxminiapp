@@ -89,7 +89,6 @@
     justify-content: center;
     padding: 30rpx 32rpx;
     box-sizing: border-box;
-    background-color: #51aa38;
     position: fixed;
     top: 0;
     left: 0;
@@ -98,7 +97,8 @@
 }
 
 .menu {
-    border: #ffffff solid 1rpx;
+    border: #9596ad solid 1rpx;
+    background: #9596ad;
     width: 100%;
     border-radius: 6rpx;
 }
@@ -113,7 +113,7 @@
 
 .menu .on {
     background-color: #ffffff;
-    color: #51aa38;
+    color: #898aa9;
 }
 
 .menu .c {
@@ -272,7 +272,7 @@
 
 .calc-btn {
     width: 100%;
-    background-color: #51aa38;
+    background-color: #898aa9;
     font-size: 18px;
     color: #ffffff;
 }
@@ -336,7 +336,7 @@
 }
 
 .res-head {
-    background-color: #51aa38;
+    background-color: #898aa9;
     box-sizing: border-box;
     width: 100%;
     z-index: 10;
@@ -555,7 +555,9 @@
     font-size: 15px;
     color: #212121;
 }
-
+page{
+    background:#fff
+  }
 .noborder {
     border-bottom: none;
 }

@@ -8,7 +8,7 @@ const db = wx.cloud.database()
 const _ = db.command
 import create from '../../../util/create'
 import store from '../../../store/index'
-
+import pinyin from "wl-pinyin"
 create(store, {
   use: [
     'adSwiperList',
@@ -44,10 +44,29 @@ create(store, {
   onLoad: function (options) {
 
   },
-  markertap(e){
-    let houseId = this.store.data.allHouseList[e.detail.markerId - 900000000]
+  submitSearch(e) {
+    wx.pro.showLoading({
+      title: '提交中',
+    })
+    log(e)
+    const t = this
+    log('[searchWord]', e.detail.value.nameInput)
+    let searchWord = e.detail.value.nameInput
+    if (searchWord == "") {
+      return wx.showToast({
+        title: '请输入内容',
+        icon: 'error',
+        duration: 2000
+      })
+    }
     wx.navigateTo({
-      url: '../../housedetail/housedetail?houseId=' + houseId._id,
+      url: '../../searchPage/searchPage?searchWord=' + searchWord,
+    })
+  },
+  markertap(e){
+    log(e.detail.markerId,e)
+    wx.navigateTo({
+      url: '../../housedetail/housedetail?houseId=' + e.detail.markerId,
     })
   },
   onReady: function () {

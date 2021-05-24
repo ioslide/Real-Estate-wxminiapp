@@ -2,7 +2,7 @@
 <import src="../part/daikuan.wxml"></import>
 <import src="../part/tabbar.wxml"></import>
 <view class="all-main  {{isIpx?'list-phonex':''}}" scrollY="true">
-    <view class="pagemain" style="padding: 0;">
+    <view class="pagemain" >
         <view class="header">
             <template is="menu" data="{{menu:menu}}"></template>
         </view>

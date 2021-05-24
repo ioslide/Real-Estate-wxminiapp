@@ -1,7 +1,7 @@
-/**index.wxss**/
+
 
 page {
-  background: #F5F5F5;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -2122,21 +2122,6 @@ page {
   position: relative;
 }
 
-.common-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 84rpx;
-  margin-bottom: 26rpx;
-}
-
-.common-title-left {
-  height: 36rpx;
-  line-height: 36rpx;
-  font-size: 36rpx;
-  font-weight: 500;
-  color: rgba(25,25,62,1);
-}
 
 .common-title-right {
   display: flex;
@@ -2318,21 +2303,6 @@ page {
   padding-top: 20rpx;
 }
 
-.common-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 42rpx;
-  margin-bottom: 50rpx;
-}
-
-.common-title-left {
-  height: 36rpx;
-  line-height: 36rpx;
-  font-size: 36rpx;
-  font-weight: 500;
-  color: rgba(25,25,62,1);
-}
 
 .map-box {
   border-radius: 16rpx;
@@ -2381,21 +2351,6 @@ page {
   padding-bottom: 40rpx;
 }
 
-.common-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 42rpx;
-  padding: 40rpx 40rpx;
-}
-
-.common-title-left {
-  height: 36rpx;
-  line-height: 36rpx;
-  font-size: 36rpx;
-  font-weight: 500;
-  color: rgba(25,25,62,1);
-}
 
 .swiper-icon {
   border: 1px solid #9da9ad4f;
@@ -3412,15 +3367,6 @@ page {
   align-items: center;
   height: 64rpx;
   margin-bottom: 18rpx;
-}
-
-.common-title-left {
-  position: relative;
-  height: 36rpx;
-  line-height: 36rpx;
-  font-size: 36rpx;
-  font-weight: 500;
-  color: rgba(25,25,62,1);
 }
 
 .common-title-right {

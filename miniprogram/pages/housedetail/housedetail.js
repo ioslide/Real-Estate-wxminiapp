@@ -14,6 +14,7 @@ import {
   promisifyAll
 } from 'wx-promise-pro'
 promisifyAll()
+import pinyin from "wl-pinyin"
 import create from '../../util/create'
 import store from '../../store/index'
 
@@ -25,7 +26,8 @@ create(store, {
     'allHouseList',
     'maifangliucheng',
     'goufangzhengce',
-    'markersData'
+    'markersData',
+    'curCity'
   ],
   data: {
     curDaili: {
@@ -57,42 +59,69 @@ create(store, {
   },
   onLoad: function (options) {
     const t = this
-    let allHouseList = this.store.data.allHouseList
-    var results = allHouseList.filter(function (entry) {
-      return entry._id === options.houseId;
-    });
-    log(results[0])
-    let jingweidu = results[0].jingweidu.split(',')
-    let latitude = jingweidu[0]
-    let longitude = jingweidu[1]
-    log('jingweidu',jingweidu)
-    t.setData({
-      longitude: Number(longitude),
-      latitude : Number(latitude),
-      houseDetail: results[0]
+    wx.showLoading({
+      title: 'Loading',
     })
-    db.collection('huxingleixing').where({
-      suoshuloupan: options.houseId
-    }).get().then(res => {
-      log('huxing', res.data)
+    let key = t.store.data.curCity
+    let temp = key + 'dangeloupanxiangqing'
+    let temp2 = key + 'dailiren'
+
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    let database2 = pinyin.getPinyin(temp2).replace(/\s+/g, "");
+    
+    db.collection(database).get().then(res => {
+      let allHouseList = res.data
+      var results = allHouseList.filter(function (entry) {
+        return entry._id === options.houseId;
+      });
+      log(results[0])
+      let jingweidu = results[0].jingweidu.split(',')
+      let latitude = jingweidu[0]
+      let longitude = jingweidu[1]
+      log('jingweidu', jingweidu)
       t.setData({
-        huxing: res.data
+        longitude: Number(longitude),
+        latitude: Number(latitude),
+        houseDetail: results[0]
+      })
+
+      db.collection(database2).doc(results[0].loupanshouxidailiren).get().then(res => {
+        log('loupanshouxidailiren', res.data)
+        t.setData({
+          loupanshouxidailiren: res.data
+        })
+      })
+
+      db.collection(database2).where({
+        daililoupanliebiao: options.houseId
+      }).get().then(res => {
+        log('daliren', res.data)
+        t.setData({
+          dailiren: res.data
+        })
+      })
+      wx.hideLoading({
+        success: (res) => {},
       })
     })
-    db.collection('dailiren').where({
-      daililoupanliebiao: options.houseId
-    }).get().then(res => {
-      log('daliren', res.data)
-      t.setData({
-        dailiren: res.data
-      })
+
+  },
+  handlePhone(e) {
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.phone
+    })
+  },
+  navHousedetail(e) {
+    log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: '../housedetail/housedetail?houseId=' + e.currentTarget.dataset.id,
     })
   },
   navNearBuilding() {
     log('[navNearBuilding]')
     const t = this
     let locationKey = 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7'
-    const appReferer = '搜房客';
+    const appReferer = '论方略';
     const locationCategory = '学校,公交,医院';
     const location = JSON.stringify({
       'latitude': Number(t.data.latitude),
@@ -117,13 +146,13 @@ create(store, {
       modalName: null
     })
   },
-  navDetailDailiren(e){
+  navDetailDailiren(e) {
     log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: '../detailDailiren/detailDailiren?dailirenId=' + e.currentTarget.dataset.id,
     })
   },
-  getCurrentTime () {
+  getCurrentTime() {
     let date = new Date()
     let Y = date.getFullYear()
     let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
@@ -132,7 +161,7 @@ create(store, {
     let minutes = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
     let seconds = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
     date = Y + '-' + M + '-' + D + ' ' + hours + ':' + minutes + ':' + seconds
-     console.log(date)  							// 2019-10-12 15:19:28
+    console.log(date) // 2019-10-12 15:19:28
     return date
   },
   submitForm(e) {
@@ -141,7 +170,10 @@ create(store, {
     wx.pro.showLoading({
       title: '提交中',
     })
-    db.collection('gukeyuyue').add({
+    let _key = t.store.data.curCity
+    let temp = _key + 'gukeyuyue'
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    db.collection(database).add({
         data: {
           username: e.detail.value.nameInput,
           yixiangfangyuan: e.detail.value.houseInput,
@@ -149,7 +181,7 @@ create(store, {
           jiedaidailixingming: t.data.curDaili.name,
           jiedaidailidianhua: t.data.curDaili.phone,
           dailiid: t.data.curDaili.id,
-          tijiaoshijian:t.getCurrentTime()
+          tijiaoshijian: t.getCurrentTime()
         }
       })
       .then(res => {
@@ -168,7 +200,7 @@ create(store, {
       'longitude': Number(t.data.longitude),
     });
     let key = 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7'
-    let referer = '搜房客';
+    let referer = '论方略';
     wx.navigateTo({
       url: 'plugin://routePlan/index?key=' + key + '&referer=' + referer + '&endPoint=' + endPoint
     })
@@ -183,12 +215,12 @@ create(store, {
     const promise = new Promise(resolve => {
       setTimeout(() => {
         resolve({
-          title: '搜房客-' + t.data.houseDetail.loupanmingcheng,
+          title: '论方略-' + t.data.houseDetail.loupanmingcheng,
         })
       }, 2000)
     })
     return {
-      title: '搜房客-' + t.data.houseDetail.loupanmingcheng,
+      title: '论方略-' + t.data.houseDetail.loupanmingcheng,
       path: '/pages/houseDetail/houseDetail?houseId=' + t.data.houseDetail._id,
       promise
     }

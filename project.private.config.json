@@ -1,0 +1,66 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "db guide",
+          "pathName": "pages/databaseGuide/databaseGuide",
+          "query": ""
+        },
+        {
+          "name": "pages/housedetail/housedetail",
+          "pathName": "pages/housedetail/housedetail",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/searchPage/searchPage",
+          "pathName": "pages/searchPage/searchPage",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/allDailiren/allDailiren",
+          "pathName": "pages/allDailiren/allDailiren",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": 1036,
+          "referrerInfo": {}
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "id=zhuanpan",
+          "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "id=zhuanpanchoujiang",
+          "scene": null
+        },
+        {
+          "name": "pages/luckdraw/luckdraw",
+          "pathName": "pages/luckdraw/luckdraw",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

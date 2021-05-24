@@ -1,0 +1,66 @@
+<view class="article-body">
+  <view class="ask-content">
+    <view class="h3 title tit">{{fangchanwenda.title}}</view>
+    <view class="content js-q-content" style="height: auto;">
+    </view>
+    <view class="tag-box">
+      <view class="tag" href="/shenzhen/ask/list/kw承翰陶源花园?from=fromSeoQuestionWord&amp;fromSource=WECHAT">承翰陶源花园</view>
+      <view class="tag" href="/shenzhen/ask/list/kw交易税费?from=fromSeoQuestionWord&amp;fromSource=WECHAT">交易税费</view>
+      <view class="tag" href="/shenzhen/ask/list/kw交易税?from=fromSeoQuestionWord&amp;fromSource=WECHAT">交易税</view>
+    </view>
+    <view class="status">
+      <view class="time">更新于{{fangchanwenda.time}}</view>
+      <view class="leave-word">
+        <i class="icon iconfont icon-liuyan"></i>
+        <span class="number">{{fangchanwenda.comment.length}}</span>
+      </view>
+      <view class="browse">
+        <i class="icon iconfont icon-yulan"></i>
+        <span class="number">{{fangchanwenda.chakanrenshu}}</span>
+      </view>
+    </view>
+  </view>
+  <view class="answer-content">
+    <view class="count">共{{fangchanwenda.comment.length}}个回答</view>
+    <view class="content-box">
+      <view class="items" wx:for="{{fangchanwenda.comment}}">
+        <view class="portrait-box">
+          <image class="portrait" src="{{item.avatar}}"></image>
+          <span class="name">{{item.name}}</span>
+        </view>
+        <view class="content">{{item.comment}}</view>
+        <view class="status">
+          <view class="time">{{item.time}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="footer-fixed" bindtap="addComment">
+<view class="items" href="/shenzhen/ask/answer/169048?fromSource=WECHAT">我来回答</view>
+</view>
+
+
+<view class="cu-modal {{modalName=='addcomment'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">我来回答</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl" style="background: #ffffff;">
+      <form bindsubmit="submitForm" bindreset="formReset">
+        <view class="model-form" slot="form">
+          <input name="comment" class="model-form-input text-left" cursorSpacing="145" placeholder="请输入" placeholderClass="model-placeholder"></input>
+        </view>
+        <view class="model-btn" slot="btn">
+          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover">
+            提交
+          </button>
+        </view>
+      </form>
+    </view>
+  </view>
+</view>

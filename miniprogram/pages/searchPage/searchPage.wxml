@@ -1,44 +1,75 @@
-<view class="common-title " style="padding-bottom:0;margin-bottom:0">
-  <view class="cuIcon-titles common-title-left">{{searchWord}}好盘推荐</view>
+<view class="search-global-container data-v-7a95ed29">
+  <view class="search-box data-v-7a95ed29">
+    <text class="fhyfont icon-search"></text>
+    <input bindconfirm="searchArean" class="text data-v-7a95ed29 placeholder data-v-5832b5b8" confirmType="搜索"
+      placeholder="请搜索楼盘/城市" value="{{keyword}}" type="text" selection-start="-1" selection-end="-1" cursor="-1" bindfocus="inputfocus" bindblur="inputblur" ></input>
+      <text bindtap="clearKeyword" class="fhyfont iconicon-deletetext" size="16" type="clear" style="color: #AAAAAA;"
+      wx:if="{{showClear}}"></text>
+  </view>
 </view>
 
-<view class="cu-card article" style="background:#f6f6f6">
 
-  <!-- 广告轮播图 -->
-  <swiper class="screen-swiper square-dot margin-20" style="margin-top:0" indicator-dots="true" circular="true" autoplay="true"
-    interval="5000" duration="500" style="height:110px;border-radius:10px">
-    <swiper-item style="border-radius:10px" wx:for="{{$.adSwiperList}}" wx:key class="{{cardCur==index?'cur':''}}">
-      <view class="swiper-item" style="border-radius:10px">
-        <image src="{{item.lunbotutupian}}" mode="aspectFill" wx:if="{{item.shifouweitupian== true}}"
-          style="border-radius:10px"></image>
-        <video style="border-radius:10px" src="{{item.lunbotushipin}}" poster="{{item.lunbotutupian}}" loop="{{false}}"
-          muted="{{false}}" show-fullscreen-btn="true" title="{{item.lunbotubiaoti}}" enable-progress-gesture="{{true}}"
-          show-play-btn="{{true}}" controls="{{true}}" objectFit="cover"
-          wx:if="{{item.shifouweitupian == false}}"></video>
-      </view>
-    </swiper-item>
-  </swiper>
-  <view wx:if="{{hasHouseList == false}}">
-    <nodata boxStyle="padding-top:50rpx" btnName="返回主页" btnUrl="{{noDataUrl}}" imgStyle="width:540rpx"
-      imgUrl="https://xsfile.bgy.com.cn/fileservice/file/view?fileId=3201a570-c604-4a15-ba9f-a4d1ca613971"
-      tipsData="{{['暂无搜索结果']}}"></nodata>
+<view class="cu-card article">
+
+  <view wx:if="{{hasHouseList == false}}" style="background:#ffffff">
+    <nodata boxStyle="padding-top:50rpx" btnUrl="{{noDataUrl}}" imgStyle="width:340rpx"
+      imgUrl="../../assets/image/no-result.png" tipsData="{{['没有找到相应的房源']}}"></nodata>
   </view>
-  <!-- 推荐好盘 -->
-  <view class="cu-item shadow margin-20" wx:for="{{searchHouseList}}" wx:key="index">
-    <view class="title">
-      <view class="text-cut">{{item.loupanmingcheng}}</view>
+  <block wx:if="{{hasHouseList == false}}">
+    <view class="common-title" wx:if="{{$.allHouseList.length !==0}}">
+      <view class="cuIcon-titles common-title-left" style="font-size: 16px;">猜你喜欢</view>
+      <view bind:tap="goToAllhouseList" class="more-apartment common-title-right">查看全部</view>
     </view>
-    <view class="content">
-      <image src="{{item.loupanxiangce[0]}}" mode="aspectFill"></image>
-      <view class="desc">
-        <view class=""> 建筑面积：{{item.jianzumianji}}</view>
-        <view class="">{{item.chengshi}}</view>
-        <view class="text-red">{{item.loupandanjia}}</view>
-        <view>
-          <view wx:for="{{item.biaoqian}}" class="cu-tag bg-grey light sm"
-            style="border-radius:24px;margin: 5px 5px 0 0;">{{item}}</view>
+    <view class="cu-card article padding-bottom-30" id="loupandaquan" wx:if="{{$.allHouseList.length !==0}}">
+      <view class="cu-item shadow margin-left-15 margin-right-15 " style="background: #fbfbfb;"
+        wx:for="{{$.allHouseList}}" wx:key="_id" bindtap="navHousedetail" data-id="{{item._id}}">
+        <view class="content" style="padding:0px">
+          <image src="{{item.loupanxiangce[0]}}" mode="aspectFill"></image>
+          <view class="desc">
+            <view class="margin-bottom-5" style="font-weight:600;">{{item.loupanmingcheng}}</view>
+            <view class="margin-bottom-5" style="color: #999;">{{item.quxian}} | 建面：{{item.jianzumianji}}</view>
+            <view class="margin-bottom-5" style="color: #ff6d6d">{{item.loupandanjia}}</view>
+            <view>
+          <view class="cu-tag bg-gold font-weight-400 text-black text-white sm"
+            style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;color:#fff">
+            {{item.chanpinleixing}}
+          </view>
+          <view wx:for="{{item.biaoqian}}" wx:key="_id" class="cu-tag bg-grey light sm"
+            style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{item}}
+          </view>
+        </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <view wx:if="{{hasHouseList == true}}" style="background:#ffffff">
+
+    <view class="common-title" wx:if="{{$.allHouseList.length !==0}}">
+      <view class="cuIcon-titles common-title-left" style="font-size: 16px;">搜索结果</view>
+    </view>
+    <view class="cu-card article padding-bottom-30">
+      <view class="cu-item shadow margin-left-15 margin-right-15 " style="background: #fbfbfb;"
+        wx:for="{{searchHouseList}}" wx:key="_id" bindtap="navHousedetail" data-id="{{item._id}}">
+        <view class="content" style="padding:0px">
+          <image src="{{item.loupanxiangce[0]}}" mode="aspectFill"></image>
+          <view class="desc">
+            <view class="margin-bottom-5" style="font-weight:600;">{{item.loupanmingcheng}}</view>
+            <view class="margin-bottom-5" style="color: #999;">{{item.quxian}} | 建面：{{item.jianzumianji}}</view>
+            <view class="margin-bottom-5" style="color: #ff6d6d">{{item.loupandanjia}}</view>
+            <view>
+          <view class="cu-tag bg-gold font-weight-400 text-black text-white sm"
+            style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;color:#000">
+            {{item.chanpinleixing}}
+          </view>
+          <view wx:for="{{item.biaoqian}}" wx:key="_id" class="cu-tag bg-grey light sm"
+            style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{item}}
+          </view>
+        </view>
+          </view>
         </view>
       </view>
     </view>
   </view>
+
 </view>

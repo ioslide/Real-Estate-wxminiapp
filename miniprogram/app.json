@@ -10,15 +10,25 @@
     "pages/allhouseList/allhouseList",
     "pages/index/mapDetail/mapDetail",
     "pages/allDailiren/allDailiren",
-    "pages/lowPriceHouseList/lowPriceHouseList",
     "pages/qiyefuwuhuodong/qiyefuwuhuodong",
     "pages/detailDailiren/detailDailiren",
     "pages/fangdaijisuan/sydk/sydk",
     "pages/fangdaijisuan/result/result",
     "pages/fangdaijisuan/combdk/combdk",
     "pages/fangdaijisuan/lilv/lilv",
-    "pages/fangdaijisuan/index/index"
+    "pages/fangdaijisuan/index/index",
+    "pages/shequ/shequ",
+    "pages/luckdraw/luckdraw",
+    "pages/qiyefuwuhuodong/detail/detail",
+    "pages/fangchanwenda/fangchanwenda",
+    "pages/fangchanwenda/detail/detail",
+    "pages/shequ/detail/detail"
   ],
+  "usingComponents": {
+    "tui-fab": "/components/tui-fab/tui-fab",
+    "foot": "/components/foot/foot",
+    "nodata":"/components/nodata/nodata"
+  },
   "plugins": {
     "chooseLocation": {
       "version": "1.0.5",
@@ -42,7 +52,7 @@
     "backgroundColor": "#ffffff",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTitleText": "搜房客",
+    "navigationBarTitleText": "论方略",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",

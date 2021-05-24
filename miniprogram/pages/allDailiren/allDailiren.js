@@ -8,6 +8,7 @@ const db = wx.cloud.database()
 const _ = db.command
 import create from '../../util/create'
 import store from '../../store/index'
+import pinyin from "wl-pinyin"
 import {
   promisifyAll
 } from 'wx-promise-pro'
@@ -20,13 +21,36 @@ create(store, {
     'dailiren',
     'allHouseList',
     'maifangliucheng',
-    'goufangzhengce'
+    'goufangzhengce',
+    'curCity'
   ],
   data: {},
   onLoad: function (options) {
     const t = this
-    t.setData({
-      dailiren: t.store.data.dailiren
+    let key = t.store.data.curCity
+    let temp = key + 'dailiren'
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    log('代理人数据库', database)
+
+    db.collection(database).orderBy('paimingshunxu', 'desc').get().then(res => {
+      t.setData({
+        dailiren: res.data
+      })
+    })
+  },
+  inputfocus() {
+    this.setData({
+      showClear: true
+    })
+  },
+  inputblur() {
+    this.setData({
+      showClear: false
+    })
+  },
+  clearKeyword() {
+    this.setData({
+      keyword: ''
     })
   },
   handleChat(e) {
@@ -50,23 +74,30 @@ create(store, {
     })
     log(e)
     const t = this
-    let key = e.detail.value.nameInput
-    db.collection('dailiren').where(_.or([{
-      chengshi: db.RegExp({
-        regexp: '.*' + wx.getStorageSync('curCity'),
-        options: 'i',
-      }),
+    let key = e.detail.value
+    if (key == "") {
+      return wx.showToast({
+        title: '请输入内容',
+        icon: 'error',
+        duration: 2000
+      })
+    }
+    log(key)
+    let _key = t.store.data.curCity
+    let temp = _key + 'dailiren'
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    db.collection(database).where(_.or([{
       mingcheng: db.RegExp({
         regexp: '.*' + key + '.*',
         options: 'i',
       }),
     }])).orderBy('paimingshunxu', 'desc').get().then(res => {
       t.setData({
-        dailiren:res.data
+        dailiren: res.data
       })
       wx.pro.hideLoading()
       log(res.data)
-      if(res.data.length == 0){
+      if (res.data.length == 0) {
         wx.showToast({
           title: '暂无信息',
           icon: 'error',
@@ -104,7 +135,10 @@ create(store, {
     wx.pro.showLoading({
       title: '提交中',
     })
-    db.collection('gukeyuyue').add({
+    let _key = t.store.data.curCity
+    let temp = _key + 'gukeyuyue'
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    db.collection(database).add({
         data: {
           username: e.detail.value.nameInput,
           yixiangfangyuan: e.detail.value.houseInput,

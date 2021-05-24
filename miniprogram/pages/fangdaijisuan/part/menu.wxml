@@ -14,7 +14,7 @@
   </view>
   <view class="action" bindtap="navQiyefuwu">
     <view class='cuIcon-cu-image'>
-      <image src="../../../assets/image/homefound.svg"></image>
+      <image src="../../../assets/image/qiyefuwu.svg"></image>
     </view>
     <view >服务</view>
   </view>

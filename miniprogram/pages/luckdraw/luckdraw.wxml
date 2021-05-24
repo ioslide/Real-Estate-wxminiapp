@@ -1,0 +1,48 @@
+<view class="flex justify-center">
+  <image src="../../assets/image/ACgIABAEGAAggouS8AUo9uXXrwIw4gQ4rAI.png.webp" mode="widthFix"></image>
+</view>
+<image src="../../assets/image/luckhomeBg.jpg" mode="widthFix"
+  style="height:1035px;width:100%;display:flex;position:fixed;top:0;z-index: -1;"></image>
+
+<view class="container">
+  <view class="tui-dot tui-dot-{{index+1}}" wx:for="{{circleList}}" wx:key="index"></view>
+  <view class="tui-container-in">
+    <view class="tui-content-out tui-award-{{index+1}} {{index==indexSelect?'tui-awardSelect':''}}"
+      wx:for="{{awardList}}" wx:key="index">
+      <image class="tui-award-image" src="{{item.img}}"></image>
+    </view>
+    <view class="tui-btn-start {{isRunning?'tui-ative':''}}" bindtap="startDrawing">立即抽奖</view>
+  </view>
+</view>
+<view class="flex justify-center">
+  <button class="cu-btn bg-red margin-tb-sm lg" open-type="share">转发获取抽奖次数</button>
+</view>
+<view class="flex justify-center">
+  <text class="text-white">您的抽奖次数: {{luckdrawTimes}}</text>
+</view>
+
+<view class="cu-modal {{modalName=='duihuanHongbao'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">兑换信息</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl" style="background: #ffffff;">
+      <form bindsubmit="submitForm">
+        <view class="model-form" slot="form">
+          <input bindinput="nameInput" name="nameInput" class="model-form-input text-left" cursorSpacing="145"
+            placeholder="您的姓名" placeholderClass="model-placeholder" value="{{username}}"></input>
+          <input bindinput="phoneInput" name="phoneInput" class="model-form-input text-left" cursorSpacing="90"
+            maxlength="11" placeholder="您的手机号" placeholderClass="model-placeholder" value="{{userphone}}"></input>
+        </view>
+        <view class="model-btn" slot="btn">
+          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover">
+            提交兑换
+          </button>
+        </view>
+      </form>
+    </view>
+  </view>
+</view>

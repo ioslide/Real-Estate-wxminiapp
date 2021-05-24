@@ -12,7 +12,7 @@ const QQMapWX = require('../../util/qqmap-wx-jssdk.min.js');
 var qqmapsdk = new QQMapWX({
   key: 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7'
 });
-
+import pinyin from "wl-pinyin"
 import {
   promisifyAll
 } from 'wx-promise-pro'
@@ -22,17 +22,38 @@ import store from '../../store/index'
 
 create(store, {
   data: {
+    scrollTop: 0,
     false: false,
     true: true,
-    latitude:30.5702,
-    longitude:104.06476,
+    latitude: 30.5702,
+    longitude: 104.06476,
+    btnList: [],
+    shareBtnList: [{
+      bgColor: "#ffffff",
+      imgUrl: "../../assets/image/huodongBtn.svg",
+      text: "活动中心",
+      fontSize: 34,
+      color: "#fff"
+    }, {
+      bgColor: "#ffffff",
+      imgUrl: "../../assets/image/shareBtn.svg",
+      text: "分享抽奖",
+      fontSize: 34,
+      color: "#fff"
+    }, {
+      bgColor: "#ffffff",
+      imgUrl: "../../assets/image/find.svg",
+      text: "求租求购",
+      fontSize: 34,
+      color: "#fff"
+    }],
     mapsetting: {
       skew: 0,
       rotate: 0,
       showLocation: false,
       showScale: false,
       subKey: 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7',
-      layerStyle: 1,
+      layerStyle: 2,
       enableZoom: true,
       enableScroll: true,
       enableRotate: false,
@@ -44,17 +65,18 @@ create(store, {
     },
     windowWidth: wx.getSystemInfoSync().windowWidth,
     TabCur: 0,
+    region: ['四川省', '锦江区', '锦江区'],
     scrollLeft: 0,
     isShowLocation: true,
     cardCur: 0,
-    curCity: '成都市',
+    curCity: '锦江区',
     curDaili: {
       name: '',
       level: '',
       phone: '',
       id: ''
     },
-    modalName: 'startImage',
+    modalName: '',
     use: [
       'adSwiperList',
       'swiperList',
@@ -67,10 +89,18 @@ create(store, {
       'latitude',
       'longitude',
       'zixunxinxi',
-      'startImage'
+      'startImage',
+      'curCity'
     ],
   },
-  onLoad: function () {
+  onLoad: function (options) {
+    log('options', options)
+    wx.setStorageSync('hongbuyuCishu', 1)
+    if (options.pageid == 'luckdraw') {
+      wx.navigateTo({
+        url: '../luckdraw/luckdraw',
+      })
+    }
     const t = this
     t.getUserLocation()
     if (wx.getStorageSync('curCity')) {
@@ -78,22 +108,89 @@ create(store, {
       t.setData({
         curCity: curCity
       })
+      t.store.data.curCity = curCity
       t.revAddress(curCity)
-    } else {
+    }else {
       t.setData({
-        curCity: '成都市'
+        curCity: '锦江区'
       })
-      t.revAddress('成都市')
+      t.store.data.curCity = curCity
+      t.revAddress('锦江区')
     }
   },
-  navNewsDetail(e){
+  bindRegionChange(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    const t = this
+    t.setData({
+      curCity: e.detail.value[2]
+    })
+    t.store.data.curCity = e.detail.value[2]
+    // t.store.data.longitude = Number(selectedCity.location.longitude),
+    // t.store.data.latitude = Number(selectedCity.location.latitude)
+    let revAddressName = e.detail.value[0] + e.detail.value[1] + e.detail.value[2]
+    log('[pickerRegon]', revAddressName,e.detail.value[2])
+    t.revAddress(revAddressName)
+    t.reloadData(e.detail.value[2])
+  },
+  showADmodal(e) {
+    this.setData({
+      modalName: 'startImage'
+    })
+  },
+  onClickShareBtn(e) {
+    let index = e.detail.index
+    switch (index) {
+      case -1:
+        util.toast("您点击了悬浮按钮")
+        break;
+      case 0:
+        wx.navigateTo({
+          url: "/pages/huodong/huodong"
+        })
+        break;
+      case 1:
+        wx.showShareMenu({
+          withShareTicket: true,
+          menus: ['shareAppMessage', 'shareTimeline'],
+          success(res) {
+            console.log('showShareMenu', res);
+          }
+        })
+        break;
+      case 2:
+        wx.navigateTo({
+          url: "/pages/shequ/shequ"
+        })
+        break;
+      default:
+        break;
+    }
+  },
+  navQiuzuqiugou() {
+    wx.navigateTo({
+      url: '../shequ/shequ'
+    })
+  },
+  // onPageScroll(e) {
+  //   this.setData({
+  //     scrollTop: e.scrollTop
+  //   })
+  // },
+  navNewsDetail(e) {
     log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: '../news/detail/detail?detailid=' + e.currentTarget.dataset.id
     })
   },
+  navGoufangzizi() {
+    wx.navigateTo({
+      url: '../fangchanwenda/fangchanwenda'
+    })
+  },
   onReady() {
     const t = this
+    t.selectComponent('#startScreen').screenFadeOut()
+    t.showADmodal()
     // let houselist = t.store.data.allHouseList
     // log('[houselist]',houselist)
     // for (var i = 0, markersData = []; i < houselist.length; i++) {
@@ -129,7 +226,7 @@ create(store, {
     // t.setData({
     //   markersData: markersData
     // })
-    
+
     // log('[markersData]', markersData, houselist.length)
   },
   onUnload() {
@@ -155,7 +252,7 @@ create(store, {
       modalName: null
     })
   },
-  getCurrentTime () {
+  getCurrentTime() {
     let date = new Date()
     let Y = date.getFullYear()
     let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
@@ -164,7 +261,7 @@ create(store, {
     let minutes = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
     let seconds = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
     date = Y + '-' + M + '-' + D + ' ' + hours + ':' + minutes + ':' + seconds
-     console.log(date)  							// 2019-10-12 15:19:28
+    console.log(date) // 2019-10-12 15:19:28
     return date
   },
   submitForm(e) {
@@ -173,7 +270,10 @@ create(store, {
     wx.pro.showLoading({
       title: '提交中',
     })
-    db.collection('gukeyuyue').add({
+    let _key = t.store.data.curCity
+    let temp = _key + 'gukeyuyue'
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    db.collection(database).add({
         data: {
           username: e.detail.value.nameInput,
           yixiangfangyuan: e.detail.value.houseInput,
@@ -181,7 +281,7 @@ create(store, {
           jiedaidailixingming: t.data.curDaili.name,
           jiedaidailidianhua: t.data.curDaili.phone,
           dailiid: t.data.curDaili.id,
-          tijiaoshijian:t.getCurrentTime()
+          tijiaoshijian: t.getCurrentTime()
         }
       })
       .then(res => {
@@ -193,126 +293,48 @@ create(store, {
   },
   selectCity() {
     const key = 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7'; // 使用在腾讯位置服务申请的key
-    const referer = '搜房客'; // 调用插件的app的名称
-    const hotCitys = '成都,德阳';
+    const referer = '论方略'; // 调用插件的app的名称
+    const hotCitys = '成都,德阳,资阳';
     wx.navigateTo({
       url: `plugin://citySelector/index?key=${key}&referer=${referer}&hotCitys=${hotCitys}`,
     })
   },
   onShow() {
     const t = this
-    const selectedCity = citySelector.getCity(); // 选择城市后返回城市信息对象，若未选择返回null
-    log(selectedCity)
-    if (selectedCity == null) {
+    // const selectedCity = citySelector.getCity(); // 选择城市后返回城市信息对象，若未选择返回null
+    // log(selectedCity)
+    // if (selectedCity == null) {
 
-    } else {
-      log('selectedCity !== null', selectedCity)
-      t.setData({
-        curCity: selectedCity.fullname,
-        // longitude:Number(selectedCity.location.longitude),
-        // latitude:Number(selectedCity.location.latitude)
-      })
-      t.store.data.longitude =Number(selectedCity.location.longitude),
-      t.store.data.latitude = Number(selectedCity.location.latitude)
-      wx.setStorageSync('curCity', selectedCity.fullname)
-      db.collection('dangeloupanxiangqing').limit(10).where(_.or([{
-          name: db.RegExp({
-            regexp: '.*' + selectedCity.name,
-            options: 'i',
-          })
-        },
-        {
-          chengshi: db.RegExp({
-            regexp: '.*' + selectedCity.fullname,
-            options: 'i',
-          })
-        }
-      ])).get().then(res => {
-          log(res.data)
-          if (res.data.length > 0) {
-            t.store.data.homepageHouseList = res.data
-            wx.setStorage({
-              key: "homepageHouseList",
-              data: res.data
-            })
-          } else {
-            t.store.data.homepageHouseList = []
-            wx.setStorage({
-              key: "homepageHouseList",
-              data: []
-            })
-          }
-      })
-
-      db.collection('shouyezhongjianguanggaolunbotu').where(_.or([
-        {
-          chengshi: db.RegExp({
-            regexp: '.*' + selectedCity.fullname,
-            options: 'i',
-          })
-        }
-      ])).orderBy('_createTime', 'desc').get().then(res => {
-        t.store.data.adSwiperList = res.data
-        wx.setStorage({
-          key:"adSwiperList",
-          data:res.data
-        })
-      })
-
-      db.collection('shouyelunbotu').where(_.or([
-        {
-          chengshi: db.RegExp({
-            regexp: '.*' + selectedCity.fullname,
-            options: 'i',
-          })
-        }
-      ])).orderBy('_createTime', 'desc').get().then(res => {
-        t.store.data.swiperList = res.data
-        wx.setStorage({
-          key:"swiperList",
-          data:res.data
-        })
-      })
-
-      db.collection('dailiren').where(_.or([
-        {
-          chengshi: db.RegExp({
-            regexp: '.*' +  selectedCity.fullname,
-            options: 'i',
-          })
-        }
-      ])).orderBy('paimingshunxu', 'desc').get().then(res => {
-          t.store.data.dailiren = res.data
-          wx.setStorage({
-            key:"dailiren",
-            data:res.data
-          })
-        })
-    }
+    // } else {
+    //   log('selectedCity !== null', selectedCity)
+    //   t.setData({
+    //     curCity: selectedCity.fullname
+    //   })
+    //   t.store.data.longitude = Number(selectedCity.location.longitude),
+    //     t.store.data.latitude = Number(selectedCity.location.latitude)
+    //   wx.setStorageSync('curCity', selectedCity.fullname)
+    //   t.reloadData(selectedCity.fullname)
+    // }
   },
   cardSwiper(e) {
     this.setData({
       cardCur: e.detail.current
     })
   },
-  markertap(e){
+  markertap(e) {
+    log(e.detail.markerId, e)
     let houseId = this.store.data.allHouseList[e.detail.markerId - 900000000]
     wx.navigateTo({
-      url: '../housedetail/housedetail?houseId=' + houseId._id,
+      url: '../housedetail/housedetail?houseId=' + e.detail.markerId
     })
   },
-  revAddress(revAddress) {
+  revAddress(revAddressName) {
     const t = this;
-    let dizhi = revAddress + '政府'
+    let dizhi = revAddressName + '政府'
     qqmapsdk.geocoder({
       address: dizhi, //地址参数
       success: function (res) {
-        log('[revAddress]', dizhi,res)
-        // t.setData({
-        //   latitude:Number(res.result.location.lat),
-        //   longitude:Number(res.result.location.lng)
-        // })
-        // log(latitude, longitude);
+        log('[revAddressName]', dizhi, res)
         t.store.data.longitude = res.result.location.lng,
         t.store.data.latitude = res.result.location.lat
       },
@@ -321,17 +343,17 @@ create(store, {
       },
     })
   },
-  navMap(){
+  navMap() {
     wx.navigateTo({
       url: './mapDetail/mapDetail',
     })
   },
-  navQiyefuwu(){
+  navQiyefuwu() {
     wx.navigateTo({
       url: '../qiyefuwuhuodong/qiyefuwuhuodong',
     })
   },
-  navLowPriceHouseList(){
+  navLowPriceHouseList() {
     wx.navigateTo({
       url: '../lowPriceHouseList/lowPriceHouseList',
     })
@@ -342,18 +364,18 @@ create(store, {
       url: '../housedetail/housedetail?houseId=' + e.currentTarget.dataset.id,
     })
   },
-  navDetailDailiren(e){
+  navDetailDailiren(e) {
     log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: '../detailDailiren/detailDailiren?dailirenId=' + e.currentTarget.dataset.id,
     })
   },
-  goToAllhouseList(){
+  goToAllhouseList() {
     wx.navigateTo({
       url: '../allhouseList/allhouseList'
     })
   },
-  navGongju(){
+  navGongju() {
     wx.navigateTo({
       url: '../fangdaijisuan/sydk/sydk'
     })
@@ -363,45 +385,66 @@ create(store, {
       url: '../huodong/huodong'
     })
   },
-  navDetailHuodong(e){
+  navDetailHuodong(e) {
     log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: '../huodong/detail/detail?detailid=' + e.currentTarget.dataset.id
     })
   },
-  navHome() {
-    wx.navigateTo({
-      url: '../index/index'
-    })
-  },
+
   gotoMap() {
     log('[gotoMap]')
   },
-  onShareAppMessage() {
-    const promise = new Promise(resolve => {
-      setTimeout(() => {
-        resolve({
-          title: '搜房客'
-        })
-      }, 2000)
-    })
-    return {
-      title: '搜房客',
-      path: '/pages/index/index?id=123',
-      promise
-    }
-  },
-  navApp(e) {
-    log(e)
-    wx.navigateToMiniProgram({
-      appId: e.currentTarget.dataset.appid,
-      path: e.currentTarget.dataset.route,
-      success(res) {
+  onShareAppMessage: function (options) {
+    log('onShareAppMessage')
+    var that = this
+    var shareObj = {
+      title: "论方略",
+      path: '/pages/index/index',
+      imageUrl: '',
+      success: function (res) {
         log(res)
+        if (res.errMsg == 'shareAppMessage:ok') {}
+      },
+      fail: function () {
+        if (res.errMsg == 'shareAppMessage:fail cancel') {} else if (res.errMsg == 'shareAppMessage:fail') {}
       }
-    })
+    }
+    if (options.from == 'button') {
+      var eData = 'luckdraw'
+      shareObj.title = '买房就上论方略-有奖派送'
+      shareObj.imageUrl = '../../assets/image/shareLipin.jpg'
+      shareObj.path = '/pages/index/index?pageid=' + eData
+      wx.setStorageSync('luckdrawTimes', 1)
+    }
+    return shareObj;
   },
-  navAllDailiren(){
+  swiperNavTarget(e) {
+    log(e)
+    if (e.currentTarget.dataset.appid) {
+      wx.navigateToMiniProgram({
+        appId: e.currentTarget.dataset.appid,
+        path: e.currentTarget.dataset.route,
+        success(res) {
+          log(res)
+        }
+      })
+    } else if (e.currentTarget.dataset.guanlianqiyefuwu) {
+      wx.navigateTo({
+        url: '../qiyefuwuhuodong/detail/detail?detailid=' + e.currentTarget.dataset.guanlianqiyefuwu,
+      })
+    } else if (e.currentTarget.dataset.guanlianhuodong) {
+      wx.navigateTo({
+        url: '../huodong/detail/detail?detailid=' + e.currentTarget.dataset.guanlianhuodong,
+      })
+    } else if (e.currentTarget.dataset.guanlianzixun) {
+      wx.navigateTo({
+        url: '../news/detail/detail?detailid=' + e.currentTarget.dataset.guanlianzixun,
+      })
+    }
+
+  },
+  navAllDailiren() {
     wx.navigateTo({
       url: '../allDailiren/allDailiren',
     })
@@ -430,6 +473,13 @@ create(store, {
   searchArean(e) {
     log('[searchWord]', e.detail.value)
     let searchWord = e.detail.value
+    if (searchWord == "") {
+      return wx.showToast({
+        title: '请输入内容',
+        icon: 'error',
+        duration: 2000
+      })
+    }
     wx.navigateTo({
       url: '../searchPage/searchPage?searchWord=' + searchWord,
     })
@@ -437,113 +487,279 @@ create(store, {
   getUserLocation: function () {
     let t = this
     wx.getSetting({
-        success: (res) => {
-            // res.authSetting['scope.userLocation'] == undefined    表示 初始化进入该页面
-            // res.authSetting['scope.userLocation'] == false    表示 非初始化进入该页面,且未授权
-            // res.authSetting['scope.userLocation'] == true    表示 地理位置授权
-            // 拒绝授权后再次进入重新授权
-            if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {
-                // console.log('authSetting:status:拒绝授权后再次进入重新授权', res.authSetting['scope.userLocation'])
-                wx.showModal({
-                    title: '',
-                    content: '授权地理位置以提供附件房源',
-                    success: function (res) {
-                        if (res.cancel) {
-                            wx.showToast({
-                                title: '拒绝授权',
-                                icon: 'none'
-                            })
-                            setTimeout(() => {
-                                wx.navigateBack()
-                            }, 1500)
-                        } else if (res.confirm) {
-                            wx.openSetting({
-                                success: function (dataAu) {
-                                    // console.log('dataAu:success', dataAu)
-                                    if (dataAu.authSetting["scope.userLocation"] == true) {
-                                        //再次授权，调用wx.getLocation的API
-                                        t.getLocation(dataAu)
-                                    } else {
-                                        wx.showToast({
-                                            title: '授权失败',
-                                            icon: 'none'
-                                        })
-                                        setTimeout(() => {
-                                            wx.navigateBack()
-                                        }, 1500)
-                                    }
-                                }
-                            })
-                        }
-                    }
+      success: (res) => {
+        // res.authSetting['scope.userLocation'] == undefined    表示 初始化进入该页面
+        // res.authSetting['scope.userLocation'] == false    表示 非初始化进入该页面,且未授权
+        // res.authSetting['scope.userLocation'] == true    表示 地理位置授权
+        // 拒绝授权后再次进入重新授权
+        if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {
+          // console.log('authSetting:status:拒绝授权后再次进入重新授权', res.authSetting['scope.userLocation'])
+          wx.showModal({
+            title: '',
+            content: '授权地理位置以提供附件房源',
+            success: function (res) {
+              if (res.cancel) {
+                wx.showToast({
+                  title: '拒绝授权',
+                  icon: 'none'
                 })
+                // setTimeout(() => {
+                //   wx.navigateBack()
+                // }, 1500)
+              } else if (res.confirm) {
+                wx.openSetting({
+                  success: function (dataAu) {
+                    // console.log('dataAu:success', dataAu)
+                    if (dataAu.authSetting["scope.userLocation"] == true) {
+                      //再次授权，调用wx.getLocation的API
+                      t.getLocation(dataAu)
+                    } else {
+                      wx.showToast({
+                        title: '授权失败',
+                        icon: 'none'
+                      })
+                      // setTimeout(() => {
+                      //   wx.navigateBack()
+                      // }, 1500)
+                    }
+                  }
+                })
+              }
             }
-            // 初始化进入，未授权
-            else if (res.authSetting['scope.userLocation'] == undefined) {
-                // console.log('authSetting:status:初始化进入，未授权', res.authSetting['scope.userLocation'])
-                //调用wx.getLocation的API
-                t.getLocation(res)
-            }
-            // 已授权
-            else if (res.authSetting['scope.userLocation']) {
-                // console.log('authSetting:status:已授权', res.authSetting['scope.userLocation'])
-                //调用wx.getLocation的API
-                t.getLocation(res)
-            }
+          })
         }
+        // 初始化进入，未授权
+        else if (res.authSetting['scope.userLocation'] == undefined) {
+          // console.log('authSetting:status:初始化进入，未授权', res.authSetting['scope.userLocation'])
+          //调用wx.getLocation的API
+          t.getLocation(res)
+        }
+        // 已授权
+        else if (res.authSetting['scope.userLocation']) {
+          // console.log('authSetting:status:已授权', res.authSetting['scope.userLocation'])
+          //调用wx.getLocation的API
+          log(res)
+          t.getLocation(res)
+        }
+      }
     })
-},
-// 微信获得经纬度
-getLocation: function (userLocation) {
+  },
+  // 微信获得经纬度
+  getLocation: function (userLocation) {
     let t = this
     wx.getLocation({
-        type: "wgs84",
-        success: function (res) {
-            // console.log('getLocation:success', res)
-            log('[getLocation]',res)
-            let latitude = res.latitude
-            let longitude = res.longitude
-            // t.setData({
-            //   latitude:Number(latitude),
-            //   longitude:Number(longitude)
-            // })
-            t.store.data.latitude =Number(latitude),
-            t.store.data.longitude =Number(longitude)
-        },
-        fail: function (res) {
-            if (res.errMsg === 'getLocation:fail:auth denied') {
-                wx.showToast({
-                    title: '拒绝授权',
-                    icon: 'none'
-                })
-                setTimeout(() => {
-                    wx.navigateBack()
-                }, 1500)
-                return
-            }
-            if (!userLocation || !userLocation.authSetting['scope.userLocation']) {
-                t.getUserLocation()
-            } else if (userLocation.authSetting['scope.userLocation']) {
-                wx.showModal({
-                    title: '',
-                    content: '请在系统设置中打开定位服务',
-                    showCancel: false,
-                    success: result => {
-                        if (result.confirm) {
-                            wx.navigateBack()
-                        }
-                    }
-                })
-            } else {
-                wx.showToast({
-                    title: '授权失败',
-                    icon: 'none'
-                })
-                setTimeout(() => {
-                    wx.navigateBack()
-                }, 1500)
-            }
+      type: "wgs84",
+      success: function (res) {
+        // console.log('getLocation:success', res)
+        log('[getLocation]', res)
+        let latitude = res.latitude
+        let longitude = res.longitude
+        // t.setData({
+        //   latitude:Number(latitude),
+        //   longitude:Number(longitude)
+        // })
+        t.store.data.latitude = Number(latitude),
+          t.store.data.longitude = Number(longitude)
+        t.revLatitude()
+      },
+      fail: function (res) {
+        if (res.errMsg === 'getLocation:fail:auth denied') {
+          wx.showToast({
+            title: '拒绝授权',
+            icon: 'none'
+          })
+          // setTimeout(() => {
+          //   wx.navigateBack()
+          // }, 1500)
+          return
         }
+        if (!userLocation || !userLocation.authSetting['scope.userLocation']) {
+          t.getUserLocation()
+        } else if (userLocation.authSetting['scope.userLocation']) {
+          wx.showModal({
+            title: '',
+            content: '请在系统设置中打开定位服务',
+            showCancel: false,
+            success: result => {
+              if (result.confirm) {
+                wx.navigateBack()
+              }
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '授权失败',
+            icon: 'none'
+          })
+        }
+      }
     })
-}
+  },
+  revLatitude(e) {
+    var t = this;
+    qqmapsdk.reverseGeocoder({
+      location: t.store.data.latitude + ',' + t.store.data.longitude || '',
+      success: function (res) { //成功后的回调
+        log('revLatitude', res)
+        var city = res.result.address_component.district;
+        if (wx.getStorageSync('curCityy') !== city) {
+          wx.setStorageSync('curCity', city)
+          t.setData({
+            curCity: city
+          })
+          t.store.data.curCity = city
+          t.reloadData(city)
+        } else if (wx.getStorageSync('curCityy') == city) {
+
+        }
+        wx.setStorage({
+          data: res.result,
+          key: 'address',
+        })
+      },
+      fail: function (error) {
+        console.error(error);
+      },
+      complete: function (res) {
+        console.log(res);
+      }
+    })
+  },
+  reloadData(city) {
+    const t = this
+    let _key = city
+    let dangeloupanxiangqingtemp = _key + 'dangeloupanxiangqing'
+    let dailirentemp = _key + 'dailiren'
+    let dailirendatabase = pinyin.getPinyin(dailirentemp).replace(/\s+/g, "");
+    let dangeloupanxiangqingdatabase = pinyin.getPinyin(dangeloupanxiangqingtemp).replace(/\s+/g, "");
+    log('[reloadData]', city,dangeloupanxiangqingdatabase,dailirendatabase)
+
+    let shouyelunbotutemp = _key + 'shouyelunbotu'
+    // let shouyezhongjianguanggaolunbotutemp = _key + 'shouyezhongjianguanggaolunbotu'
+    let startImagedatabasetemp = _key + 'shouyetanchucengguanggao'
+    let zixunxinxitemp = _key + 'zixunxinxi'
+
+    let startImagedatabase =pinyin.getPinyin(startImagedatabasetemp).replace(/\s+/g,"");
+    let shouyelunbotudatabase = pinyin.getPinyin(shouyelunbotutemp).replace(/\s+/g, "");
+    // let shouyezhongjianguanggaolunbotudatabase = pinyin.getPinyin(shouyezhongjianguanggaolunbotutemp).replace(/\s+/g, "");
+    let zixunxinxidatabase =pinyin.getPinyin(zixunxinxitemp).replace(/\s+/g,"");
+    log('首页轮播图DATABASE',shouyelunbotudatabase)
+    log('开屏广告DATABASE',startImagedatabase)
+    log('最新资讯DATABASE',zixunxinxidatabase)
+
+    db.collection(dangeloupanxiangqingdatabase).orderBy('_createTime', 'desc').get().then(res => {
+      let houselist = res.data
+      log('[houselist]', houselist)
+      for (var i = 0, markersData = []; i < houselist.length; i++) {
+        let jingweidu = houselist[i]['jingweidu'].split(',')
+        markersData.push({
+          "iconPath": "https://weather.ioslide.com/bgylocation.png",
+          "id": houselist[i]['_id'],
+          "latitude": jingweidu[0],
+          "longitude": jingweidu[1],
+          "width": 30,
+          "height": 30,
+          "callout": {
+            "id": houselist[i]['_id'],
+            "content": houselist[i]['loupanmingcheng'] + "\n" + houselist[i]['loupandanjia'],
+            "display": "ALWAYS",
+            "padding": 5,
+            "bgColor": "#D25D5D",
+            "borderColor": "#D25D5D",
+            "color": "#fff",
+            "borderRadius": 5,
+            "fontSize": 14,
+            "textAlign": "center",
+            "areaName": houselist[i]['chengshi'] + houselist[i]['loupanmingcheng'],
+            "logoUrl": "https://xsfile.bgy.com.cn/fileservice/file/view?fileId=f6ec2f90-7da2-442a-a555-ff9fbbd24ea9",
+            "city": houselist[i]['chengshi'],
+            "region": houselist[i]['jutidizhi'],
+            "lables": houselist[i]['biaoqian'],
+            "averagePriceJoin": houselist[i]['loupandanjia'],
+            "areaIntervalJoin": houselist[i]['jianzumianji']
+          }
+        });
+      }
+      wx.setStorage({
+        key: "allHouseList",
+        data: res.data
+      })
+      wx.setStorage({
+        key: "markersData",
+        data: markersData
+      })
+      t.store.data.markersData = markersData
+      t.store.data.allHouseList = res.data
+
+      if (houselist.length == 0) {
+        wx.showModal({
+          cancelText: '不了',
+          confirmText: '好的',
+          content: '是否切换城市',
+          showCancel: true,
+          title: '您当前城市没有楼盘数据',
+          success: (res) => {
+            if (res.confirm) {
+              t.selectCity()
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+              wx.setStorageSync('isChangeCity', false)
+            }
+          },
+          fail: (res) => {},
+          complete: (res) => {},
+        })
+      }
+    }).catch(err => {
+      console.error('dangeloupanxiangqingdatabase', err)
+    })
+
+    db.collection(dailirendatabase).orderBy('paimingshunxu', 'desc').get().then(res => {
+      wx.setStorage({
+        key: "dailiren",
+        data: res.data
+      })
+      t.store.data.dailiren = res.data
+    })
+
+    db.collection(zixunxinxidatabase).orderBy('_createTime', 'desc').get().then(res => {
+      t.store.data.zixunxinxi = res.data
+      wx.setStorage({
+        key:"zixunxinxi",
+        data:res.data
+      })
+    }).catch( err =>{
+      log(err)
+      t.store.data.markersData = []
+      t.store.data.adSwiperList= []
+      t.store.data.swiperList= []
+      t.store.data.zixunxinxi= []
+      t.store.data.startImage= []
+      t.store.data.dailiren= []
+      t.store.data.allHouseList= []
+      t.store.data.maifangliucheng= []
+      t.store.data.goufangzhengce= []
+      wx.showToast({
+        icon : "error",
+        title: '当前区域无楼盘数据',
+      })
+    })
+
+    db.collection(startImagedatabase).orderBy('_createTime', 'desc').get().then(res => {
+     t.store.data.startImage = res.data
+      wx.setStorage({
+        key:"startImage",
+        data:res.data
+      })
+    })
+    
+    db.collection(shouyelunbotudatabase).orderBy('_createTime', 'desc').get().then(res => {
+      wx.setStorage({
+        key: "swiperList",
+        data: res.data
+      })
+      t.store.data.swiperList = res.data
+    })
+  }
 })

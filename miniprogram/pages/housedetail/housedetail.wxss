@@ -1779,10 +1779,6 @@ page {
   content: "\e611";
 }
 
-.border-box {
-  box-sizing: border-box;
-}
-
 .floor-detail {
   position: relative;
 }
@@ -1912,10 +1908,24 @@ page {
   color: rgba(147,153,165,1);
 }
 
-.address {
-  margin-bottom: 50rpx;
+.address-box.data-v-63601b40 {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  height: 100rpx;
+  padding: 0 20rpx;
+  background: url(https://i.qfangimg.com/resource/qfang-mobile-wx/img/newhouse-location-bg.png?20200702=) no-repeat;
+  background-size: cover;
 }
 
+ .address-box .text.data-v-63601b40 {
+  -webkit-box-flex: 1;
+  flex: 1;
+  margin: 0 20rpx;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.2;
+}
 .area-address {
   flex: 1;
 }
@@ -1936,29 +1946,12 @@ page {
   margin-bottom: 0rpx;
 }
 
-.border-box {
-  box-sizing: border-box;
-}
-
 .apartment-box {
   position: relative;
+  margin-bottom: 20px;
 }
 
-.common-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 84rpx;
-  margin-bottom: 26rpx;
-}
 
-.common-title-left {
-  height: 36rpx;
-  line-height: 36rpx;
-  font-size: 36rpx;
-  font-weight: 500;
-  color: rgba(25,25,62,1);
-}
 
 .common-title-right {
   display: flex;
@@ -2005,7 +1998,7 @@ page {
 
 .apartment-img {
   width: 100%;
-  height: 284rpx;
+  min-height: 284rpx;
   margin-bottom: 12rpx;
 }
 
@@ -2130,13 +2123,9 @@ page {
   align-items: center;
 }
 
-.border-box {
-  box-sizing: border-box;
-}
-
 
 .around-box {
-  padding-bottom: 50rpx;
+  padding-bottom: 10px;
   padding-top: 20rpx;
 }
 
@@ -2146,14 +2135,6 @@ page {
   align-items: center;
   height: 42rpx;
   margin-bottom: 50rpx;
-}
-
-.common-title-left {
-  height: 36rpx;
-  line-height: 36rpx;
-  font-size: 36rpx;
-  font-weight: 500;
-  color: rgba(25,25,62,1);
 }
 
 .map-box {
@@ -2175,7 +2156,7 @@ page {
 }
 
 .around-btn-item {
-  width: 64rpx;
+  width: 40px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -2194,14 +2175,12 @@ page {
   font-size: 22rpx;
   font-weight: 400;
   color: rgba(147,153,165,1);
-}
-.border-box {
-  box-sizing: border-box;
+  padding-top:5px
 }
 
-.around-box {
+/* .around-box {
   padding-bottom: 40rpx;
-}
+} */
 
 .common-title {
   display: flex;
@@ -2211,13 +2190,6 @@ page {
   padding: 40rpx 40rpx;
 }
 
-.common-title-left {
-  height: 36rpx;
-  line-height: 36rpx;
-  font-size: 36rpx;
-  font-weight: 500;
-  color: rgba(25,25,62,1);
-}
 
 .swiper-icon {
   border: 1px solid #9da9ad4f;
@@ -3218,9 +3190,6 @@ page {
   content: "\e611";
 }
 
-.border-box {
-  box-sizing: border-box;
-}
 
 .saleman-box {
   width: 90%;
@@ -3236,14 +3205,6 @@ page {
   margin-bottom: 18rpx;
 }
 
-.common-title-left {
-  position: relative;
-  height: 36rpx;
-  line-height: 36rpx;
-  font-size: 36rpx;
-  font-weight: 500;
-  color: rgba(25,25,62,1);
-}
 
 .common-title-right {
   display: flex;
@@ -3283,7 +3244,7 @@ page {
 }
 
 .iconText {
-  color: var(--themeColor);
+  color: #bbbcce;
   font-size: 38rpx;
 }
 
@@ -3398,17 +3359,6 @@ page {
   border-radius: 50%;
 }
 
-.first {
-  border: 4rpx solid #FFD31A;
-}
-
-.second {
-  border: 4rpx solid #D0D6DE;
-}
-
-.third {
-  border: 4rpx solid #F2CBAA;
-}
 
 .comImg {
   position: absolute;
@@ -3489,4 +3439,120 @@ page {
   width: 74rpx;
   flex-direction: row;
   display: flexbox;
+}
+.footer-fixed-container.data-v-00532eba {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 500;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  padding: 0 30rpx;
+  height: 120rpx;
+  background-color: #fff;
+  box-sizing: initial;
+  box-shadow: 0 -4rpx 8rpx rgba(0,0,0,.06);
+}
+
+.footer-fixed-container .broker-info.data-v-00532eba,.footer-fixed-container.data-v-00532eba {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.footer-fixed-container .broker-info.data-v-00532eba {
+  margin-right: 30rpx;
+}
+
+.footer-fixed-container .portrait.data-v-00532eba {
+  width: 80rpx;
+  height: 80rpx;
+  margin-right: 20rpx;
+  border-radius: 50%;
+}
+
+.footer-fixed-container .info-box.data-v-00532eba {
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-align: start;
+  align-items: flex-start;
+}
+
+.footer-fixed-container .name-box.data-v-00532eba {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.footer-fixed-container .name.data-v-00532eba {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.footer-fixed-container .company.data-v-00532eba {
+  height: 32rpx;
+  padding: 0 10rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.5;
+  background: linear-gradient(90deg,#d0bf9d,#b1a183);
+  border-radius: 4rpx;
+}
+
+.footer-fixed-container .credentials.data-v-00532eba {
+  margin-left: 16rpx;
+}
+
+.footer-fixed-container .credentials .icon.data-v-00532eba {
+  display: block;
+  width: 40rpx;
+  height: 30rpx;
+}
+
+.footer-fixed-container .button-box.data-v-00532eba {
+  display: flex;
+  -webkit-box-flex: 1;
+  flex: 1;
+}
+
+.footer-fixed-container .contact.data-v-00532eba,.footer-fixed-container .talk.data-v-00532eba {
+  -webkit-box-flex: 1;
+  flex: 1;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  height: 88rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  line-height: 1.2;
+  border-radius: 8rpx;
+}
+
+.footer-fixed-container .talk.data-v-00532eba {
+  margin-right: 20rpx;
+  padding: 0;
+  color: #fff;
+  background: linear-gradient(270deg,#ff555f,#ff888d);
+}
+
+.footer-fixed-container .talk.data-v-00532eba::after {
+  border: 0;
+}
+
+.footer-fixed-container .contact.data-v-00532eba {
+  color: #333;
+  background: linear-gradient(270deg,#ffc800,#fd6);
+}
+
+.footer-fixed-container .icon.data-v-00532eba {
+  margin-right: 10rpx;
 }

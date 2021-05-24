@@ -8,7 +8,10 @@ const db = wx.cloud.database()
 const _ = db.command
 import create from '../../util/create'
 import store from '../../store/index'
-
+import pinyin from "wl-pinyin"
+import {
+  promisifyAll
+} from 'wx-promise-pro'
 create(store, {
   use: [
     'adSwiperList',
@@ -17,15 +20,32 @@ create(store, {
     'allHouseList',
     'maifangliucheng',
     'goufangzhengce',
-    'zixunxinxi'
+    'zixunxinxi',
+    'curCity'
   ],
   data: {
     zixunxinxi:[]
   },
   onLoad: function (options) {
     const t = this  
-    t.setData({
-      zixunxinxi : t.store.data.zixunxinxi
+    wx.pro.showLoading({
+      title: 'Loading'
+    })
+    let _key = t.store.data.curCity
+    let temp = _key + 'zixunxinxi'
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
+      t.setData({
+        zixunxinxi:res.data
+      })
+      wx.pro.hideLoading()
+      if(res.data.length == 0){
+        wx.showToast({
+          title: '暂无信息',
+          icon: 'error',
+          duration: 2000
+        })
+      }
     })
   },
   navHome(){
@@ -36,6 +56,21 @@ create(store, {
   navHuodong(e) {
     wx.navigateTo({
       url: '../huodong/huodong'
+    })
+  },
+  inputfocus(){
+    this.setData({
+      showClear : true
+    })
+  },
+  inputblur(){
+    this.setData({
+      showClear : false
+    })
+  },
+  clearKeyword(){
+    this.setData({
+      keyword: ''
     })
   },
   navMap(){
@@ -49,13 +84,23 @@ create(store, {
     })
     log(e)
     const t = this
-    let key = e.detail.value.nameInput
-    db.collection('zixunxinxi').where(_.or([{
+    let key = e.detail.value
+    let _key = t.store.data.curCity
+    let temp = _key + 'zixunxinxi'
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    db.collection(database).where(_.or([{
       zixunbiaoti: db.RegExp({
         regexp: '.*' + key + '.*',
         options: 'i',
       })
-    }])).orderBy('_createTime', 'desc').get().then(res => {
+    },
+    {
+      zixunneirong: db.RegExp({
+        regexp: '.*' + key + '.*',
+        options: 'i',
+      })
+    }
+  ])).orderBy('_createTime', 'desc').get().then(res => {
       t.setData({
         zixunxinxi:res.data
       })

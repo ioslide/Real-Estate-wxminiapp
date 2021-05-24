@@ -3,6 +3,6 @@
   "navigationBarTitleText": "搜索",
   "navigationBarTextStyle": "black",
   "usingComponents": {
-    "nodata":"../../components/nodata/nodata"
+    
   }
 }

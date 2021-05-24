@@ -8,6 +8,7 @@ const db = wx.cloud.database()
 const _ = db.command
 import create from '../../util/create'
 import store from '../../store/index'
+import pinyin from "wl-pinyin"
 import {
   promisifyAll
 } from 'wx-promise-pro'
@@ -19,9 +20,11 @@ create(store, {
     'dailiren',
     'allHouseList',
     'maifangliucheng',
-    'goufangzhengce'
+    'goufangzhengce',
+    'curCity'
   ],
   data: {
+    allHouseList: [],
     mapsetting: {
       skew: 0,
       rotate: 0,
@@ -39,48 +42,52 @@ create(store, {
       enableTraffic: false,
     },
   },
+  inputfocus() {
+    this.setData({
+      showClear: true
+    })
+  },
+  inputblur() {
+    this.setData({
+      showClear: false
+    })
+  },
+  clearKeyword() {
+    this.setData({
+      keyword: ''
+    })
+  },
   onLoad: function (options) {
     const t = this
-    t.setData({
-      allHouseList: t.store.data.allHouseList
+    this.setData({
+      keyword: wx.getStorageSync('curCity')
     })
-    //   let key = wx.getStorageSync('curCity')
-    //   db.collection('dangeloupanxiangqing').orderBy('_createTime', 'desc').where(_.or([{
-    //     loupanmingcheng: db.RegExp({
-    //       regexp: '.*' + key,
-    //       options: 'i',
-    //     })
-    //   },
-    //   {
-    //     chengshi: db.RegExp({
-    //       regexp: '.*' + key,
-    //       options: 'i',
-    //     })
-    //   },
-    //   {
-    //     jutidizhi: db.RegExp({
-    //       regexp: '.*' + key,
-    //       options: 'i',
-    //     })
-    //   }
-    // ])).get().then(res => {
-    //     log(res.data)
-    //     t.setData({
-    //       allhouseList : res.data
-    //     })
-    //   })
+    wx.pro.showLoading({
+      title: 'Loading'
+    })
+    let key = t.store.data.curCity
+    let temp = key + 'dangeloupanxiangqing'
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    log('全部楼盘数据库', database)
+    db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
+      log(res.data)
+      wx.pro.hideLoading()
+      t.setData({
+        allHouseList: res.data
+      })
+    })
   },
   navHome() {
     wx.navigateBack({
       delta: 9,
     })
   },
-  navQiyefuwu(){
+  navQiyefuwu() {
     wx.navigateTo({
       url: '../qiyefuwuhuodong/qiyefuwuhuodong',
     })
   },
-  markertap(e){
+  markertap(e) {
     let houseId = this.store.data.allHouseList[e.detail.markerId - 900000000]
     wx.navigateTo({
       url: '../housedetail/housedetail?houseId=' + houseId._id,
@@ -97,20 +104,36 @@ create(store, {
     })
     log(e)
     const t = this
-    let key = e.detail.value.nameInput
-    db.collection('dangeloupanxiangqing').where(_.or([{
-        loupanmingcheng: db.RegExp({
-          regexp: '.*' + key + '.*',
-          options: 'i',
-        })
-      },
-      {
-        chengshi: db.RegExp({
-          regexp: '.*' + key,
-          options: 'i',
-        })
-      }
-    ])).orderBy('_createTime', 'desc').get().then(res => {
+    let key = e.detail.value
+    if (key == "") {
+      return wx.showToast({
+        title: '请输入内容',
+        icon: 'error',
+        duration: 2000
+      })
+    }
+    let _key = t.store.data.curCity
+    let temp = _key + 'dangeloupanxiangqing'
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    db.collection(database).where(_.or([{
+      loupanmingcheng: db.RegExp({
+        regexp: '.*' + key + '.*',
+        options: 'i',
+      })
+    },
+    {
+      chengshi: db.RegExp({
+        regexp: '.*' + key + '.*',
+        options: 'i',
+      })
+    },
+    {
+      jutidizhi: db.RegExp({
+        regexp: '.*' + key + '.*',
+        options: 'i',
+      })
+    }
+  ])).orderBy('_createTime', 'desc').get().then(res => {
       t.setData({
         allHouseList: res.data
       })

@@ -1,1 +1,15 @@
+
+
+<form bindsubmit="submitSearch">
+  <view class="cu-bar bg-white search ">
+    <view class="search-form round">
+      <text class="cuIcon-search"></text>
+      <input bindinput="nameInput" name="nameInput" type="text" placeholder="输入搜索的楼盘名称" confirm-type="search"></input>
+    </view>
+    <view class="action">
+      <button form-type="submit" class="cu-btn bg-gradual-green shadow-blur round " style="width: 100px;">搜索</button>
+    </view>
+  </view>
+</form>
+
 <map style="width:{{windowWidth}}px;height:{{windowHeight}}px" show-location="true" bindmarkertap="markertap" bindcallouttap="markertap" subkey="NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7" setting="{{mapsetting}}" longitude="{{$.longitude}}" latitude="{{$.latitude}}" scale="9" min-scale="6" markers="{{$.markersData}}"></map>

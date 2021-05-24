@@ -9,7 +9,10 @@ page{
   height: 84rpx;
   margin-bottom: 26rpx;
 }
-
+.cu-card.article>.cu-item .content {
+  display: flex;
+  padding: 0!important;
+}
 .common-title-left {
   height: 36rpx;
   line-height: 36rpx;

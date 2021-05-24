@@ -95,7 +95,6 @@
     justify-content: center;
     padding: 30rpx 32rpx;
     box-sizing: border-box;
-    background-color: #51aa38;
     position: fixed;
     top: 0;
     left: 0;
@@ -104,7 +103,8 @@
 }
 
 .menu {
-    border: #ffffff solid 1rpx;
+    border: #9596ad solid 1rpx;
+    background: #9596ad;
     width: 100%;
     border-radius: 6rpx;
 }
@@ -119,7 +119,7 @@
 
 .menu .on {
     background-color: #ffffff;
-    color: #51aa38;
+    color: #898aa9;
 }
 
 .menu .c {
@@ -231,26 +231,26 @@
 
 .repay-type-left {
     font-size: 13px;
-    color: #212121;
+    color: #898aa9;
     flex: 1;
     height: 63rpx;
     border-top-left-radius: 6rpx!important;
     border-bottom-left-radius: 6rpx!important;
-    border: #212121 solid 1rpx;
+    border: #898aa9 solid 1rpx;
 }
 
 .repay-type-right {
     font-size: 13px;
-    color: #212121;
+    color: #898aa9;
     flex: 1;
     height: 63rpx;
     border-top-right-radius: 6rpx!important;
     border-bottom-right-radius: 6rpx!important;
-    border: #212121 solid 1rpx;
+    border: #898aa9 solid 1rpx;
 }
 
 .repay-type-main .on {
-    background-color: #212121;
+    background-color: #898aa9;
     color: #ffffff;
 }
 
@@ -278,7 +278,7 @@
 
 .calc-btn {
     width: 100%;
-    background-color: #51aa38;
+    background-color: #898aa9;
     font-size: 18px;
     color: #ffffff;
 }
@@ -342,7 +342,7 @@
 }
 
 .res-head {
-    background-color: #51aa38;
+    background-color: #898aa9;
     box-sizing: border-box;
     width: 100%;
     z-index: 10;
@@ -556,7 +556,9 @@
     border-bottom: #ebebeb solid 1rpx;
     margin-left: 35rpx;
 }
-
+page{
+    background:#fff
+  }
 .app-name text {
     font-size: 15px;
     color: #212121;

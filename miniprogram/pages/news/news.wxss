@@ -2,6 +2,41 @@
 page{
   background:#ffffff
 }
+
+.ask-module {
+  margin-top: 12px;
+  border-top: 1px solid #f0f0f0;
+  background-color: #fff;
+  position: relative;
+}
+.ask-module .title {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 24px 15px 0;
+  font-size: 18px;
+  color: #333;
+  line-height: 1.2;
+  font-weight: 700;
+}
+.hot-question .title:after {
+  content: "HOUSE";
+  width: 38px;
+  height: 15px;
+  line-height: 15px;
+  text-align: center;
+  font-size: 10px;
+  position: absolute;
+  left: 92px;
+  top: 14px;
+  color: #fff;
+  background: -webkit-gradient(linear, right top, left top, from(#fe811c), to(#ff5400));
+  background: linear-gradient(270deg, #fe811c, #ff5400);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
 .common-title {
   display: flex;
   justify-content: space-between;

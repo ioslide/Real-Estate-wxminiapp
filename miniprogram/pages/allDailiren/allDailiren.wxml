@@ -1,14 +1,27 @@
-<form bindsubmit="submitSearch">
+<!-- <form bindsubmit="submitSearch" >
   <view class="cu-bar bg-white search ">
     <view class="search-form round">
       <text class="cuIcon-search"></text>
-      <input bindinput="nameInput" name="nameInput" type="text" placeholder="输入搜索的代理人" confirm-type="search"></input>
+      <input bindinput="nameInput" bindconfirm="submitSearch" name="nameInput" type="text" placeholder="输入搜索的代理人" confirm-type="search"></input>
     </view>
     <view class="action">
       <button form-type="submit" class="cu-btn bg-gradual-green shadow-blur round " style="width: 100px;">搜索</button>
     </view>
   </view>
-</form>
+</form> -->
+
+
+<view class="search-global-container data-v-7a95ed29">
+  <view class="search-box data-v-7a95ed29">
+    <text class="fhyfont icon-search"></text>
+    <input bindconfirm="submitSearch" selection-start="-1" selection-end="-1" cursor="-1" bindfocus="inputfocus"
+      bindblur="inputblur" class="text data-v-7a95ed29 placeholder data-v-5832b5b8" confirmType="搜索" value="{{keyword}}"
+      placeholder="输入搜索的代理人" type="text" style="padding:0 16rpx"></input>
+    <text bindtap="clearKeyword" class="fhyfont iconicon-deletetext" size="16" type="clear" style="color: #AAAAAA;"
+      wx:if="{{showClear}}"></text>
+  </view>
+</view>
+
 
 <view class="saleman-scroll-box detail-margin border-box">
   <scroll-view class="scroll-box" bindscrolltolower="getMoreData">
@@ -33,8 +46,10 @@
           </view>
         </view>
         <view class="saleman-item-left-label border-box">
-          <view class="saleman-item-label-top border-box">{{item.mingcheng}}</view>
-          <view class="saleman-item-label-bot border-box">{{item.dailidengji}}顾问</view>
+          <view class="saleman-item-label-top border-box">
+            <text class="goldTag">{{item.dailidengji}}顾问</text>
+            <text class="nameTag">{{item.mingcheng}}</text></view>
+          <view class="saleman-item-label-bot border-box">{{item.chengshi}}</view>
         </view>
         <view class="saleman-round-3">
           <image class="medalregion-item-right-img border-box" mode="aspectFill"
@@ -47,13 +62,15 @@
       <view class="saleman-item-right">
         <view catch:tap="handleChat" data-target="formChat" class="saleman-round saleman-round-1" data-id="{{item._id}}"
           data-level="{{item.dailidengji}}顾问" data-name="{{item.mingcheng}}" data-phone="{{item.dianhua}}">
-          <image class="saleman-item-right-img border-box" src="../../assets/image/img_project_chat_small.png"
-            role="img"></image>
+          <!-- <image class="saleman-item-right-img border-box" src="../../assets/image/img_project_chat_small.png"
+            role="img"></image> -->
+          <text class="border-box fhyfont iconIMliaotiantubiao iconText" style="color:#bbbcce"></text>
         </view>
         <view catch:tap="handlePhone" class="saleman-round saleman-round-2" data-id="{{item._id}}"
           data-level="{{item.dailidengji}}顾问" data-name="{{item.mingcheng}}" data-phone="{{item.dianhua}}">
-          <image class="saleman-item-right-img border-box" src="../../assets/image/img_project_phone_small.png"
-            role="img"></image>
+          <!-- <image class="saleman-item-right-img border-box" src="../../assets/image/img_project_phone_small.png"
+            role="img"></image> -->
+          <text class="border-box fhyfont iconphone1 iconText" style="color:#bbbcce"></text>
         </view>
       </view>
     </view>

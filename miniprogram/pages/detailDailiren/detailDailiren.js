@@ -6,6 +6,7 @@ const groupEnd = console.groupEnd.bind(console)
 const error = console.error.bind(console)
 const db = wx.cloud.database()
 const _ = db.command
+import pinyin from "wl-pinyin"
 import create from '../../util/create'
 import store from '../../store/index'
 import {
@@ -20,7 +21,8 @@ create(store, {
     'dailiren',
     'allHouseList',
     'maifangliucheng',
-    'goufangzhengce'
+    'goufangzhengce',
+    'curCity'
   ],
   data: {
 
@@ -30,23 +32,47 @@ create(store, {
     const t = this
     let key = options.dailirenId
     log('key', key)
-    let allHouseList = this.store.data.allHouseList
-    var dailirenHouseGroup = []
-    allHouseList.find((item) => {
-      for (let i = 0; i < item.dailiguwen.length; i++) {
-        if (item.dailiguwen[i] == key) {
-          dailirenHouseGroup.push(item)
-        }
-      }
-    });
-    log('[dailirenHouseGroup]', dailirenHouseGroup)
+    // let allHouseList = this.store.data.allHouseList
     var detailDailiren = t.store.data.dailiren.find((v) => {
       return v._id == key;
     });
-    console.log('[detailDailiren]',detailDailiren);
+    console.log('[detailDailiren]', detailDailiren);
+    // allHouseList.find((item) => {
+    //   for (let i = 0; i < item.dailiguwen.length; i++) {
+    //     log(item)
+    //     if (item.dailiguwen[i] == key) {
+    //       dailirenHouseGroup.push(item)
+    //     }
+    //   }
+    // });
+
+    let dailirenHouseGroup = []
+    let _key = t.store.data.curCity
+    let temp = _key + 'dangeloupanxiangqing'
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    log('楼盘详情数据库', database)
+
+    for (let i = 0; i < detailDailiren.daililoupanliebiao.length; i++) {
+      log(detailDailiren.daililoupanliebiao[i])
+      db.collection(database).doc(detailDailiren.daililoupanliebiao[i]).get().then(res => {
+        dailirenHouseGroup.push(res.data)
+        log(dailirenHouseGroup, detailDailiren.daililoupanliebiao.length)
+        if (dailirenHouseGroup.length == detailDailiren.daililoupanliebiao.length) {
+          t.setData({
+            dailirenHouseGroup: dailirenHouseGroup
+          })
+        }
+      })
+    }
+
     this.setData({
-      detailDailiren: detailDailiren,
-      dailirenHouseGroup: dailirenHouseGroup
+      detailDailiren: detailDailiren
+    })
+  },
+  navHousedetail(e) {
+    log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: '../housedetail/housedetail?houseId=' + e.currentTarget.dataset.id,
     })
   },
   handleChat(e) {
@@ -65,7 +91,7 @@ create(store, {
       phoneNumber: e.currentTarget.dataset.phone
     })
   },
-  getCurrentTime () {
+  getCurrentTime() {
     let date = new Date()
     let Y = date.getFullYear()
     let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
@@ -74,7 +100,7 @@ create(store, {
     let minutes = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
     let seconds = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
     date = Y + '-' + M + '-' + D + ' ' + hours + ':' + minutes + ':' + seconds
-     console.log(date)  							// 2019-10-12 15:19:28
+    console.log(date) // 2019-10-12 15:19:28
     return date
   },
   submitForm(e) {
@@ -83,7 +109,10 @@ create(store, {
     wx.pro.showLoading({
       title: '提交中',
     })
-    db.collection('gukeyuyue').add({
+    let _key = t.store.data.curCity
+    let temp = _key + 'gukeyuyue'
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    db.collection(database).add({
         data: {
           username: e.detail.value.nameInput,
           yixiangfangyuan: e.detail.value.houseInput,
@@ -91,7 +120,7 @@ create(store, {
           jiedaidailixingming: t.data.detailDailiren.mingcheng,
           jiedaidailidianhua: t.data.detailDailiren.dianhua,
           dailiid: t.data.detailDailiren._id,
-          tijiaoshijian:t.getCurrentTime()
+          tijiaoshijian: t.getCurrentTime()
         }
       })
       .then(res => {
@@ -124,12 +153,12 @@ create(store, {
     const promise = new Promise(resolve => {
       setTimeout(() => {
         resolve({
-          title: '搜房客-' + t.data.detailDailiren.mingcheng,
+          title: '论方略-' + t.data.detailDailiren.mingcheng,
         })
       }, 2000)
     })
     return {
-      title: '搜房客-' + t.data.detailDailiren.mingcheng,
+      title: '论方略-' + t.data.detailDailiren.mingcheng,
       path: '/pages/detailDailiren/detailDailiren?dailirenId=' + t.data.detailDailiren._id,
       promise
     }

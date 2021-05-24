@@ -1,5 +1,5 @@
 <scroll-view class="all-main" scrollY="true">
-    <view class="pagemain" style="padding: 0;">
+    <view class="pagemain">
         <view class="res-head">
             <view class="res-head-month">
                 <view class="m-fldname">{{monthDesc}}</view>

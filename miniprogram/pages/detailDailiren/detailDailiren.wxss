@@ -31,7 +31,7 @@ page{
 .storeTop .greenPart {
   width: 100%;
   height: 46%;
-  background-color: #00a687;
+  background-color: #FDDD71;
   border-radius: 0 0 14% 14%;
   position: absolute;
   left: 0;
@@ -42,7 +42,7 @@ page{
 .storeTop .userPart {
   background-color: #fff;
   position: relative;
-  width: 82vw;
+  width: 90%;
   margin: 4vw auto 3vw;
   color: #0a2228;
   z-index: 2;
@@ -115,8 +115,8 @@ page{
   font-size: 3vw;
 }
 
-.storeTop .userPart .local .icon,
-.storeTop .userPart .phone .icon {
+
+.icon {
   width: 3.733333vw;
   height: 3.733333vw;
 }
@@ -224,7 +224,7 @@ page{
   bottom: 0;
   background: #fff;
   border-top: 1px solid #eee;
-  padding: 4vw 0;
+  padding: 0;
   z-index: 98;
 }
 
@@ -249,18 +249,19 @@ page{
 }
 
  .consumerShare .share2btn {
-  width: 82%;
+   padding:6px;
+  width: 100%;
   display: inline-block;
   text-align: center;
 }
 
  .consumerShare .share2btn .btn {
-  width: 40%;
+  width: 43%;
   display: inline-block;
   color: #fff;
-  border-radius: 2.4vw;
-  margin: 0 1vw;
-  padding: 2vw 3vw;
+  border-radius: 4px;
+  margin: 0 8px;
+  padding: 12px 40px
 }
 
  .consumerShare .share2btn .btn .btnP {
@@ -273,9 +274,244 @@ page{
 }
 
  .consumerShare .share2btn .datebtn {
-  background: #30a690;
+  background: linear-gradient(270deg,#ff555f,#ff888d)
 }
 
  .consumerShare .share2btn .chatbtn {
-  background: #ff882a;
+  background: linear-gradient(270deg,#ffc800,#fd6);
+}
+
+
+.remaining-container.data-v-cfeaf816 {
+  background-color: #fff;
+}
+
+.broker-info-module.data-v-cfeaf816 {
+  padding: 100rpx 0 20rpx;
+  background: url(https://i.qfangimg.com/resource/qfang-mobile-wx/img/broker-bg.png?20200908=) 0 -15% no-repeat;
+  background-size: 100% auto;
+}
+
+.broker-card.data-v-cfeaf816 {
+  position: relative;
+  margin: 0 32rpx;
+  padding-bottom: 1rpx;
+  background-color: #fff;
+  box-shadow: 1rpx 1rpx 21rpx 9rpx rgba(203,200,188,.23);
+  border-radius: 10rpx;
+}
+
+.broker-header-box.data-v-cfeaf816,.portrait-box.data-v-cfeaf816 {
+  display: flex;
+}
+
+.portrait-box.data-v-cfeaf816 {
+  position: absolute;
+  top: -32rpx;
+  z-index: 10;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 210rpx;
+}
+
+.portrait-box .portrait.data-v-cfeaf816 {
+  display: block;
+  width: 128rpx;
+  height: 128rpx;
+  background-color: #fff;
+  border: 8rpx solid #f7f7fa;
+  border-radius: 50%;
+}
+
+.portrait-box .mark.data-v-cfeaf816 {
+  margin-top: -12rpx;
+  padding: 2rpx 10rpx;
+  font-size: 22rpx;
+  color: #726254;
+  line-height: 1.2;
+  border: 1px solid #ccc5be;
+  background: linear-gradient(95deg,#f3f2eb,#ece3db);
+  border-radius: 14px;
+}
+
+.base-info-box.data-v-cfeaf816 {
+  -webkit-box-flex: 1;
+  flex: 1;
+  padding: 20rpx 30rpx 0 0;
+  margin-left: 210rpx;
+}
+
+.base-info-box .text-box.data-v-cfeaf816 {
+  display: flex;
+}
+
+.base-info-box .text-box .name.data-v-cfeaf816 {
+  font-size: 32rpx;
+  color: #333;
+  line-height: 1.2;
+}
+
+.base-info-box .text-box .icon.data-v-cfeaf816 {
+  width: 36rpx;
+  height: 36rpx;
+  margin-left: 16rpx;
+}
+
+.base-info-box .info.data-v-cfeaf816 {
+  margin: 12rpx 0;
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.2;
+}
+
+.base-info-box .text.data-v-cfeaf816 {
+  font-size: 24rpx;
+  color: #1ea3e2;
+  line-height: 1.2;
+}
+
+.broker-credentials.data-v-cfeaf816 {
+  display: flex;
+  margin-top: 12rpx;
+}
+
+.broker-credentials .items.data-v-cfeaf816 {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-right: 30rpx;
+}
+
+.broker-credentials .icon.data-v-cfeaf816 {
+  display: block;
+  width: 32rpx;
+  height: 24rpx;
+}
+
+.broker-credentials .text.data-v-cfeaf816 {
+  margin-left: 10rpx;
+  font-size: 22rpx;
+  color: #999;
+}
+
+.broker-tag-box.data-v-cfeaf816 {
+  display: flex;
+  margin: 0 30rpx;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #eaeaea;
+}
+
+.broker-tag-box .tag.data-v-cfeaf816 {
+  margin-right: 10rpx;
+  padding: 6rpx 20rpx;
+  font-size: 22rpx;
+  color: #1ea3e2;
+  line-height: 1.2;
+  background-color: #eff9fd;
+}
+
+.broker-attr-box.data-v-cfeaf816 {
+  margin: 30rpx;
+}
+
+.broker-attr-box .items.data-v-cfeaf816 {
+  display: flex;
+  margin-bottom: 20rpx;
+}
+
+.broker-attr-box .label.data-v-cfeaf816 {
+  -webkit-box-flex: 0;
+  flex: 0 0 auto;
+  margin-right: 20rpx;
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.5;
+}
+
+.broker-attr-box .text.data-v-cfeaf816 {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+.broker-attr-box .icon.data-v-cfeaf816 {
+  width: 28rpx;
+  height: 28rpx;
+  margin: 4rpx 0 0 10rpx;
+}
+
+.broker-count-box.data-v-cfeaf816 {
+  -webkit-box-pack: space-evenly;
+  justify-content: space-evenly;
+  margin: 30rpx 0;
+  padding: 10rpx 0;
+}
+
+.broker-count-box.data-v-cfeaf816,.broker-count-box .items.data-v-cfeaf816 {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.broker-count-box .items.data-v-cfeaf816 {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-flex: 1;
+  flex: 1 1 30%;
+}
+
+.broker-count-box .label.data-v-cfeaf816 {
+  margin-top: 16rpx;
+  font-size: 24rpx;
+  color: rgba(51,51,51,.8);
+  line-height: 1.2;
+}
+
+.broker-count-box .text.data-v-cfeaf816 {
+  font-size: 40rpx;
+  color: #333;
+  line-height: 1.2;
+}
+
+.broker-count-box .red.data-v-cfeaf816 {
+  color: #ff5860;
+}
+
+.broker-count-box .not.data-v-cfeaf816 {
+  margin-bottom: 10rpx;
+  font-size: 24rpx;
+}
+
+.broker-count-box .line.data-v-cfeaf816 {
+  width: 1rpx;
+  height: 40rpx;
+  background-color: #eaeaea;
+}
+
+.broker-evaluate-box.data-v-cfeaf816 {
+  padding: 0 30rpx 30rpx;
+}
+
+.broker-evaluate-box .swiper-box.data-v-cfeaf816 {
+  height: 60rpx;
+  background-color: #f5fbfe;
+  border-radius: 4rpx;
+}
+
+.broker-evaluate-box .items.data-v-cfeaf816 {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 0 10rpx;
+  font-size: 24rpx;
+  color: #7e8597;
+  box-sizing: border-box;
 }

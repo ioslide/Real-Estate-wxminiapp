@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "wx-promise-pro": "^3.2.2",
-    "wx-server-sdk": "^2.4.0"
+    "wl-pinyin": "^1.0.1",
+    "wx-promise-pro": "^3.2.2"
   }
 }

@@ -1,0 +1,26 @@
+<view class="cu-bar tabbar bg-white shadow foot" style="height: 62px;padding:0;margin:0">
+  <view class="action" bindtap="navHome">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/icon-estate.png"></image>
+    </view>
+    <view >首页</view>
+  </view>
+  <view class="action" bindtap="navQiyefuwu">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/icon-loupan.png"></image>
+    </view>
+    <view >服务</view>
+  </view>
+  <view class="action" bindtap="navMap">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/icon-office.png"></image>
+    </view>
+    <view >找房</view>
+  </view>
+  <view class="action" bindtap="navHuodong">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/icon-shop.png"></image>
+    </view>
+    <view >活动</view>
+  </view>
+</view>

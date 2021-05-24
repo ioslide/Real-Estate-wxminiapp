@@ -1,7 +1,7 @@
 <import src="../part/menu.wxml"></import>
 <import src="../part/tabbar.wxml"></import>
 <view class="all-main  {{isIpx?'list-phonex':''}}" scrollY="true">
-    <view class="pagemain" style="padding: 0;">
+    <view class="pagemain" >
         <view class="header">
             <template is="menu" data="{{menu:menu}}"></template>
         </view>
@@ -65,8 +65,8 @@
                 </navigator>
             </view>
         </view>
-        <view class="calc-btn-con">
-            <button catchtap="calctap" class="calc-btn" hoverClass="calc-btn-hover" size="default" type="primary">计算</button>
+        <view class="calc-btn-con" style="display:flex;position:fixed;bottom:100px;width: 100%;">
+            <button catchtap="calctap" class="calc-btn" hoverClass="calc-btn-hover" size="default" style="width:100%;background: #BBBCCE;" type="primary">计算</button>
         </view>
     </view>
     <template is="tabbar" data="{{tabbar:tabbar,isIpx:isIpx}}"></template>

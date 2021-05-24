@@ -9,7 +9,28 @@ page{
 .search {
   flex: 3;
 }
-
+.goldTag{
+  height: 20px;
+  margin-left: 0;
+  padding: 0 10rpx;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.5;
+  background: linear-gradient(90deg,#d0bf9d,#b1a183);
+  border-radius: 4rpx;
+}
+.nameTag{
+  height: 20px;
+  margin-left: 16rpx;
+  padding: 0 10rpx;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(0, 0, 0);
+  line-height: 1.5;
+  background: linear-gradient(90deg,#fafafa,#ffffff);
+  border-radius: 4rpx;
+}
 .search .input {
   color: black;
   height: 76rpx;
@@ -69,18 +90,6 @@ page{
   border-radius: 50%;
 }
 
-.first {
-  border: 4rpx solid #FFD31A;
-}
-
-.second {
-  border: 4rpx solid #D0D6DE;
-}
-
-.third {
-  border: 4rpx solid #F2CBAA;
-}
-
 .saleman-img-box {
   width: 80rpx;
   height: 80rpx;
@@ -109,15 +118,14 @@ page{
 }
 
 .saleman-item-left-label {
-  width: 100rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .saleman-item-label-top {
-  height: 28rpx;
-  line-height: 28rpx;
+  height: 20px;
+  line-height: 20px;
   margin-bottom: 10rpx;
   font-size: 28rpx;
   font-weight: 500;

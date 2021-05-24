@@ -8,7 +8,7 @@ const db = wx.cloud.database()
 const _ = db.command
 import create from '../../../util/create'
 import store from '../../../store/index'
-
+import pinyin from "wl-pinyin"
 create(store, {
   use: [
     'adSwiperList',
@@ -16,7 +16,8 @@ create(store, {
     'dailiren',
     'allHouseList',
     'maifangliucheng',
-    'goufangzhengce'
+    'goufangzhengce',
+    'curCity'
   ],
   data: {
     detailhuodong: []
@@ -24,7 +25,10 @@ create(store, {
   onLoad: function (options) {
     const t = this
     log(options)
-    db.collection('zuixinhuodong').where({
+    let _key = t.store.data.curCity
+    let temp = _key + 'zuixinhuodong'
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    db.collection( database).where({
       _id: options.detailid
     }).get().then(res => {
       log(res.data[0])

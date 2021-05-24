@@ -1,5 +1,8 @@
 {
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTitleText": "最新活动",
-  "navigationBarTextStyle": "black"
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "sol-packet-rain": "../../components/packet-rain/index"
+}
 }
