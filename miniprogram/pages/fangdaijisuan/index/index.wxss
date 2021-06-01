@@ -1,29 +1,45 @@
-
-page{
-  background:#fff
-}
-.res-head-share,.grid-head,.grid-head-row,.res-lst-itm,.app-itm {
+.res-head-share,
+.grid-head,
+.grid-head-row,
+.res-lst-itm,
+.app-itm {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 }
 
-.menu,.menuitm,.repay-type-main,.repay-type,.repay-type-left,.repay-type-right,.calc-btn-con,.lilv-row,.lilv-col,.lilv-header,.lixi-fld,.res-itm,.res-lst-itm-fld,.app-name,.tips {
+.menu,
+.menuitm,
+.repay-type-main,
+.repay-type,
+.repay-type-left,
+.repay-type-right,
+.calc-btn-con,
+.lilv-row,
+.lilv-col,
+.lilv-header,
+.lixi-fld,
+.res-itm,
+.res-lst-itm-fld,
+.app-name,
+.tips {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
 
-.lst-item,.res-head-dk {
+.lst-item,
+.res-head-dk {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 
-.tips,.input-con {
+.tips,
+.input-con {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -37,7 +53,10 @@ page{
   justify-content: flex-start;
 }
 
-.lilv-main,.res-head,.res-head-month,.row-cell {
+.lilv-main,
+.res-head,
+.res-head-month,
+.row-cell {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,14 +83,14 @@ page{
 }
 
 .fix-iphonex {
-  bottom: 68rpx!important;
+  bottom: 68rpx !important;
 }
 
 .fix-iphonex::after {
   content: ' ';
   position: fixed;
-  bottom: 0!important;
-  height: 68rpx!important;
+  bottom: 0 !important;
+  height: 68rpx !important;
   width: 100%;
   background: #fff;
 }
@@ -79,7 +98,6 @@ page{
 .pagemain {
   background-color: #ffffff;
   margin-bottom: 40rpx;
-  padding-top: 120rpx;
 }
 
 .header {
@@ -89,7 +107,6 @@ page{
   justify-content: center;
   padding: 30rpx 32rpx;
   box-sizing: border-box;
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -97,14 +114,13 @@ page{
 }
 
 .menu {
-  border: #9596ad solid 1rpx;
-  background: #9596ad;
+  border: #dfe0e8 solid 1rpx;
   width: 100%;
   border-radius: 6rpx;
 }
 
 .menuitm {
-  color: #ffffff;
+  background: linear-gradient(90deg, #d0bf9d, #b1a183);
   flex: 1;
   font-size: 13px;
   color: #ffffff;
@@ -112,8 +128,8 @@ page{
 }
 
 .menu .on {
-  background-color: #ffffff;
-  color: #898aa9;
+  background: #ffffff !important;
+  color: #000000;
 }
 
 .menu .c {
@@ -182,13 +198,53 @@ page{
 }
 
 .input {
-  border: #b6b6b6 solid 1rpx;
+  border-bottom: #000000 solid 1rpx;
   height: 63rpx;
   font-size: 16px;
-  border-radius: 6rpx!important;
   background-color: #ffffff;
   line-height: 16px;
   width: 100%;
+}
+
+div,
+header {
+  margin: 0;
+  padding: 0;
+}
+
+div,
+header {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+.header-body {
+  position: relative;
+  height: 136px;
+  padding-top: 50px;
+  background: -webkit-gradient(linear, left top, right top, from(#fffdf8), to(#f3f0e7));
+  background: linear-gradient(90deg, #fffdf8, #f3f0e7);
+  box-sizing: border-box;
+}
+
+.header-body .title {
+  padding-left: 16px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+  line-height: 1.4;
+}
+
+.header-body .calculator {
+  position: absolute;
+  right: 16px;
+  bottom: 0;
+  z-index: 1;
+  width: 150px;
+  height: 100px;
+  background: url(http://i.qfangimg.com/resource/qfang-mobile/static/img/calculator.png) no-repeat;
+  background-size: cover;
 }
 
 .lst-item {
@@ -225,26 +281,25 @@ page{
 
 .repay-type-left {
   font-size: 13px;
-  color: #898aa9;
+  color: #BBBCCE;
   flex: 1;
   height: 63rpx;
-  border-top-left-radius: 6rpx!important;
-  border-bottom-left-radius: 6rpx!important;
-  border: #898aa9 solid 1rpx;
+  border-top-left-radius: 6rpx !important;
+  border-bottom-left-radius: 6rpx !important;
 }
 
 .repay-type-right {
   font-size: 13px;
-  color: #898aa9;
+  color: #000;
   flex: 1;
   height: 63rpx;
-  border-top-right-radius: 6rpx!important;
-  border-bottom-right-radius: 6rpx!important;
-  border: #898aa9 solid 1rpx;
+  border-top-right-radius: 6rpx !important;
+  border-bottom-right-radius: 6rpx !important;
+  border: #BBBCCE solid 1rpx;
 }
 
 .repay-type-main .on {
-  background-color: #898aa9;
+  background: linear-gradient(90deg, #d0bf9d, #b1a183);
   color: #ffffff;
 }
 
@@ -272,7 +327,7 @@ page{
 
 .calc-btn {
   width: 100%;
-  background-color: #898aa9;
+  background-color: #BBBCCE;
   font-size: 18px;
   color: #ffffff;
 }
@@ -336,7 +391,7 @@ page{
 }
 
 .res-head {
-  background-color: #898aa9;
+  background-color: #BBBCCE;
   box-sizing: border-box;
   width: 100%;
   z-index: 10;
@@ -423,8 +478,7 @@ page{
   color: #ffffff;
 }
 
-.res-head-lixi .lixi-fld text {
-}
+.res-head-lixi .lixi-fld text {}
 
 .txt1 {
   opacity: 0.8;
@@ -520,8 +574,7 @@ page{
   padding: 0;
 }
 
-.app-list {
-}
+.app-list {}
 
 .app-itm {
   height: 148rpx;
@@ -554,6 +607,10 @@ page{
 .app-name text {
   font-size: 15px;
   color: #212121;
+}
+
+page {
+  background: #fff
 }
 
 .noborder {

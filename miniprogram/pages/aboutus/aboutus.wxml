@@ -1,0 +1,77 @@
+<swiper class="card-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
+  duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+  <swiper-item wx:for="{{gongsijieshao.xiangce}}" wx:key="_id" class="{{cardCur==index?'cur':''}}">
+    <view class="swiper-item">
+      <image src="{{item}}" mode="aspectFill"></image>
+    </view>
+  </swiper-item>
+</swiper>
+<view class="help-find-house-box data-v-2789d440" bindtap="navRuzhu">
+  <view class="help-find-house data-v-2789d440">
+    <image class="picture data-v-2789d440" mode="aspectFill" src="../../assets/image/help-find-house.png"></image>
+    <view class="text data-v-top-2789d440">入驻论方略</view>
+    <view class="text data-v-2789d440">简单填写，一键抢先入驻！</view>
+    <view class="btn data-v-2789d440">立即填写</view>
+  </view>
+</view>
+<tui-tabs tabs="{{tabs2}}" height="{{88}}" currentTab="{{currentTab}}" sliderWidth="{{150}}" sliderHeight="{{60}}"
+  bottom="50%" color="#888" selectedColor="#ffffff" bold="{{true}}" sliderBgColor="#E5FAFF" bind:change="change">
+</tui-tabs>
+<view class="container">
+  <view class="list-view" wx:if="{{currentTab == 0}}">
+    <view class="list-cell list-item" hover-class="hover" hover-stay-time="150" bindtap="detail">
+      <view>
+        <view class="" style="line-height:30px;font-size:14px;letter-spacing: 1px;text-align:left;">
+          {{gongsijieshao.pinpaijianjie}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="list-view" wx:if="{{currentTab == 1}}">
+    <view class="list-cell list-item" hover-class="hover" hover-stay-time="150" bindtap="detail">
+      <view>
+        <view class="" style="line-height:30px;font-size:14px;letter-spacing: 1px;text-align:left;">
+          {{gongsijieshao.fuwuzongzhi}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="list-view" wx:if="{{currentTab == 2}}">
+    <view class="list-cell list-item" hover-class="hover" hover-stay-time="150" bindtap="detail">
+      <view>
+        <view class="" style="line-height:30px;font-size:14px;letter-spacing: 1px;text-align:left;">
+          {{gongsijieshao.pinpailinian}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="list-view" wx:if="{{currentTab == 3}}">
+    <view class="list-cell list-item" hover-class="hover" hover-stay-time="150" bindtap="detail">
+      <view>
+        <view class="" style="line-height:30px;font-size:14px;letter-spacing: 1px;text-align:left;">
+          {{gongsijieshao.pinpaiyuanjin}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="list-view" wx:if="{{currentTab == 4}}">
+    <view class="list-cell list-item" hover-class="hover" hover-stay-time="150" bindtap="detail">
+      <image src="../../assets/image/logo.png" mode="widthFix" style="width:100%;"></image>
+    </view>
+  </view>
+  <view class="common-title margin-bottom-10">
+    <view class="cuIcon-titles common-title-left">
+      公司视频
+    </view>
+  </view>
+  <view class="recommend-house-layer" wx:if="{{gongsijieshao.shipin}}">
+    <swiper class="screen-swiper square-dot margin-20" indicator-dots="true" circular="true" autoplay="true"
+      interval="5000" duration="500" style="height:160px;border-radius:0">
+      <swiper-item style="border-radius:0" wx:for="{{gongsijieshao.shipin}}" wx:key="_id"
+        class="{{cardCur==index?'cur':''}}">
+        <view class="swiper-item" style="border-radius:0">
+          <video src="{{item}}" loop="{{false}}" muted="{{false}}" controls="{{true}}" show-play-btn="{{true}}"
+            object-fit="{{contain}}" autoplay="{{false}}"></video>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>
+
+<foot />

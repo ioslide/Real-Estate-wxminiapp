@@ -54,8 +54,8 @@
         <view class="model-form" slot="form">
           <input name="comment" class="model-form-input text-left" cursorSpacing="145" placeholder="请输入" placeholderClass="model-placeholder"></input>
         </view>
-        <view class="model-btn" slot="btn">
-          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover">
+        <view class="model-btn" slot="btn" style="margin: 0;">
+          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover" style="width:100%;border-radius:0;background:linear-gradient(90deg,#d0bf9d,#b1a183)"> 
             提交
           </button>
         </view>

@@ -22,6 +22,7 @@ create(store, {
     'longitude'
   ],
   data: {
+    currentTag:'zhaofang',
     mapsetting: {
       skew: 0,
       rotate: 0,
@@ -44,14 +45,30 @@ create(store, {
   onLoad: function (options) {
 
   },
+  
+  inputfocus() {
+    this.setData({
+      showClear: true
+    })
+  },
+  inputblur() {
+    this.setData({
+      showClear: false
+    })
+  },
+  clearKeyword() {
+    this.setData({
+      keyword: ''
+    })
+  },
   submitSearch(e) {
     wx.pro.showLoading({
       title: '提交中',
     })
     log(e)
     const t = this
-    log('[searchWord]', e.detail.value.nameInput)
-    let searchWord = e.detail.value.nameInput
+    log('[searchWord]', e.detail.value)
+    let searchWord = e.detail.value
     if (searchWord == "") {
       return wx.showToast({
         title: '请输入内容',

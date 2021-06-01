@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "umtrack-wx": "^2.6.3",
     "wl-pinyin": "^1.0.1",
     "wx-promise-pro": "^3.2.2"
   }

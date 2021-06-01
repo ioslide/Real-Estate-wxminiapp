@@ -1,6 +1,7 @@
 
 page{
-  background:#ffffff
+  background:#ffffff;
+  padding-bottom: 50px;
 }
 .common-title {
   display: flex;

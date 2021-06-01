@@ -1,26 +1,53 @@
 <view class="cu-bar tabbar bg-white shadow foot" style="height: 62px;padding:0;margin:0">
   <view class="action" bindtap="navHome">
     <view class='cuIcon-cu-image'>
-      <image src="../../assets/image/icon-estate.png"></image>
+      <image src="../../assets/image/home{{currentTag == 'shouye' ? '-active' : ''}}.png"></image>
     </view>
     <view >首页</view>
   </view>
   <view class="action" bindtap="navQiyefuwu">
     <view class='cuIcon-cu-image'>
-      <image src="../../assets/image/icon-loupan.png"></image>
+      <image src="../../assets/image/service{{currentTag == 'fuwu' ? '-active' : ''}}.png"></image>
     </view>
     <view >服务</view>
   </view>
   <view class="action" bindtap="navMap">
     <view class='cuIcon-cu-image'>
-      <image src="../../assets/image/icon-office.png"></image>
+      <image src="../../assets/image/findhouse{{currentTag == 'zhaofang' ? '-active' : ''}}.png"></image>
+    </view>
+    <view >找房</view>
+  </view>
+  <view class="action" bindtap="navQiuzuqiugou">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/huodong{{currentTag == 'huodong' ? '-active' : ''}}.png"></image>
+    </view>
+    <view >圈子</view>
+  </view>
+</view>
+<!-- 
+<view class="cu-bar tabbar bg-white shadow foot" style="height: 62px;padding:0;margin:0">
+  <view class="action" bindtap="navHome">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/icon-estate{{currentTag == 'shouye' ? '-active' : ''}}.png"></image>
+    </view>
+    <view >首页</view>
+  </view>
+  <view class="action" bindtap="navQiyefuwu">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/icon-loupan{{currentTag == 'fuwu' ? '-active' : ''}}.png"></image>
+    </view>
+    <view >服务</view>
+  </view>
+  <view class="action" bindtap="navMap">
+    <view class='cuIcon-cu-image'>
+      <image src="../../assets/image/icon-office{{currentTag == 'zhaofang' ? '-active' : ''}}.png"></image>
     </view>
     <view >找房</view>
   </view>
   <view class="action" bindtap="navHuodong">
     <view class='cuIcon-cu-image'>
-      <image src="../../assets/image/icon-shop.png"></image>
+      <image src="../../assets/image/icon-shop{{currentTag == 'huodong' ? '-active' : ''}}.png"></image>
     </view>
     <view >活动</view>
   </view>
-</view>
+</view> -->

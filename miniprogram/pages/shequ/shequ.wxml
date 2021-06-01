@@ -23,12 +23,12 @@
 <view class="ask-module hot-question">
   <view class="title">求租求购</view>
   <view class="ask-list">
-    <view class="items" wx:for="{{qiuzuqiugou}}" bindtap="navDetail" id="{{item._id}}">
-      <view class="tit" href="/shenzhen/ask/169048?fromSource=WECHAT">{{item.publishName}}: {{item.title}}, 电话: {{item.phone}}</view>
-      <view class="txt" >{{item.comment[0].comment}}</view>
-      <view class="other">
+    <view class="items" wx:for="{{qiuzuqiugou}}">
+      <view class="tit"><text bindtap="navDetail" id="{{item._id}}">{{item.publishName}}: {{item.title}},</text><text bind:tap="handlePhone" data-phone="{{item.phone}}">Tel: {{item.phone}}</text> </view>
+      <view class="txt" bindtap="navDetail" id="{{item._id}}" wx:if="{{item.comment.length !== 0}}">{{item.comment[0].comment}}</view>
+      <view class="other" bindtap="navDetail" id="{{item._id}}">
         <view class="tag-box">
-
+          <view wx:for="{{item.tag}}" wx:if="{{index<3}}" class="tag">{{item}}</view>
         </view>
         <view class="leave-word"> <i class="icon iconfont icon-liuyan"></i> <span
             class="number">{{item.comment.length}}</span> </view>
@@ -82,8 +82,8 @@
             </view>
           </radio-group> -->
         </view>
-        <view class="model-btn" slot="btn">
-          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover">
+        <view class="model-btn" slot="btn" style="margin: 0;">
+          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover" style="width:100%;border-radius:0;background:linear-gradient(90deg,#d0bf9d,#b1a183)"> 
             发布
           </button>
         </view>

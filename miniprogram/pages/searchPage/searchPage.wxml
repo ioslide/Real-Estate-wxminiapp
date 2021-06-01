@@ -59,7 +59,7 @@
             <view class="margin-bottom-5" style="color: #ff6d6d">{{item.loupandanjia}}</view>
             <view>
           <view class="cu-tag bg-gold font-weight-400 text-black text-white sm"
-            style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;color:#000">
+            style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">
             {{item.chanpinleixing}}
           </view>
           <view wx:for="{{item.biaoqian}}" wx:key="_id" class="cu-tag bg-grey light sm"

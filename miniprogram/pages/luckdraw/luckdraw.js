@@ -117,6 +117,9 @@ create(store, {
       .catch(console.error)
 
     let luckdrawTimes = wx.getStorageSync('luckdrawTimes')
+    t.setData({
+      luckdrawTimes: luckdrawTimes
+    })
     log(luckdrawTimes)
     if (luckdrawTimes < 1) {
       wx.showModal({

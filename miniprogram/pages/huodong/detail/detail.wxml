@@ -1,34 +1,97 @@
 
 <swiper class="card-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
-  duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
-  <swiper-item wx:for="{{detailhuodong.image}}" wx:key="_id" class="{{cardCur==index?'cur':''}}">
+  duration="500"  indicator-color="#8799a3" indicator-active-color="#0081ff">
+  <swiper-item wx:for="{{detailhuodong.lunbotu}}" wx:key="_id" class="{{cardCur==index?'cur':''}}">
     <view class="swiper-item">
       <image src="{{item}}" mode="aspectFill"></image>
     </view>
   </swiper-item>
 </swiper>
 
-<view class="common-title" style="margin-left: 20px;">
-  <view class="cuIcon-titles common-title-left">{{detailhuodong.title}}</view>
-</view>
-
-<view class="flex solid-bottom padding-30 align-center" style="padding-top: 0;padding-bottom:0;" wx:if="{{detailhuodong.huodongshipin}}">
-  <video style="border-radius:10px;width:100%;height:150px" src="{{detailhuodong.huodongshipin[0]}}" poster="{{detailhuodong.image[0]}}" loop="{{false}}"
-    muted="{{false}}" show-fullscreen-btn="true" title="{{detailhuodong.title}}" enable-progress-gesture="{{true}}"
-    show-play-btn="{{true}}" controls="{{true}}" objectFit="cover"></video>
-</view>
-
-<view class="padding-30 bg-white">
-  <view class="text-left text-grey" style="line-height:30px">
-    日期: {{detailhuodong.huodongriqi}}  区域: {{detailhuodong.huodongchengshi}}
+<view class="detail-price border-box">
+  <view class="detail-title-box detail-margin border-box" style="margin-bottom:5px">
+    <view class="detail-title-text border-box">{{detailhuodong.title}}</view>
   </view>
+  <view class="detail-label-box border-box detail-margin" style="margin-bottom:5px">
+    <view class="cu-tag bg-red light sm"
+      style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">最新活动
+    </view>
+    <view class="cu-tag bg-gold font-weight-400 text-white sm"
+      style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;color:#fff">
+       {{detailhuodong.huodongchengshi}}
+    </view>
+    <view wx:for="{{detailhuodong.huodongbiaoqian}}" wx:key="_id" class="cu-tag bg-grey light sm"
+      style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{item}}
+    </view>
+  </view>
+</view>
+
+<view class="floor-detail border-box margin-top-10">
+
+  <view class="detail-area-wrap" bindtap="handlePhone" data-phone="{{detailhuodong.phone}}">
+    <view class="detail-left-box">
+      <view class="detail-area-box detail-common border-box">
+        <view class="detail-area-label border-box" style="margin-bottom: 0;">活动主办</view>
+        <view class="detail-area-num border-box detail-area-beyond">
+          {{detailhuodong.zhubanfangmingcheng}}
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="detail-area-wrap">
+    <view class="detail-left-box">
+      <view class="detail-area-box detail-common border-box">
+        <view class="detail-area-label border-box" style="margin-bottom: 0;">联系方式</view>
+        <view class="detail-area-num border-box detail-area-beyond">
+          {{detailhuodong.phone}}
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="detail-area-wrap">
+    <view class="detail-left-box">
+      <view class="detail-area-box detail-common border-box">
+        <view class="detail-area-label border-box" style="margin-bottom: 0;">截止日期</view>
+        <view class="detail-area-num border-box detail-area-beyond">
+          {{detailhuodong.huodongriqi}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="address-box data-v-63601b40" bind:tap="guideTo">
+    <view class="text data-v-63601b40">具体地址:{{detailhuodong.jutidizhi}}</view>
+    <image class="detail-right-map-img" color="#333" src="../../../assets/image/shop-navigation.png" mode="widthFix"
+      style="width:30px;height: 30px;"></image>
+  </view>
+ 
+</view>
+
+<view class="common-title">
+  <view class="common-title-left margin-left-10" style="font-size:16px">视频介绍</view>
+</view>
+
+<view class="flex solid-bottom padding-15 align-center" wx:if="{{detailhuodong.huodongshipin}}">
+  <video style="border-radius:0px;width:100%;height:150px" src="{{detailhuodong.huodongshipin[0]}}" loop="{{false}}" muted="{{false}}" show-fullscreen-btn="true"
+    title="{{detailhuodong.title}}" enable-progress-gesture="{{true}}" show-play-btn="{{true}}" controls="{{true}}"
+    objectFit="cover"></video>
+</view>
+
+<view class="padding-15 bg-white">
   <view class="text-left" style="line-height:30px">
     {{detailhuodong.content}}
   </view>
-
-  <button bindtap="navApp" data-appid="{{detailhuodong.navappid}}" data-route="{{detailhuodong.navRoute}}"  wx:if="{{detailhuodong.navappid}}" class="cu-btn bg-red margin-tb-sm lg button-hover" aria-disabled="false" role="button" style="margin-top: 30px;">立刻前往</button>
 </view>
 
-<view class="im" bindtap="navApp" data-appid="{{detailhuodong.navappid}}" data-route="{{detailhuodong.navRoute}}" wx:if="{{detailhuodong.navappid}}">
-  <image src="../../../assets/image/gift.gif" class="im-readCount"></image>
+<view class="common-title">
+  <view class="common-title-left margin-left-10" style="font-size:16px">相册</view>
 </view>
+
+<swiper class="card-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
+  duration="500" indicator-color="#8799a3" indicator-active-color="#0081ff">
+  <swiper-item wx:for="{{detailhuodong.image}}" wx:key="_id" class="{{cardCur==index?'cur':''}}">
+    <view class="swiper-item">
+      <image src="{{item}}" mode="aspectFill"></image>
+    </view>
+  </swiper-item>
+</swiper>

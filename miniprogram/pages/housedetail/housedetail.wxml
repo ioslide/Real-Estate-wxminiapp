@@ -15,16 +15,16 @@
     <view class="cu-tag bg-red light sm"
       style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">在售
     </view>
-      <view class="cu-tag bg-gold font-weight-400 text-white sm"
-        style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;color:#fff">
-        {{houseDetail.chanpinleixing}}
-      </view>
-      <view wx:for="{{houseDetail.biaoqian}}" wx:key="_id" class="cu-tag bg-grey light sm"
-        style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{item}}
-      </view>
+    <view class="cu-tag bg-gold font-weight-400 text-white sm"
+      style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;color:#fff">
+      {{houseDetail.chanpinleixing}}
+    </view>
+    <view wx:for="{{houseDetail.biaoqian}}" wx:key="_id" class="cu-tag bg-grey light sm"
+      style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{item}}
+    </view>
   </view>
-
 </view>
+
 <view class="floor-detail border-box">
   <view class="detail-line-box detail-margin border-box"></view>
 
@@ -122,7 +122,6 @@
   </scroll-view>
 </view>
 
-
 <view class="around-box border-box">
   <view class="common-title border-box">
     <view class="common-title-left" style="font-size: 16px;">楼盘周边</view>
@@ -205,8 +204,15 @@
 
 
 <view class="apartment-box border-box">
-  <view class="common-title ">
+  <view class="common-title" style="margin-bottom: 0;">
     <view class="common-title-left" style="font-size: 16px;">销售顾问</view>
+  </view>
+  <view class="service-box data-v-188b6c76">
+    <view class="items data-v-188b6c76">全程免费</view>
+    <view class="items data-v-188b6c76">专业服务</view>
+    <view class="items data-v-188b6c76">楼盘解读</view>
+    <view class="items data-v-188b6c76">户型解析</view>
+
   </view>
   <view class="saleman-scroll-box margin-left-15 margin-right-15 border-box">
 
@@ -239,9 +245,9 @@
       <view class="saleman-item-right">
         <view bindtap="handleChat" data-target="formChat" class="saleman-round saleman-round-1" data-id="{{item._id}}"
           data-level="{{item.dailidengji}}顾问" data-name="{{item.mingcheng}}" data-phone="{{item.dianhua}}">
-          <text class="fhyfont iconIMliaotiantubiao iconText"></text></view>
+          <text class="fhyfont iconIMliaotiantubiao iconText" style="color:#d4cec2"></text></view>
         <view bindtap="handlePhone" class="saleman-round saleman-round-2" data-phone="{{item.dianhua}}">
-          <text class="fhyfont iconphone1 iconText"></text>
+          <text class="fhyfont iconphone1 iconText" style="color:#d4cec2"></text>
         </view>
       </view>
     </view>
@@ -294,9 +300,9 @@
           <input bindinput="phoneInput" name="phoneInput" class="model-form-input text-left" cursorSpacing="90"
             maxlength="11" placeholder="您的手机号" placeholderClass="model-placeholder" value="{{userphone}}"></input>
         </view>
-        <view class="model-btn" slot="btn">
-          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover">
-            预约沟通
+        <view class="model-btn" slot="btn" style="margin:0">
+          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover" style="background:linear-gradient(90deg,#d0bf9d,#b1a183);border-radius:0;bottom:0;width: 100%;">
+            提交
           </button>
         </view>
       </form>
@@ -316,7 +322,7 @@
   </view>
   <view class="button-box data-v-00532eba" bindtap="handlePhone" data-phone="{{loupanshouxidailiren.dianhua}}">
     <view class="contact data-v-00532eba">
-      打电话
+      联系Ta
     </view>
   </view>
 </view>

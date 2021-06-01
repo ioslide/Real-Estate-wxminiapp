@@ -54,11 +54,11 @@ const judgeTime = () => { //判断缓存是否过期
   return false;
 }
 
-let isLessThanFurtureTime = judgeTime()
+// let isLessThanFurtureTime = judgeTime()
 
-const furtureTime = () => {
-  return Date.now() + 900000; //毫秒(15分钟)
-}
+// const furtureTime = () => {
+//   return Date.now() + 900000; //毫秒(15分钟)
+// }
 
 const getdailirenList = () => {
   let key = ''
@@ -73,10 +73,10 @@ const getdailirenList = () => {
 
   db.collection(database).orderBy('paimingshunxu', 'desc').get().then(res => {
     module.exports.default.data.dailiren = res.data
-    wx.setStorage({
-      key:"dailiren",
-      data:res.data
-    })
+    // wx.setStorage({
+    //   key:"dailiren",
+    //   data:res.data
+    // })
   })
 }
 const getSwiper = () => {
@@ -92,10 +92,10 @@ const getSwiper = () => {
 
   db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
     module.exports.default.data.swiperList = res.data
-    wx.setStorage({
-      key:"swiperList",
-      data:res.data
-    })
+    // wx.setStorage({
+    //   key:"swiperList",
+    //   data:res.data
+    // })
   })
 }
 const getadSwiper = () => {
@@ -130,10 +130,10 @@ const getNews = () => {
 
   db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
     module.exports.default.data.zixunxinxi = res.data
-    wx.setStorage({
-      key:"zixunxinxi",
-      data:res.data
-    })
+    // wx.setStorage({
+    //   key:"zixunxinxi",
+    //   data:res.data
+    // })
   })
 }
 const getStartImage = () => {
@@ -149,10 +149,10 @@ const getStartImage = () => {
 
   db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
     module.exports.default.data.startImage = res.data
-    wx.setStorage({
-      key:"startImage",
-      data:res.data
-    })
+    // wx.setStorage({
+    //   key:"startImage",
+    //   data:res.data
+    // })
   })
 }
 const getAllHouseList = () => {
@@ -203,14 +203,14 @@ const getAllHouseList = () => {
     // let homepageHouseList = res.data.filter(function (entry) {
     //   return entry.chengshi === key;
     // });
-    wx.setStorage({
-      key:"allHouseList",
-      data:res.data
-    })
-    wx.setStorage({
-      key:"markersData",
-      data:markersData
-    })
+    // wx.setStorage({
+    //   key:"allHouseList",
+    //   data:res.data
+    // })
+    // wx.setStorage({
+    //   key:"markersData",
+    //   data:markersData
+    // })
     module.exports.default.data.markersData = markersData
     module.exports.default.data.allHouseList = res.data
   })
@@ -251,18 +251,18 @@ const initData = async () => {
   // getGoufangzhengce()
   // getMaifangliucheng()
 }
-const initStorageData =async () =>{
-  module.exports.default.data.zixunxinxi = wx.getStorageSync('zixunxinxi')
-  module.exports.default.data.startImage = wx.getStorageSync('startImage')
-  module.exports.default.data.dailiren = wx.getStorageSync('dailiren')
-  module.exports.default.data.swiperList = wx.getStorageSync('swiperList')
-  module.exports.default.data.adSwiperList = wx.getStorageSync('adSwiperList')
-  module.exports.default.data.allHouseList = wx.getStorageSync('allHouseList')
-  module.exports.default.data.goufangzhengce = wx.getStorageSync('goufangzhengce')
-  module.exports.default.data.maifangliucheng = wx.getStorageSync('maifangliucheng')
-  // module.exports.default.data.homepageHouseList = wx.getStorageSync('homepageHouseList')
-  module.exports.default.data.markersData = wx.getStorageSync('markersData')
-}
+// const initStorageData =async () =>{
+//   module.exports.default.data.zixunxinxi = wx.getStorageSync('zixunxinxi')
+//   module.exports.default.data.startImage = wx.getStorageSync('startImage')
+//   module.exports.default.data.dailiren = wx.getStorageSync('dailiren')
+//   module.exports.default.data.swiperList = wx.getStorageSync('swiperList')
+//   module.exports.default.data.adSwiperList = wx.getStorageSync('adSwiperList')
+//   module.exports.default.data.allHouseList = wx.getStorageSync('allHouseList')
+//   module.exports.default.data.goufangzhengce = wx.getStorageSync('goufangzhengce')
+//   module.exports.default.data.maifangliucheng = wx.getStorageSync('maifangliucheng')
+//   // module.exports.default.data.homepageHouseList = wx.getStorageSync('homepageHouseList')
+//   module.exports.default.data.markersData = wx.getStorageSync('markersData')
+// }
 const onReadyEvnet = async () => {
   // await wx.pro.showLoading({
   //   title: '加载中',

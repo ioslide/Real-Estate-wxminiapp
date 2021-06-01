@@ -4,23 +4,59 @@ const groupEnd = console.groupEnd.bind(console)
 const error = console.error.bind(console)
 require("./pages/fangdaijisuan/utils/service");
 import util from "./util/weapp";
+import uma from'umtrack-wx';
+
 
 var a = require("./pages/fangdaijisuan/utils/util.js"),
   t = a.liLvApi,
   e = a.trimAll;
 App({
+  globalData: {
+    uma :[],
+    latitude: 30.664,
+    longitude: 104.016,
+    StatusBar: "",
+    CustomBar: "",
+    barHeight: "",
+    navigationHeight: "",
+    Custom: "",
+    pixelRatio: "",
+    windowWidth: "",
+    windowHeight: "",
+    screenWidth: "",
+    openid: '',
+    unionid: '',
+    isIpx: !1,
+    systemInfo: {},
+    lilvList: null,
+    lilvMap: null,
+    dkform: {},
+    gjjform: {},
+    menudata: {
+      amt: 0,
+      year: "",
+      fqtype: 0,
+      frommenu: 0
+    },
+    menu: {}
+  },
+  umengConfig:{
+    appKey:'60acc0d053b67264990f437f',
+    useOpenid:true,
+    autoGetOpenid:false,// 是否需要通过友盟后台获取openid，如若需要，请到友盟后台设置appId及secret
+    debug:true,//是否打开调试模式
+    uploadUserInfo:true// 上传用户信息，上传后可以查看有头像的用户分享信息，同时在查看用户画像时，公域画像的准确性会提升。
+},
   onLaunch: function (options) {
+    const t = this
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
+
     } else {
       wx.cloud.init({
-        // env 参数说明：
-        //   env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
-        //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
-        //   如不填则使用默认环境（第一个创建的环境）
-        // env: 'my-env-id',
         traceUser: true,
       })
+      t.getWxcontext()
     }
     if (wx.canIUse("getUpdateManager")) {
       const updateManager = wx.getUpdateManager();
@@ -53,6 +89,26 @@ App({
     }
     this.getSystemInfo();
   },
+  getWxcontext(){
+    const t = this
+    log('getWxcontext')
+    wx.cloud.callFunction({
+      name: "openapi",
+      data: {
+        action: 'getContext',
+      },
+    }).then(function (res) {
+      log('[wxContext]',res.result)
+      wx.uma.setOpenid(res.result.openid)
+      t.globalData.openid = res.result.openid
+      t.globalData.unionid  = res.result.unionid 
+      wx.setStorage({
+        data: res.result,
+        key: 'wxContext',
+      })
+      return  res.result
+    }).catch(console.error)
+  },
   getLiLvList: function () {
     var a = this;
     return new Promise(function (e, l) {
@@ -63,6 +119,18 @@ App({
         }), a.globalData.lilvList = t, a.globalData.lilvMap = l, e(a.globalData.lilvList);
       });
     });
+  },
+  getCurrentTime() {
+    let date = new Date()
+    let Y = date.getFullYear()
+    let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
+    let D = date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate()
+    let hours = date.getHours()
+    let minutes = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+    let seconds = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+    date = Y + '-' + M + '-' + D + ' ' + hours + ':' + minutes + ':' + seconds
+    console.log(date) // 2019-10-12 15:19:28
+    return date
   },
   toast: function (a) {
     wx.showToast({
@@ -137,33 +205,5 @@ App({
         }
       }
     });
-  },
-  globalData: {
-    latitude: 30.664,
-    longitude: 104.016,
-    StatusBar: "",
-    CustomBar: "",
-    barHeight: "",
-    navigationHeight: "",
-    Custom: "",
-    pixelRatio: "",
-    windowWidth: "",
-    windowHeight: "",
-    screenWidth: "",
-    openid: '',
-    unionid: '',
-    isIpx: !1,
-    systemInfo: {},
-    lilvList: null,
-    lilvMap: null,
-    dkform: {},
-    gjjform: {},
-    menudata: {
-      amt: 0,
-      year: "",
-      fqtype: 0,
-      frommenu: 0
-    },
-    menu: {}
   },
 })

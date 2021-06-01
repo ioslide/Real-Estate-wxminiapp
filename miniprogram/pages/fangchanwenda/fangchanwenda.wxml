@@ -26,12 +26,10 @@
   <view class="ask-list">
     <view class="items" wx:for="{{fangchanwenda}}" bindtap="navDetail" id="{{item._id}}">
       <view class="tit">{{item.title}}</view>
-      <view class="txt">{{item.comment[0].comment}}</view>
-      <view class="other">
+      <view class="txt" wx:if="{{item.comment.length !== 0}}">{{item.comment[0].comment}}</view>
+      <view class="other">  
         <view class="tag-box">
-          <view class="tag" href="/shenzhen/ask/list/kwchenghantaoyuanhuayuan?fromSource=WECHAT">承翰陶源花园</view>
-          <view class="tag" href="/shenzhen/ask/list/kwjiaoyishuifei?fromSource=WECHAT">交易税费</view>
-          <view class="tag" href="/shenzhen/ask/list/kwjiaoyishui?fromSource=WECHAT">交易税</view>
+          <view wx:for="{{item.tag}}" wx:if="{{index<3}}" class="tag">{{item}}</view>
         </view>
         <view class="leave-word"> <i class="icon iconfont icon-liuyan"></i> <span
             class="number">{{item.comment.length}}</span> </view>
@@ -43,9 +41,9 @@
 </view>
 
 
-<view class="padding flex flex-direction margin-top-20"  bindtap="getShequ"  wx:if="{{fangchanwenda.length == 0}}">
+<view class="padding flex flex-direction margin-top-20" bindtap="getShequ" wx:if="{{fangchanwenda.length == 0}}">
   <nodata boxStyle="padding-top:50rpx" btnUrl="{{noDataUrl}}" imgStyle="width:340rpx"
-      imgUrl="../../assets/image/no-result.png" tipsData="{{['没有找到相应的信息']}}"></nodata>
+    imgUrl="../../assets/image/no-result.png" tipsData="{{['没有找到相应的信息']}}"></nodata>
 </view>
 
 <view bindtap="addComment" class="ask-question">
@@ -72,8 +70,9 @@
           <input name="title" class="model-form-input text-left" cursorSpacing="145" placeholder="标题"
             placeholderClass="model-placeholder"></input>
         </view>
-        <view class="model-btn" slot="btn">
-          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover">
+        <view class="model-btn" slot="btn" style="margin: 0;">
+          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover"
+            style="width:100%;border-radius:0;background: linear-gradient(90deg,#d0bf9d,#b1a183)">
             发布
           </button>
         </view>

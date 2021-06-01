@@ -146,10 +146,14 @@ create(store, {
           jiedaidailixingming: t.data.curDaili.name,
           jiedaidailidianhua: t.data.curDaili.phone,
           dailiid: t.data.curDaili.id,
-          tijiaoshijian: t.getCurrentTime()
+          tijiaoshijian: t.getCurrentTime(),
+          guketijiaolaiyuan: '所有代理人页面提交'
         }
       })
       .then(res => {
+        wx.showToast({
+          title: '提交成功',
+        })
         console.log(res)
         wx.pro.hideLoading()
         t.hideModal()

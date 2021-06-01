@@ -97,7 +97,12 @@ page{
   overflow: hidden;
   background: rgb(245,247,250);
 }
-
+.banner{
+  display: block;
+  width: 750rpx;
+  height: 220rpx;
+  background-color: #fff;
+}
 .comImg {
   position: absolute;
   width: 46rpx;

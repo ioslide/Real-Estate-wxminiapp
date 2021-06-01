@@ -3,3 +3,252 @@ page{
   background:#ffffff;
   padding-bottom:70px
 }
+.ask-module .title {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 24px 15px 0;
+  font-size: 18px;
+  color: #333;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.detail-margin {
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+}
+
+.detail-price {
+  position: relative;
+}
+
+.detail-title-box {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  margin-right: 0rpx;
+}
+
+.detail-title-text {
+  flex: auto;
+  font-size: 40rpx;
+  font-weight: 500;
+  text-align: left;
+  color: #0a2228;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  transition: all 1s ease;
+}
+
+.detail-tit-img {
+  width: 46rpx;
+  height: 46rpx;
+  line-height: 46rpx;
+  font-size: 46rpx;
+  margin-top: 17rpx;
+  align-self: flex-start;
+  color: #ff3f00;
+}
+
+.detail-label-box {
+  overflow: hidden;
+}
+
+.detail-label-item {
+  float: left;
+  display: flex;
+  align-items: center;
+  height: 36rpx;
+  padding: 8rpx 12rpx;
+  margin-right: 11rpx;
+  font-size: 20rpx;
+  color: rgba(96,113,118,1);
+  background: rgba(244,244,246,1);
+  border-radius: 4rpx;
+  margin-bottom: 10rpx;
+}
+
+.detail-red-background {
+  background: rgba(255,87,114,1);
+  color: white;
+}
+
+.detail-price-box {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  height: 48rpx;
+  margin-bottom: 12rpx;
+}
+
+.detail-price-big {
+  height: 48rpx;
+  line-height: 48rpx;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: rgba(255,87,114,1);
+  margin-right: 8rpx;
+}
+
+.detail-price-small {
+  font-size: 26rpx;
+  color: rgba(255,87,114,1);
+}
+
+.detail-price-tip-box {
+  height: 24rpx;
+  line-height: 24rpx;
+  margin-bottom: 42rpx;
+  font-size: 24rpx;
+  color: rgba(102,114,127,1);
+}
+
+.iconshoucang3 {
+  color: #d8ddf1;
+}
+
+.iconshoucang21 {
+  color: #fed468;
+}
+
+.BIZ-enter-box {
+  position: relative;
+  padding-top: 16rpx;
+}
+
+.BIZ-enter-btn {
+  flex: auto;
+  white-space: nowrap;
+  font-size: 24rpx;
+  padding: 13rpx 8rpx 13rpx 40rpx;
+  background: rgba(255,63,0,1);
+  border-radius: 100px 0px 0px 100px;
+  color: #fff;
+  position: relative;
+  overflow: visible;
+}
+
+.iconyoujiantou {
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.BIZ-enter-btn .img {
+  width: 60rpx;
+  height: 86.4rpx;
+  position: absolute;
+  left: 0rpx;
+  top: 29%;
+  transform: translate(-50%,-50%);
+}
+
+.animationBtn {
+  animation: movebtn 1s ease;
+}
+
+@-webkit-keyframes movebtn {
+  from {
+      right: -205rpx;
+  }
+
+  to {
+      right: 0rpx;
+  }
+}
+
+@keyframes movebtn {
+  from {
+      right: -205rpx;
+  }
+
+  to {
+      right: 0rpx;
+  }
+}.floor-detail {
+  position: relative;
+}
+.detail-area-wrap {
+  display: flex;
+}
+.detail-left-box {
+  display: flex;
+}
+.detail-area-label {
+  width: 152rpx;
+  flex-basis: 152rpx;
+  margin-right: 22rpx;
+  font-size: 28rpx;
+  text-align: right;
+  color: rgba(157,169,173,1);
+}
+.detail-area-num {
+  font-size: 28rpx;
+  color: #0a2228;
+  font-weight: 500;
+}
+
+.address-box.data-v-63601b40 {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  height: 100rpx;
+  padding: 0 20rpx;
+  background: url(https://i.qfangimg.com/resource/qfang-mobile-wx/img/newhouse-location-bg.png?20200702=) no-repeat;
+  background-size: cover;
+}
+
+ .address-box .text.data-v-63601b40 {
+  -webkit-box-flex: 1;
+  flex: 1;
+  margin: 0 20rpx;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.2;
+}
+.area-address {
+  flex: 1;
+}
+.detail-common {
+  line-height: 40rpx;
+}.border-box {
+  box-sizing: border-box;
+}
+
+.detail-area-box {
+  position: relative;
+  display: flex;
+  margin-bottom: 32rpx;
+}
+
+.detail-vr-background {
+  background-image: linear-gradient(to right,#28ADF9 0%,#3C7FFF 100%);
+  color: #fff;
+}
+.hot-question .title:after {
+  content: "SERVICE";
+  width: 60px;
+  height: 15px;
+  line-height: 15px;
+  text-align: center;
+  font-size: 10px;
+  position: absolute;
+  left: 130px;
+  top: 14px;
+  color: #fff;
+  background: -webkit-gradient(linear, right top, left top, from(#fe811c), to(#ff5400));
+  background: linear-gradient(270deg, #fe811c, #ff5400);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.ask-module {
+  margin-top: 12px;
+  border-top: 1px solid #f0f0f0;
+  background-color: #fff;
+  position: relative;
+}

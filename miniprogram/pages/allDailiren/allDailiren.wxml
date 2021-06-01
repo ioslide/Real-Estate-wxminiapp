@@ -22,7 +22,7 @@
   </view>
 </view>
 
-
+<!-- <image class="banner" src="https://7868-xhy-craft-1gpv4s5596b1f3b9-1305059458.tcb.qcloud.la/alldailirenbanner.jpg?sign=72978edd2be279f6ad5d2a94defab0f9&t=1621911269" mode="aspectFill" role="img"></image> -->
 <view class="saleman-scroll-box detail-margin border-box">
   <scroll-view class="scroll-box" bindscrolltolower="getMoreData">
     <view class="saleman-item border-box" bindtap="navDetailDailiren" data-id="{{item._id}}" wx:for="{{dailiren}}"
@@ -64,13 +64,13 @@
           data-level="{{item.dailidengji}}顾问" data-name="{{item.mingcheng}}" data-phone="{{item.dianhua}}">
           <!-- <image class="saleman-item-right-img border-box" src="../../assets/image/img_project_chat_small.png"
             role="img"></image> -->
-          <text class="border-box fhyfont iconIMliaotiantubiao iconText" style="color:#bbbcce"></text>
+          <text class="border-box fhyfont iconIMliaotiantubiao iconText"  style="color:#d4cec2"></text>
         </view>
         <view catch:tap="handlePhone" class="saleman-round saleman-round-2" data-id="{{item._id}}"
           data-level="{{item.dailidengji}}顾问" data-name="{{item.mingcheng}}" data-phone="{{item.dianhua}}">
           <!-- <image class="saleman-item-right-img border-box" src="../../assets/image/img_project_phone_small.png"
             role="img"></image> -->
-          <text class="border-box fhyfont iconphone1 iconText" style="color:#bbbcce"></text>
+          <text class="border-box fhyfont iconphone1 iconText"  style="color:#d4cec2"></text>
         </view>
       </view>
     </view>
@@ -98,9 +98,9 @@
           <input bindinput="phoneInput" name="phoneInput" class="model-form-input text-left" cursorSpacing="90"
             maxlength="11" placeholder="您的手机号" placeholderClass="model-placeholder" value="{{userphone}}"></input>
         </view>
-        <view class="model-btn" slot="btn">
-          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover">
-            预约沟通
+        <view class="model-btn" slot="btn" style="margin:0">
+          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover" style="background:linear-gradient(90deg,#d0bf9d,#b1a183);border-radius:0;bottom:0;width: 100%;">
+            提交
           </button>
         </view>
       </form>

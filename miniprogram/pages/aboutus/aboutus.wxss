@@ -1,0 +1,261 @@
+page{
+  background-color: #ffffff;
+  padding-bottom: 100px;
+}
+/*tabbar start*/
+::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+.tab-view::before {
+  content: '';
+  position: absolute;
+  border-bottom: 1rpx solid #eaeef1;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.tab-view {
+  width: 100%;
+  height: 100rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+  top: 420rpx !important;
+  left: 0;
+  z-index: 99;
+  background: #fff;
+  white-space: nowrap;
+}
+
+.tab-bar-item {
+  padding: 0;
+  height: 100rpx;
+  min-width: 80rpx;
+  line-height: 100rpx;
+  margin: 0 28rpx;
+  display: inline-block;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.tab-bar-title {
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 32rpx;
+  color: #999;
+  font-weight: 400;
+}
+.active{
+  border-bottom: 6rpx solid #5677fc;
+}
+.active .tab-bar-title {
+  color: #5677fc !important;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+/*tabbar end*/
+.scoll-y{
+  height: 100%;
+}
+.list-view {
+  margin-top: 0;
+  width: 100%;
+  background: #fff;
+  box-sizing: border-box;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.recommend-house-layer .head {
+  height: 60rpx;
+  line-height: 60rpx;
+  display: flex;
+  margin-bottom: 10rpx;
+  padding-top: 30rpx;
+}
+
+.recommend-house-layer .head .h1 {
+  font-size: 36rpx;
+  font-weight: bold;
+  flex: 1;
+  font-weight: 500;
+}
+
+.recommend-house-layer .head .more {
+  color: #607176;
+  text-align: right;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+}
+
+
+.swiper-icon {
+  border: 1px solid #9da9ad4f;
+  border-radius: 50%;
+  width: 60rpx;
+  height: 60rpx;
+  margin: 0rpx auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-icon-checked {
+  border: 3rpx solid #30a690;
+}
+
+.iconsrc {
+  width: 52%;
+  height: 52%;
+  display: block;
+}
+
+.swiper-top {
+  white-space: nowrap;
+  position: relative;
+  margin-bottom: 30rpx;
+}
+
+.swiper-top-main {
+  color: #9DA9AD;
+  font-size: 26rpx;
+  display: inline-block;
+  margin: 0rpx 24rpx;
+  text-align: center;
+}
+
+.checked {
+  color: var(--themeColor);
+}
+
+.swiper-top-main:first-of-type {
+  margin-left: 54rpx;
+}
+
+.swiper-top-main:last-child {
+  margin-right: 54rpx;
+}
+
+.swiper-bottom-main {
+  position: relative;
+  margin: 0rpx 50rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  height: 100%;
+}
+
+.swiper-item {
+  height: 100%;
+}
+
+.swiper-word {
+  position: absolute;
+  left: 0rpx;
+  bottom: 0rpx;
+  width: 100%;
+  background-color: #000;
+  opacity: 0.45;
+  color: #fff;
+  padding: 14rpx 0rpx 14rpx 0rpx;
+}
+
+.swiper-word>view {
+  margin: 1rpx 24rpx;
+  font-family: PingFangSC;
+}
+
+.swiper-word1 {
+  font-size: 24rpx;
+  font-weight: bold;
+}
+
+.swiper-word2 {
+  font-size: 22rpx;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.recommend-house-layer .head .more .fhyfont {
+  font-size: 32rpx;
+}
+.list-cell {
+  padding: 30rpx;
+  margin-left: 10px;
+  margin-right: 10px;
+  box-sizing: border-box;
+}
+
+.cell-title-box{
+  display: flex;
+  justify-content: space-between;
+}
+.cell-title {
+  font-size: 36rpx;
+  line-height: 56rpx;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  /* padding-bottom: 30rpx; */
+}
+.img-container{
+  width: 100%;
+  padding-top: 24rpx;
+  display: flex;
+  height: 160rpx;
+  justify-content: space-between;
+}
+.cell-img {
+   width: 32%;
+   overflow: hidden;
+   position: relative;
+}
+.img{
+  width: 100%;
+  height: 160rpx;
+  /* position: absolute;
+  left: 50%;
+  top:50%;
+  transform: translate(-50%,-50%); */
+  border-radius: 4rpx;
+}
+.sub-title{
+  padding-top: 24rpx;
+  font-size: 28rpx;
+  color: #BCBCBC;
+  display: flex;
+  align-items: center
+}
+.badge{
+  padding: 5rpx 10rpx;
+  font-size: 24rpx;
+  border-radius: 4rpx;
+  margin-right: 20rpx;
+}
+.b-red{
+  background: #FCEBEF;
+  color: #8A5966;
+}
+.b-blue{
+  background: #ECF6FD;
+  color: #4DABEB;
+}
+.b-orange{
+  background: #FEF5EB;
+  color: #FAA851
+}
+.b-green{
+  background: #E8F6E8;
+  color: #44CF85
+}

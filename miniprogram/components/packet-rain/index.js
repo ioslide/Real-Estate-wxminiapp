@@ -6,6 +6,9 @@ const innerAudioContext = wx.createInnerAudioContext()
  let animation = null
  const minWidth = 30  // 红包图片最小宽度
  const maxWidth = 40 // 红包图片最大宽度
+ import pinyin from "wl-pinyin"
+ const db = wx.cloud.database()
+const _ = db.command
 Component({
   properties: {
      // 是否开始展示游戏
@@ -51,6 +54,19 @@ Component({
     scoreStyle:''
   },
   ready: function () {
+    const t = this
+    let _key = 'jinjiangqu'
+    let temp = _key + 'huodongjiangpinshezhi'
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    db.collection(database).get().then(res => {
+        console.log(res.data[0])
+        let result = res.data[0].hongbaoyu
+        t.setData({
+          awardList : result
+        })
+      })
+      .catch(console.error)
+
      // 重置
     redEnvelopes = [] 
     clearTimeout(readyTimer) 
@@ -157,14 +173,15 @@ Component({
       if(t.data.showScore < 10 && t.data.showScore >= 0){
         jiangpin = '没有获奖'
       }else if(t.data.showScore < 30 && t.data.showScore >= 10){
-        jiangpin = '房产纪念册'
+        jiangpin = t.data.awardList.sidengjiang
       }else if (t.data.showScore >= 30 && t.data.showScore < 60){
-        jiangpin = '免费房屋设计'
+        jiangpin = t.data.awardList.sandengjiang
       }else if (t.data.showScore >= 60 && t.data.showScore < 90){
-        jiangpin = '免费房屋风水测试'
+        jiangpin = t.data.awardList.erdengjiang
       }else if(t.data.showScore > 90){
-        jiangpin = '购房98折'
+        jiangpin = t.data.awardList.yidengjiang
       }
+      console.log('奖品',jiangpin,t.data.awardList)
       this.setData({
         showStatus: 3,
         rainResult: {

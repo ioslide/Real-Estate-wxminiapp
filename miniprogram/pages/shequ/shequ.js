@@ -32,8 +32,14 @@ create(store, {
   onLoad: function (options) {
     
   },
+  handlePhone(e) {
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.phone
+    })
+  },
   navDetail(e) {
     log(e)
+    const t = this
     wx.navigateTo({
       url: './detail/detail?detailid=' + e.currentTarget.id
     })
@@ -58,10 +64,27 @@ create(store, {
 
     db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
       log(res.data)
-      t.setData({
-        qiuzuqiugou: res.data,
-        showCancel:false
-      })
+      for(let i=0;i<res.data.length;i++){
+        wx.cloud.callFunction({
+          name: "openapi",
+          data: {
+            action: 'getTokenize',
+            msg : res.data[i].title,
+            openid: app.globalData.openid
+          },
+        }).then(function (result) {
+          log('[' + res.data[i].title + ']',result.result)
+          res.data[i].tag = result.result.entities
+          if(res.data.length == 4){
+          log(res.data)
+            t.setData({
+              qiuzuqiugou: res.data,
+              showCancel: false
+            })
+          }
+        }).catch(console.error)
+      }
+      
       wx.pro.hideLoading()
     })
   },

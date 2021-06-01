@@ -19,10 +19,12 @@ import {
 promisifyAll()
 import create from '../../util/create'
 import store from '../../store/index'
+const form = require("../../util/formValidation.js")
 
 create(store, {
   data: {
     scrollTop: 0,
+    currentTag: 'shouye',
     false: false,
     true: true,
     latitude: 30.5702,
@@ -77,6 +79,7 @@ create(store, {
       id: ''
     },
     modalName: '',
+    ruzhuList:[{}],
     use: [
       'adSwiperList',
       'swiperList',
@@ -95,6 +98,32 @@ create(store, {
   },
   onLoad: function (options) {
     log('options', options)
+    // const t = this
+//     var token = jwt.sign({ foo: 'bar' }, privateKey, { algorithm: 'RS256' });
+
+//     const signedData = jwths256.encode(EncodingAESKey, {
+//       uid: t.globalData.openid, 
+//       data: {
+//          q:"微信智言与微信智聆两大技术的支持下，微信AI团队推出了“微信对话开放平台”和“腾讯小微”智能硬件两大核心产品。微信支付团队最新发布的“微信青蛙Pro”在现场设置了体验区，让大家感受AI认脸的本事。"
+//       }
+//     }
+// )
+//     wx.request({
+//       url: 'https://openai.weixin.qq.com/openapi/nlp/tokenize/WmlasdlPkVIUh9hvwdKaVA1CRCYSaX',
+//       data: {
+//         query: signedData
+//       },
+//       enableCache: true,
+//       enableHttp2: true,
+//       enableQuic: true,
+//       method: 'post',
+//       responseType: responseType,
+//       timeout: 0,
+//       success: (result) => {},
+//       fail: (res) => {},
+//       complete: (res) => {},
+//     })
+
     wx.setStorageSync('hongbuyuCishu', 1)
     if (options.pageid == 'luckdraw') {
       wx.navigateTo({
@@ -165,6 +194,9 @@ create(store, {
       default:
         break;
     }
+  },
+  onPullDownRefresh: function () {
+    this.getUserLocation()
   },
   navQiuzuqiugou() {
     wx.navigateTo({
@@ -252,18 +284,7 @@ create(store, {
       modalName: null
     })
   },
-  getCurrentTime() {
-    let date = new Date()
-    let Y = date.getFullYear()
-    let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-    let D = date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate()
-    let hours = date.getHours()
-    let minutes = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
-    let seconds = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
-    date = Y + '-' + M + '-' + D + ' ' + hours + ':' + minutes + ':' + seconds
-    console.log(date) // 2019-10-12 15:19:28
-    return date
-  },
+
   submitForm(e) {
     log(e)
     const t = this
@@ -281,15 +302,65 @@ create(store, {
           jiedaidailixingming: t.data.curDaili.name,
           jiedaidailidianhua: t.data.curDaili.phone,
           dailiid: t.data.curDaili.id,
-          tijiaoshijian: t.getCurrentTime()
+          tijiaoshijian: app.getCurrentTime()
         }
       })
       .then(res => {
         console.log(res)
+        wx.showToast({
+          title: '提交成功',
+        })
         wx.pro.hideLoading()
         t.hideModal()
       })
       .catch(console.error)
+  },
+  vipsubmitForm(e) {
+    log(e)
+    const t = this
+    let rules = [
+      {
+        name: "nameInput",
+        rule: ["required", "minLength:2", "maxLength:30"],
+        msg: ["请输入姓名", "必须2个或以上字符", "姓名不能超过20个字符"]
+      },
+      {
+        name: "phoneInput",
+        rule: ["required", "isMobile"],
+        msg: ["请输入手机号", "请输入正确的手机号"]
+      }
+    ];
+    let formData = e.detail.value;
+    let checkRes = form.validation(formData, rules);
+    if (!checkRes) {
+      log('验证通过')
+      wx.pro.showLoading({
+        title: '提交中',
+      })
+      let _key = t.store.data.curCity
+      let temp = _key + 'gukeyuyue'
+      let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+      db.collection(database).add({
+        data: {
+          guketijiaolaiyuan:"首页VIP选房小帮手",
+          username: e.detail.value.nameInput,
+          userphone: e.detail.value.phoneInput,
+          tijiaoshijian: app.getCurrentTime()
+        }
+        })
+        .then(res => {
+          console.log(res)
+          wx.pro.hideLoading()
+          t.hideModal()
+        })
+        .catch(console.error)
+    } else {
+      wx.showToast({
+        title: checkRes,
+        icon: "none"
+      });
+    }
+
   },
   selectCity() {
     const key = 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7'; // 使用在腾讯位置服务申请的key
@@ -353,9 +424,15 @@ create(store, {
       url: '../qiyefuwuhuodong/qiyefuwuhuodong',
     })
   },
-  navLowPriceHouseList() {
+  navAboutus() {
     wx.navigateTo({
-      url: '../lowPriceHouseList/lowPriceHouseList',
+      url: '../aboutus/aboutus',
+    })
+  },
+  helpVIPTofindHouse(){
+    const t = this
+    t.setData({
+      modalName : 'helpVIPTofindHouse'
     })
   },
   navHousedetail(e) {
@@ -454,6 +531,11 @@ create(store, {
       url: '../news/news'
     })
   },
+  navRuzhu(){
+    wx.navigateTo({
+      url: '../ruzhu/ruzhu'
+    })
+  },
   getAllHouseList() {
     // wx.pro.request({
     //   url: apiLists.getAllHouseList,
@@ -486,6 +568,7 @@ create(store, {
   },
   getUserLocation: function () {
     let t = this
+
     wx.getSetting({
       success: (res) => {
         // res.authSetting['scope.userLocation'] == undefined    表示 初始化进入该页面
@@ -513,6 +596,7 @@ create(store, {
                     if (dataAu.authSetting["scope.userLocation"] == true) {
                       //再次授权，调用wx.getLocation的API
                       t.getLocation(dataAu)
+                      
                     } else {
                       wx.showToast({
                         title: '授权失败',
@@ -559,7 +643,7 @@ create(store, {
         //   longitude:Number(longitude)
         // })
         t.store.data.latitude = Number(latitude),
-          t.store.data.longitude = Number(longitude)
+        t.store.data.longitude = Number(longitude)
         t.revLatitude()
       },
       fail: function (res) {
@@ -627,18 +711,17 @@ create(store, {
   },
   reloadData(city) {
     const t = this
+    wx.stopPullDownRefresh()
     let _key = city
     let dangeloupanxiangqingtemp = _key + 'dangeloupanxiangqing'
     let dailirentemp = _key + 'dailiren'
-    let dailirendatabase = pinyin.getPinyin(dailirentemp).replace(/\s+/g, "");
-    let dangeloupanxiangqingdatabase = pinyin.getPinyin(dangeloupanxiangqingtemp).replace(/\s+/g, "");
-    log('[reloadData]', city,dangeloupanxiangqingdatabase,dailirendatabase)
-
     let shouyelunbotutemp = _key + 'shouyelunbotu'
     // let shouyezhongjianguanggaolunbotutemp = _key + 'shouyezhongjianguanggaolunbotu'
     let startImagedatabasetemp = _key + 'shouyetanchucengguanggao'
     let zixunxinxitemp = _key + 'zixunxinxi'
 
+    let dailirendatabase = pinyin.getPinyin(dailirentemp).replace(/\s+/g, "");
+    let dangeloupanxiangqingdatabase = pinyin.getPinyin(dangeloupanxiangqingtemp).replace(/\s+/g, "");
     let startImagedatabase =pinyin.getPinyin(startImagedatabasetemp).replace(/\s+/g,"");
     let shouyelunbotudatabase = pinyin.getPinyin(shouyelunbotutemp).replace(/\s+/g, "");
     // let shouyezhongjianguanggaolunbotudatabase = pinyin.getPinyin(shouyezhongjianguanggaolunbotutemp).replace(/\s+/g, "");
@@ -646,7 +729,18 @@ create(store, {
     log('首页轮播图DATABASE',shouyelunbotudatabase)
     log('开屏广告DATABASE',startImagedatabase)
     log('最新资讯DATABASE',zixunxinxidatabase)
-
+    log('代理人DATABASE',dailirendatabase)
+    const setNoneData = () =>{
+      t.store.data.markersData = []
+      t.store.data.adSwiperList= []
+      t.store.data.swiperList= []
+      t.store.data.zixunxinxi= []
+      t.store.data.startImage= []
+      t.store.data.dailiren= []
+      t.store.data.allHouseList= []
+      t.store.data.maifangliucheng= []
+      t.store.data.goufangzhengce= []
+    }
     db.collection(dangeloupanxiangqingdatabase).orderBy('_createTime', 'desc').get().then(res => {
       let houselist = res.data
       log('[houselist]', houselist)
@@ -680,14 +774,6 @@ create(store, {
           }
         });
       }
-      wx.setStorage({
-        key: "allHouseList",
-        data: res.data
-      })
-      wx.setStorage({
-        key: "markersData",
-        data: markersData
-      })
       t.store.data.markersData = markersData
       t.store.data.allHouseList = res.data
 
@@ -716,30 +802,14 @@ create(store, {
     })
 
     db.collection(dailirendatabase).orderBy('paimingshunxu', 'desc').get().then(res => {
-      wx.setStorage({
-        key: "dailiren",
-        data: res.data
-      })
       t.store.data.dailiren = res.data
     })
 
     db.collection(zixunxinxidatabase).orderBy('_createTime', 'desc').get().then(res => {
       t.store.data.zixunxinxi = res.data
-      wx.setStorage({
-        key:"zixunxinxi",
-        data:res.data
-      })
     }).catch( err =>{
       log(err)
-      t.store.data.markersData = []
-      t.store.data.adSwiperList= []
-      t.store.data.swiperList= []
-      t.store.data.zixunxinxi= []
-      t.store.data.startImage= []
-      t.store.data.dailiren= []
-      t.store.data.allHouseList= []
-      t.store.data.maifangliucheng= []
-      t.store.data.goufangzhengce= []
+      setNoneData()
       wx.showToast({
         icon : "error",
         title: '当前区域无楼盘数据',
@@ -748,17 +818,9 @@ create(store, {
 
     db.collection(startImagedatabase).orderBy('_createTime', 'desc').get().then(res => {
      t.store.data.startImage = res.data
-      wx.setStorage({
-        key:"startImage",
-        data:res.data
-      })
     })
     
     db.collection(shouyelunbotudatabase).orderBy('_createTime', 'desc').get().then(res => {
-      wx.setStorage({
-        key: "swiperList",
-        data: res.data
-      })
       t.store.data.swiperList = res.data
     })
   }

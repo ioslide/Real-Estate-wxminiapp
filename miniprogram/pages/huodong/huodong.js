@@ -21,6 +21,7 @@ create(store, {
     'curCity'
   ],
   data: {
+    currentTag:"huodong",
     score:0,
     visible: false,
     zuixinhuodong: []

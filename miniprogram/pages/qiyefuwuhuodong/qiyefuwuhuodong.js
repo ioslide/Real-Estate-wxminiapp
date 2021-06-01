@@ -24,6 +24,7 @@ create(store, {
     'curCity'
   ],
   data: {
+    currentTag:"fuwu",
     qiyefuwuList:[],
     mapsetting: {
       skew: 0,

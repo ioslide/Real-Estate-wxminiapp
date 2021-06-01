@@ -1,4 +1,4 @@
-
+<!-- 
 
 <form bindsubmit="submitSearch">
   <view class="cu-bar bg-white search ">
@@ -10,6 +10,19 @@
       <button form-type="submit" class="cu-btn bg-gradual-green shadow-blur round " style="width: 100px;">搜索</button>
     </view>
   </view>
-</form>
+</form> -->
+
+<view class="search-global-container data-v-7a95ed29">
+  <view class="search-box data-v-7a95ed29">
+    <text class="fhyfont icon-search"></text>
+    <input bindconfirm="submitSearch" selection-start="-1" selection-end="-1" cursor="-1" bindfocus="inputfocus"
+      bindblur="inputblur" class="text data-v-7a95ed29 placeholder data-v-5832b5b8" confirmType="搜索" value="{{keyword}}"
+      placeholder="输入搜索的楼盘名称" type="text" style="padding:0 16rpx"></input>
+    <text bindtap="clearKeyword" class="fhyfont iconicon-deletetext" size="16" type="clear" style="color: #AAAAAA;"
+      wx:if="{{showClear}}"></text>
+  </view>
+</view>
+
+<foot currentTag="{{currentTag}}" />
 
 <map style="width:{{windowWidth}}px;height:{{windowHeight}}px" show-location="true" bindmarkertap="markertap" bindcallouttap="markertap" subkey="NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7" setting="{{mapsetting}}" longitude="{{$.longitude}}" latitude="{{$.latitude}}" scale="9" min-scale="6" markers="{{$.markersData}}"></map>

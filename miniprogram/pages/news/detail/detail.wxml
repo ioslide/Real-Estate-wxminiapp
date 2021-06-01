@@ -18,7 +18,7 @@
     show-play-btn="{{true}}" controls="{{true}}" objectFit="cover"></video>
 </view>
 
-<view class="padding-30 bg-white">
+<view class="padding-left-30 padding-right-30 bg-white">
   <view class="text-left text-grey" style="line-height:30px">
     日期: {{detailNews.faburiqi}} 
   </view>

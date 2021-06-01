@@ -31,6 +31,11 @@ Component({
         url: '/pages/qiyefuwuhuodong/qiyefuwuhuodong',
       })
     },
+    navQiuzuqiugou() {
+      wx.navigateTo({
+        url: '/pages/shequ/shequ'
+      })
+    },
     navHome() {
       wx.navigateBack({
         delta: 9,

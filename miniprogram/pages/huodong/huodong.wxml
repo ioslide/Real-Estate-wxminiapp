@@ -27,7 +27,7 @@
   <view class="cu-item shadow margin-15" bindtap="navDetail" id="{{item._id}}">
     <view class="image">
       <image src="{{item.image[0]}}" style="height:180px" mode="aspectFill"></image>
-      <view class="cu-tag bg-blue">{{item.huodongchengshi}}</view>
+      <view class="cu-tag bg-gold">{{item.huodongchengshi}}</view>
       <view class="cu-bar bg-shadeBottom">
       </view>
     </view>
@@ -69,8 +69,8 @@
           <input bindinput="phoneInput" name="phoneInput" class="model-form-input text-left" cursorSpacing="90"
             maxlength="11" placeholder="您的手机号" placeholderClass="model-placeholder" value="{{userphone}}"></input>
         </view>
-        <view class="model-btn" slot="btn">
-          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover">
+        <view class="model-btn" slot="btn" style="margin:0">
+          <button form-type="submit" style="background:linear-gradient(90deg,#d0bf9d,#b1a183);border-radius:0;bottom:0;width: 100%;" class="model-submit-btn" hoverClass="model-btn-hover">
             提交兑换
           </button>
         </view>
@@ -78,3 +78,5 @@
     </view>
   </view>
 </view>
+
+<foot currentTag="{{currentTag}}" />

@@ -22,12 +22,14 @@
     "pages/qiyefuwuhuodong/detail/detail",
     "pages/fangchanwenda/fangchanwenda",
     "pages/fangchanwenda/detail/detail",
-    "pages/shequ/detail/detail"
+    "pages/shequ/detail/detail",
+    "pages/aboutus/aboutus",
+    "pages/ruzhu/ruzhu"
   ],
   "usingComponents": {
     "tui-fab": "/components/tui-fab/tui-fab",
     "foot": "/components/foot/foot",
-    "nodata":"/components/nodata/nodata"
+    "nodata": "/components/nodata/nodata"
   },
   "plugins": {
     "chooseLocation": {
@@ -49,6 +51,7 @@
     }
   },
   "window": {
+    "enablePullDownRefresh":true,
     "backgroundColor": "#ffffff",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffffff",

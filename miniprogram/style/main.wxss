@@ -4488,7 +4488,7 @@ scroll-view.cu-steps .cu-item {
 	color: var(--black);
 }
 .bg-gold{
-	background-color: #d4ba99;
+	background: linear-gradient(90deg,#d0bf9d,#b1a183);
 	color: #ffffff
 }
 .bg-olive {
@@ -5033,7 +5033,9 @@ scroll-view.cu-steps .cu-item {
 .lines-black {
 	color: var(--black);
 }
-
+.text-gold{
+	color:#d0bf9d
+}
 .text-white,
 .line-white,
 .lines-white {

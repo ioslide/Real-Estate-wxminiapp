@@ -162,11 +162,14 @@ page {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 210rpx;
+  height: 180rpx;
   border-radius: 5px;
   border: none;
 }
-
+.cell-col-light{
+  color:#000;
+  font-size:14px;
+}
 .themeColor {
   color: var(--themeColor) !important;
 }
@@ -2203,55 +2206,4 @@ white-space: nowrap;
 .my-carousel-text {
   height: 26px;
   position: relative;
-}
-
-.help-find-house-box.data-v-2789d440 {
-  padding: 30rpx;
-  background-color: #fff;
-}
-
-.help-find-house.data-v-2789d440 {
-  position: relative;
-}
-
-.help-find-house .picture.data-v-2789d440 {
-  width: 686rpx;
-  height: 132rpx;
-}
-
-.help-find-house .text.data-v-2789d440 {
-  position: absolute;
-  top: 78rpx;
-  left: 33rpx;
-  z-index: 10;
-  font-size: 24rpx;
-  color: #a68e44;
-}
-.help-find-house .text.data-v-top-2789d440 {
-  position: absolute;
-  top: 28rpx;
-  left: 33rpx;
-  z-index: 10;
-  font-weight: 500;
-  font-size: 32rpx;
-  color: #a68e44;
-}
-
-.help-find-house .btn.data-v-2789d440 {
-  position: absolute;
-  top: 40rpx;
-  right: 30rpx;
-  z-index: 10;
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  width: 144rpx;
-  height: 54rpx;
-  font-size: 24rpx;
-  font-weight: 700;
-  color: #333;
-  background: linear-gradient(270deg,#ffcb2f,#ffe8a2);
-  border-radius: 4rpx;
 }

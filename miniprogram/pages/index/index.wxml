@@ -34,19 +34,31 @@
   </view>
 </view>
 
-<view style="max-width: 160rpx;overflow: hidden;display: flex;align-items: center;padding: 0 20rpx 0 30rpx;">
-  <button class="flex justify-center align-center" open-type="share" style="position:fixed;right:10px;padding:0;height:40px;bottom: 70px;width:40px;background:none;">
-    <image src="../../assets/image/zhuanfahongbao.png" mode="widthFix" style="height:100%;width: 100%;"></image>
+<view style="max-width: 160rpx;overflow: hidden;display: flex;align-items: center;padding: 0 20rpx 0 30rpx;z-index:3" wx:if="{{$.allHouseList.length !== 0}}">
+  <button class="flex justify-center align-center" open-type="share"
+    style="position:fixed;right:10px;padding:0;height:40px;bottom: 70px;width:40px;background:none;">
+    <image src="cloud://xhy-craft-1gpv4s5596b1f3b9.7868-xhy-craft-1gpv4s5596b1f3b9-1305059458/hongbao1.gif"
+      mode="widthFix" style="height:100%;width: 100%;"></image>
   </button>
 </view>
 
 <swiper class="card-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
   duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff"
   wx:if="{{$.swiperList.length !==0}}">
-  <swiper-item wx:for="{{$.swiperList}}" wx:key="_id" class="{{cardCur==index?'cur':''}}">
+  <!-- <swiper-item class="{{cardCur==index?'cur':''}}">
+    <view class="swiper-item" bindtap="navRuzhu" >
+      <image src="../../assets/image/ruzhu.jpg" mode="aspectFill"></image>
+    </view>
+  </swiper-item> -->
+  <swiper-item  class="{{cardCur== 0 ?'cur':''}}">
+    <view class="swiper-item" bindtap="navRuzhu" data-index="0">
+      <image src="../../assets/image/ruzhu.jpg" mode="aspectFill"></image>
+    </view>
+  </swiper-item>
+  <swiper-item wx:for="{{$.swiperList}}" wx:key="_id" class="{{cardCur==index+1?'cur':''}}">
     <view class="swiper-item" bindtap="swiperNavTarget" data-appid="{{item.appid}}" data-route="{{item.route}}"
       data-guanlianhuodong="{{item.guanlianhuodong}}" data-guanlianqiyefuwu="{{item.guanlianqiyefuwu}}"
-      data-guanlianzixun="{{item.guanlianzixun}}" data-index="{{index}}">
+      data-guanlianzixun="{{item.guanlianzixun}}" data-index="{{index+1}}">
       <image src="{{item.lunbotutupian}}" mode="aspectFill" wx:if="{{item.shifouweitupian== true}}"></image>
       <image src="{{item.lunbotutupian}}" mode="aspectFill" wx:if="{{item.appid}}"></image>
       <video src="{{item.lunbotushipin}}" poster="{{item.lunbotutupian}}" loop="{{false}}" muted="{{false}}"
@@ -58,7 +70,7 @@
 
 <view class="service-swiper">
   <view class="service-swiper-item">
-    <view class="grid col-5 margin-bottom-10 text-center"
+    <view class="grid col-5 text-center"
       style="width:100%;padding-left: 10px;padding-right:10px;padding-bottom:0">
       <view bindtap="navGoufangzizi" id="QUALIFICATION">
         <view class="item-inner-light">
@@ -74,14 +86,14 @@
       </view>
       <view>
         <view class="item-inner-light" bindtap="navZixun">
-          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_cfj_icon.png"></image>
+          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_zxq_icon@3x.png"></image>
           <text class="margin-top-10 cell-col-light">房产资讯</text>
         </view>
       </view>
-      <view>
-        <view class="item-inner-light" bindtap="navGongju">
-          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_sfd_icon.png"></image>
-          <text class="margin-top-10 cell-col-light">购房工具</text>
+      <view bindtap="navHuodong" id="QUALIFICATION">
+        <view class="item-inner-light">
+          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_fdjs_icon.png"></image>
+          <text class="margin-top-10 cell-col-light">最新活动</text>
         </view>
       </view>
       <view>
@@ -90,6 +102,40 @@
           <text class="margin-top-10 cell-col-light">求租求购</text>
         </view>
       </view>
+    </view>
+    <view class="grid col-5 margin-bottom-10 text-center"
+      style="width:100%;padding-left: 10px;padding-right:10px;padding-bottom:0">
+
+      <view>
+        <view class="item-inner-light" bindtap="navGongju">
+          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_sfd_icon.png"></image>
+          <text class="margin-top-10 cell-col-light">购房工具</text>
+        </view>
+      </view>
+      <view  bindtap="navQiyefuwu">
+        <view class="item-inner-light">
+          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_zjjr_icon.png"></image>
+          <text class="margin-top-10 cell-col-light">企业服务</text>
+        </view>
+      </view>
+      <view>
+        <view class="item-inner-light" bind:tap="navRuzhu">
+          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_zf_icon.png"></image>
+          <text class="margin-top-10 cell-col-light">入驻合伙人</text>
+        </view>
+      </view>
+      <view>
+        <view class="item-inner-light" bindtap="navAboutus">
+          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_xf_icon.png"></image>
+          <text class="margin-top-10 cell-col-light">关于我们</text>
+        </view>
+      </view>
+      <!-- <view>
+        <view class="item-inner-light" bindtap="navQiuzuqiugou">
+          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_sfd_icon1.png"></image>
+          <text class="margin-top-10 cell-col-light">地图找房</text>
+        </view>
+      </view> -->
     </view>
   </view>
 </view>
@@ -131,9 +177,18 @@
     </view>
   </view>
 </view> -->
-<view class="help-find-house-box data-v-2789d440" id="{{id}}">
-  <view class="help-find-house data-v-2789d440"
-    data-event-opts="{{[ [ 'tap',[ [ 'gotoHelpFindHouse',['$event'] ] ] ] ]}}">
+
+<view class="help-find-house-box data-v-2789d440" bindtap="navRuzhu" wx:if="{{$.allHouseList.length == 0}}">
+  <view class="help-find-house data-v-2789d440">
+    <image class="picture data-v-2789d440" mode="aspectFill" src="../../assets/image/help-find-house.png"></image>
+    <view class="text data-v-top-2789d440">当前区域暂无代理</view>
+    <view class="text data-v-2789d440">简单填写，一键抢先入驻！</view>
+    <view class="btn data-v-2789d440">立即填写</view>
+  </view>
+</view>
+
+<view class="help-find-house-box data-v-2789d440" bindtap="helpVIPTofindHouse" wx:if="{{$.zixunxinxi.length > 0}}">
+  <view class="help-find-house data-v-2789d440">
     <image class="picture data-v-2789d440" mode="aspectFill" src="../../assets/image/help-find-house.png"></image>
     <view class="text data-v-top-2789d440">VIP选房小帮手</view>
     <view class="text data-v-2789d440">简单填写，即刻找出你心仪房源</view>
@@ -141,21 +196,21 @@
   </view>
 </view>
 
-<view class="common-title margin-bottom-10">
+<!-- <view class="common-title margin-bottom-10">
   <view class="cuIcon-titles common-title-left">为你推荐</view>
 </view>
 <view class="grid col-2 margin-left-15 margin-right-15 margin-bottom-20 text-left">
-  <view indtap="navMap" style="padding:24px 0 20px 12px;background:#F1F6F7;">
+  <view bindtap="navMap" style="padding:24px 0 20px 12px;background:#F1F6F7;">
     <view class="flex flex-wrap">
       <view class=" basis-lg" style="width:60%">
         <view class="grid col-1 margin-bottom text-center">
-          <view class="themepack-title ellipsis"> 预约看房</view>
-          <view class="themepack-subTitle ellipsis">Book an appointment</view>
+          <view class="themepack-title ellipsis">地图找房</view>
+          <view class="themepack-subTitle ellipsis">Find on the map</view>
         </view>
       </view>
       <view class="basis-sm">
         <view class="flex justify-center align-cener">
-          <image class="flex" src="../../assets/image/nav-overseas.png" style="width:30px" mode="widthFix"></image>
+          <image class="flex" src="../../assets/image/findmaphouse.png" style="width:30px" mode="widthFix"></image>
         </view>
       </view>
     </view>
@@ -185,12 +240,12 @@
       </view>
       <view class="basis-sm">
         <view class="flex justify-center align-cener">
-          <image class="flex" src="../../assets/image/nav-newhouse.png" style="width:30px" mode="widthFix"></image>
+          <image class="flex" src="../../assets/image/nav-overseas.png" style="width:30px" mode="widthFix"></image>
         </view>
       </view>
     </view>
   </view>
-  <view bindtap="navLowPriceHouseList" class="padding" style="padding:24px 0 20px 12px;background:#F4F8F3;">
+  <view bindtap="navAboutus" class="padding" style="padding:24px 0 20px 12px;background:#F4F8F3;">
     <view class="flex flex-wrap">
       <view class=" basis-lg" style="width:60%">
         <view class="grid col-1 margin-bottom text-center">
@@ -205,12 +260,12 @@
       </view>
     </view>
   </view>
-</view>
+</view> -->
 
-<view class="newSwiperTitle margin-left-15 margin-right-15 margin-bottom-15 padding-0" wx:if="{{$.zixunxinxi}}">
+<view class="newSwiperTitle margin-left-15 margin-right-15 margin-bottom-15 padding-0" wx:if="{{$.zixunxinxi.length > 0}}">
   <view class="my-carousel my-carousel-text">
     <view class="cu-capsule">
-      <view class="cu-tag bg-red">最新资讯 :</view>
+      <view class="cu-tag bg-gold">最新资讯 :</view>
       <view class="cu-tag bg-white">
         <swiper autoplay="{{true}}" circular="{{true}}" interval="{{2000}}"
           style="width:{{windowWidth-30-30-30-70}}px;height:100%" vertical="{{true}}">
@@ -224,7 +279,8 @@
   </view>
 </view>
 
-<view class="common-title margin-bottom-10">
+<block wx:if="{{$.markersData.length > 0}}">
+<view class="common-title margin-bottom-10" >
   <view class="cuIcon-titles common-title-left">地图找房</view>
   <image bindtap="navMap" src="../../assets/image/fangda.svg" style="width:25px;height:25px;border:none;border-radius:0"
     class="more-apartment common-title-right"></image>
@@ -235,6 +291,7 @@
     bindcallouttap="markertap" subkey="NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7" setting="{{mapsetting}}"
     longitude="{{$.longitude}}" latitude="{{$.latitude}}" scale="11" min-scale="9" markers="{{$.markersData}}"></map>
 </view>
+</block>
 
 <view class="common-title margin-bottom-10" wx:if="{{$.allHouseList.length !== 0}}">
   <view class="cuIcon-titles common-title-left">推荐好盘</view>
@@ -339,7 +396,7 @@
 </view>
 
 <view class="cu-card article padding-bottom-30" id="loupandaquan" wx:if="{{$.allHouseList.length !==0}}">
-  <view class="cu-item shadow margin-left-15 margin-right-15 " style="" wx:for="{{$.allHouseList}}" wx:key="_id"
+  <view class="cu-item shadow margin-left-15 margin-right-15" style="" wx:for="{{$.allHouseList}}" wx:key="_id"
     bindtap="navHousedetail" data-id="{{item._id}}">
     <!-- <view class="title">
         <view class="text-cut">{{item.loupanmingcheng}}</view>
@@ -394,19 +451,47 @@
   </view>
 </view>
 
+<view class="cu-modal {{modalName=='helpVIPTofindHouse'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">预约沟通</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl" style="background: #ffffff;">
+      <form bindsubmit="vipsubmitForm">
+        <view class="model-form" slot="form">
+          <input bindinput="nameInput" name="nameInput" class="model-form-input text-left" cursorSpacing="145"
+            placeholder="您的姓名" placeholderClass="model-placeholder" value="{{username}}"></input>
+          <input bindinput="phoneInput" name="phoneInput" class="model-form-input text-left" cursorSpacing="90"
+            maxlength="11" placeholder="您的手机号" placeholderClass="model-placeholder" value="{{userphone}}"></input>
+        </view>
+        <view class="model-btn" slot="btn" style="margin:0">
+          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover"
+            style="background:linear-gradient(90deg,#d0bf9d,#b1a183);border-radius:0;bottom:0;width: 100%;">
+            提交
+          </button>
+        </view>
+      </form>
+    </view>
+  </view>
+</view>
 <!-- <tui-scroll-top scrollTop="{{scrollTop}}"></tui-scroll-top> -->
 
 <view class="cu-modal {{modalName=='startImage'?'show':''}}" wx:if="{{$.startImage[0]}}">
   <view class="shareImage-dialog" catchtap>
-    <image src="{{$.startImage[0].image}}" mode="widthFix" class="bg-img bg-white" bindtap="swiperNavTarget"
-      data-guanlianhuodong="{{$.startImage[0].guanlianhuodong}}"
+    <image src="{{$.startImage[0].image}}" wx:if="{{$.startImage[0].isVideo == false}}" mode="widthFix" class="bg-img"
+      bindtap="swiperNavTarget" data-guanlianhuodong="{{$.startImage[0].guanlianhuodong}}"
       data-guanlianqiyefuwu="{{$.startImage[0].guanlianqiyefuwu}}"
-      data-guanlianzixun="{{$.startImage[0].guanlianzixun}}" style="height: 350px;width:300px"></image>
-    <view class="cu-bar margin-top-20" bindtap="hideModal">
-      <view class="action margin-0 flex-sub solid-left">
-        <image src="../../assets/image/card-cancel.png" mode="widthFix" style="width:20px;height:20px"></image>
+      data-guanlianzixun="{{$.startImage[0].guanlianzixun}}" style="width: 300px;"></image>
+    <video src="{{$.startImage[0].video}}" loop="{{false}}" muted="{{false}}" show-fullscreen-btn="{{true}}" enable-progress-gesture="{{true}}"
+          show-play-btn="{{true}}" controls="{{true}}" autoplay="{{false}}" object-fit="{{fill}}"  wx:if="{{$.startImage[0].isVideo == true}}" class="bg-img" style="width: 300px;"></video>
+      <view class="cu-bar margin-top-20" bindtap="hideModal">
+        <view class="action margin-0 flex-sub solid-left">
+          <image src="../../assets/image/card-cancel.png" mode="widthFix" style="width:20px;height:20px"></image>
+        </view>
       </view>
-    </view>
   </view>
 </view>
 

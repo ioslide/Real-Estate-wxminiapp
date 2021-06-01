@@ -209,7 +209,7 @@
   width: 168rpx;
   background-color: #e80000;
   border-radius: 15rpx;
-  box-shadow: 0 4px 0 #fcc8d0;
+  box-shadow: 0 2px 0 #ffffff;
 }
 
 /* 580 530  */

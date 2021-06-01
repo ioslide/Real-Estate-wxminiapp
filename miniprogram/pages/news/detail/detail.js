@@ -31,15 +31,13 @@ create(store, {
     let _key = t.store.data.curCity
     let temp = _key + 'zixunxinxi'
     let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
-    db.collection(database).where({
-      _id: options.detailid
-    }).get().then(res => {
-      log(res.data[0])
+    db.collection(database).doc(options.detailid).get().then(res => {
+      log(res.data)
       wx.hideLoading({
         success: (res) => {},
       })
       t.setData({
-        detailNews: res.data[0]
+        detailNews: res.data
       })
     })
   },

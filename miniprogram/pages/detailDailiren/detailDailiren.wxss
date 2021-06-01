@@ -249,7 +249,7 @@ page{
 }
 
  .consumerShare .share2btn {
-   padding:6px;
+   padding:6px 0;
   width: 100%;
   display: inline-block;
   text-align: center;
@@ -274,11 +274,12 @@ page{
 }
 
  .consumerShare .share2btn .datebtn {
-  background: linear-gradient(270deg,#ff555f,#ff888d)
+  /* background: linear-gradient(270deg,#ff555f,#ff888d) */
+  color:#000!important
 }
 
  .consumerShare .share2btn .chatbtn {
-  background: linear-gradient(270deg,#ffc800,#fd6);
+  background: linear-gradient(90deg,#d0bf9d,#b1a183)
 }
 
 
@@ -288,7 +289,7 @@ page{
 
 .broker-info-module.data-v-cfeaf816 {
   padding: 100rpx 0 20rpx;
-  background: url(https://i.qfangimg.com/resource/qfang-mobile-wx/img/broker-bg.png?20200908=) 0 -15% no-repeat;
+  background: url(https://7868-xhy-craft-1gpv4s5596b1f3b9-1305059458.tcb.qcloud.la/user-center-bg.png?sign=c9d9f6e70a5bda4d1460bf9d03d9b39d&t=1622000636) no-repeat;
   background-size: 100% auto;
 }
 

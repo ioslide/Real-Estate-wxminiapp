@@ -44,7 +44,7 @@
         </view>
     </view>
 
-    <view class="calc-btn-con" style="display:flex;position:fixed;bottom:100px;width: 100%;">
-            <button catchtap="calctap" class="calc-btn" hoverClass="calc-btn-hover" size="default" style="width:100%;background: #BBBCCE;" type="primary">计算</button>
+    <view class="calc-btn-con" style="display:flex;bottom:100px;width: 100%;">
+            <button catchtap="calctap" class="calc-btn" hoverClass="calc-btn-hover" size="default" style="background:linear-gradient(270deg,#ffcb2f,#ffe8a2);width:100%;border-radius:0;font-weight: 500;position:fixed;color:#fff;bottom:0;" type="primary">计算</button>
         </view>
 </template>

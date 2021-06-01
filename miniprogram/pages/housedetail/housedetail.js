@@ -17,6 +17,7 @@ promisifyAll()
 import pinyin from "wl-pinyin"
 import create from '../../util/create'
 import store from '../../store/index'
+const form = require("../../util/formValidation.js")
 
 create(store, {
   use: [
@@ -75,6 +76,7 @@ create(store, {
         return entry._id === options.houseId;
       });
       log(results[0])
+      results[0].kaipanshijian = results[0].kaipanshijian.substr(0,10)
       let jingweidu = results[0].jingweidu.split(',')
       let latitude = jingweidu[0]
       let longitude = jingweidu[1]
@@ -106,6 +108,7 @@ create(store, {
     })
 
   },
+
   handlePhone(e) {
     wx.makePhoneCall({
       phoneNumber: e.currentTarget.dataset.phone
@@ -167,13 +170,34 @@ create(store, {
   submitForm(e) {
     log(e)
     const t = this
-    wx.pro.showLoading({
-      title: '提交中',
-    })
-    let _key = t.store.data.curCity
-    let temp = _key + 'gukeyuyue'
-    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
-    db.collection(database).add({
+    let rules = [
+      {
+        name: "nameInput",
+        rule: ["required", "minLength:2", "maxLength:30"],
+        msg: ["请输入姓名", "必须2个或以上字符", "姓名不能超过20个字符"]
+      },
+      {
+        name: "phoneInput",
+        rule: ["required", "isMobile"],
+        msg: ["请输入手机号", "请输入正确的手机号"]
+      },
+      {
+        name: "houseInput",
+        rule: ["required"],
+        msg: ["请输入意向楼盘"]
+      }
+    ];
+    let formData = e.detail.value;
+    let checkRes = form.validation(formData, rules);
+    if (!checkRes) {
+      log('验证通过')
+      wx.pro.showLoading({
+        title: '提交中',
+      })
+      let _key = t.store.data.curCity
+      let temp = _key + 'gukeyuyue'
+      let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+      db.collection(database).add({
         data: {
           username: e.detail.value.nameInput,
           yixiangfangyuan: e.detail.value.houseInput,
@@ -181,15 +205,23 @@ create(store, {
           jiedaidailixingming: t.data.curDaili.name,
           jiedaidailidianhua: t.data.curDaili.phone,
           dailiid: t.data.curDaili.id,
-          tijiaoshijian: t.getCurrentTime()
+          tijiaoshijian: t.getCurrentTime(),
+          guketijiaolaiyuan:'房产详情页'
         }
-      })
-      .then(res => {
-        console.log(res)
-        wx.pro.hideLoading()
-        t.hideModal()
-      })
-      .catch(console.error)
+        })
+        .then(res => {
+          console.log(res)
+          wx.pro.hideLoading()
+          t.hideModal()
+        })
+        .catch(console.error)
+    } else {
+      wx.showToast({
+        title: checkRes,
+        icon: "none"
+      });
+    }
+
   },
   guideTo() {
     const t = this

@@ -49,7 +49,7 @@
 }
 
 .cu-bar.tabbar .action .cuIcon-cu-image image {
-	width: 30px;
-	height: 30px;
+	width: 23px;
+	height: 23px;
 	display: inline-block;
 }
