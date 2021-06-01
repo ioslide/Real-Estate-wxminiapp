@@ -1,0 +1,72 @@
+
+page{
+  background:#ffffff
+}
+.common-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 84rpx;
+  margin-bottom: 26rpx;
+}
+
+.common-title-left {
+  height: 36rpx;
+  line-height: 36rpx;
+  font-size: 36rpx;
+  font-weight: 500;
+  color: rgba(25, 25, 62, 1);
+}
+
+.common-title-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 146rpx;
+  height: 64rpx;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: rgba(147, 153, 165, 1);
+  border-radius: 32rpx;
+  border: 1px solid rgba(239, 239, 239, 1);
+}
+.im {
+  width: 98rpx;
+  height: 98rpx;
+  text-align: center;
+  position: fixed;
+  color: #fff;
+  right: 40rpx;
+  bottom: 35rpx;
+  z-index: 105;
+}
+.im-readCount {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  background-color: rgba(239, 236, 236, 0.8);
+  left: 0;
+  top: 0;
+  font-size: 24rpx;
+  line-height: 16rpx;
+  box-sizing: border-box;
+  padding-top: 14rpx;
+  z-index: 104;
+}
+.cu-list.menu-avatar>.cu-item .content {
+  left:30px
+}
+.cu-list.menu-avatar>.cu-item .content.flex-sub {
+  width: calc(100% - 96rpx);
+}
+.cu-list.menu-avatar>.cu-item .content .cu-tag.sm {
+  display: inline-block;
+  margin-left: 10rpx;
+  height: 20px;
+  font-size: 12px;
+  line-height: 20px;
+}
+page:last-child {
+  margin-bottom: 100px
+}
