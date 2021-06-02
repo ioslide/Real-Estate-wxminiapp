@@ -81,11 +81,11 @@ create(store, {
               qiuzuqiugou: res.data,
               showCancel: false
             })
+            wx.pro.hideLoading()
           }
         }).catch(console.error)
       }
-      
-      wx.pro.hideLoading()
+
     })
   },
   hideModal(e) {

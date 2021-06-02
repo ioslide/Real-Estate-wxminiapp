@@ -223,6 +223,12 @@ create(store, {
     }
 
   },
+  navDetailDailiren(e) {
+    log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: '../detailDailiren/detailDailiren?dailirenId=' + e.currentTarget.dataset.id,
+    })
+  },
   guideTo() {
     const t = this
     let plugin = requirePlugin('routePlan');

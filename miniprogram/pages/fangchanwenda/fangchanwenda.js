@@ -73,12 +73,10 @@ create(store, {
               fangchanwenda: res.data,
               showCancel: false
             })
+            wx.pro.hideLoading()
           }
         }).catch(console.error)
       }
-      
-
-      wx.pro.hideLoading()
     })
   },
   hideModal(e) {

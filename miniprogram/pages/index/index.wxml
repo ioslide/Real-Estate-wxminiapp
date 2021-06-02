@@ -74,62 +74,63 @@
       style="width:100%;padding-left: 10px;padding-right:10px;padding-bottom:0">
       <view bindtap="navGoufangzizi" id="QUALIFICATION">
         <view class="item-inner-light">
-          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_esf_icon.png"></image>
+          <image class="square-45" mode="aspectFit" src="../../assets/image/fangchanwenda.png"></image>
           <text class="margin-top-10 cell-col-light">房产问答</text>
         </view>
       </view>
       <view>
         <view class="item-inner-light" bind:tap="goToAllhouseList">
-          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_zxq_icon.png"></image>
+          <image class="square-45" mode="aspectFit" src="../../assets/image/bendiloushi.png"></image>
           <text class="margin-top-10 cell-col-light">本地楼市</text>
         </view>
       </view>
       <view>
         <view class="item-inner-light" bindtap="navZixun">
-          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_zxq_icon@3x.png"></image>
+          <image class="square-45" mode="aspectFit" src="../../assets/image/fangchanzixun.png"></image>
           <text class="margin-top-10 cell-col-light">房产资讯</text>
-        </view>
-      </view>
-      <view bindtap="navHuodong" id="QUALIFICATION">
-        <view class="item-inner-light">
-          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_fdjs_icon.png"></image>
-          <text class="margin-top-10 cell-col-light">最新活动</text>
         </view>
       </view>
       <view>
         <view class="item-inner-light" bindtap="navQiuzuqiugou">
-          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_wymf_icon.png"></image>
+          <image class="square-45" mode="aspectFit" src="../../assets/image/qiuzuqiugou.png"></image>
           <text class="margin-top-10 cell-col-light">求租求购</text>
+        </view>
+      </view>
+      <view>
+        <view class="item-inner-light" bindtap="navGongju">
+          <image class="square-45" mode="aspectFit" src="../../assets/image/goufanggongju.png"></image>
+          <text class="margin-top-10 cell-col-light">购房工具</text>
         </view>
       </view>
     </view>
     <view class="grid col-5 margin-bottom-10 text-center"
       style="width:100%;padding-left: 10px;padding-right:10px;padding-bottom:0">
 
+      <view bindtap="navHuodong" id="QUALIFICATION">
+        <view class="item-inner-light">
+          <image class="square-45" mode="aspectFit" src="../../assets/image/zuixinhuodong-gold.png"></image>
+          <text class="margin-top-10 cell-col-light">最新活动</text>
+        </view>
+      </view>
       <view>
-        <view class="item-inner-light" bindtap="navGongju">
-          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_sfd_icon.png"></image>
-          <text class="margin-top-10 cell-col-light">购房工具</text>
+        <view class="item-inner-light" bindtap="navAboutus">
+          <image class="square-45" mode="aspectFit" src="../../assets/image/guanyuwomen-gold.png"></image>
+          <text class="margin-top-10 cell-col-light">关于我们</text>
         </view>
       </view>
       <view  bindtap="navQiyefuwu">
         <view class="item-inner-light">
-          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_zjjr_icon.png"></image>
+          <image class="square-45" mode="aspectFit" src="../../assets/image/qiyefuwu-gold.png"></image>
           <text class="margin-top-10 cell-col-light">企业服务</text>
         </view>
       </view>
       <view>
         <view class="item-inner-light" bind:tap="navRuzhu">
-          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_zf_icon.png"></image>
+          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_zf_icongold.png"></image>
           <text class="margin-top-10 cell-col-light">入驻合伙人</text>
         </view>
       </view>
-      <view>
-        <view class="item-inner-light" bindtap="navAboutus">
-          <image class="square-45" mode="aspectFit" src="../../assets/image/dly_xf_icon.png"></image>
-          <text class="margin-top-10 cell-col-light">关于我们</text>
-        </view>
-      </view>
+
       <!-- <view>
         <view class="item-inner-light" bindtap="navQiuzuqiugou">
           <image class="square-45" mode="aspectFit" src="../../assets/image/dly_sfd_icon1.png"></image>
@@ -484,7 +485,7 @@
     <image src="{{$.startImage[0].image}}" wx:if="{{$.startImage[0].isVideo == false}}" mode="widthFix" class="bg-img"
       bindtap="swiperNavTarget" data-guanlianhuodong="{{$.startImage[0].guanlianhuodong}}"
       data-guanlianqiyefuwu="{{$.startImage[0].guanlianqiyefuwu}}"
-      data-guanlianzixun="{{$.startImage[0].guanlianzixun}}" style="width: 300px;"></image>
+      data-guanlianzixun="{{$.startImage[0].guanlianzixun}}" style="width: 300px;border-radius:5px"></image>
     <video src="{{$.startImage[0].video}}" loop="{{false}}" muted="{{false}}" show-fullscreen-btn="{{true}}" enable-progress-gesture="{{true}}"
           show-play-btn="{{true}}" controls="{{true}}" autoplay="{{false}}" object-fit="{{fill}}"  wx:if="{{$.startImage[0].isVideo == true}}" class="bg-img" style="width: 300px;"></video>
       <view class="cu-bar margin-top-20" bindtap="hideModal">

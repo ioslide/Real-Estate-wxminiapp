@@ -92,7 +92,7 @@
   </view>
   <view class="address-box data-v-63601b40" bind:tap="guideTo">
     <view class="text data-v-63601b40">楼盘地址: {{houseDetail.jutidizhi}}</view>
-    <image class="detail-right-map-img" color="#333" src="../../assets/image/shop-navigation.png" mode="widthFix"
+    <image class="detail-right-map-img" src="../../assets/image/shop-navigation.png" mode="widthFix"
       style="width:30px;height: 30px;"></image>
   </view>
 </view>
@@ -202,7 +202,6 @@
 
 <!-- <view class="saleman-box border-box" wx:if="{{saleList.length>0}}"> -->
 
-
 <view class="apartment-box border-box">
   <view class="common-title" style="margin-bottom: 0;">
     <view class="common-title-left" style="font-size: 16px;">销售顾问</view>
@@ -311,7 +310,7 @@
 </view>
 
 <view class="footer-fixed-container data-v-00532eba" style="padding-bottom:0px;">
-  <view class="broker-info data-v-00532eba">
+  <view class="broker-info data-v-00532eba" bindtap="navDetailDailiren" data-id="{{loupanshouxidailiren._id}}">
     <image class="portrait data-v-00532eba" mode="aspectFit" src="{{loupanshouxidailiren.zhaopian}}"></image>
     <view class="info-box data-v-00532eba">
       <view class="name-box data-v-00532eba">

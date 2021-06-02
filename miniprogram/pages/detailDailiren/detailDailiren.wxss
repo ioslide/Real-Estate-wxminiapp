@@ -152,7 +152,7 @@ page{
 
 
 .storeItem {
-	width: 91vw;
+	width: 100%;
 	margin: 0 auto;
 	margin-bottom: 4vw;
 	box-sizing: border-box;
@@ -160,7 +160,6 @@ page{
 
  .services {
 	background-color: #dbf7f2;
-	border-radius: 1.6vw;
 	min-height: 16vw;
 	color: #30a690;
 	display: flex;

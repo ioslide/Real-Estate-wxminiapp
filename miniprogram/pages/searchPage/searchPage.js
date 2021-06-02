@@ -38,6 +38,11 @@ create(store, {
       keyword: ''
     })
   },
+  goToAllhouseList() {
+    wx.navigateTo({
+      url: '../allhouseList/allhouseList'
+    })
+  },
   searchArean(e) {
     const t = this
     log('[searchWord]', e.detail.value)

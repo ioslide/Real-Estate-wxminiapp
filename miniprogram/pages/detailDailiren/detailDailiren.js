@@ -126,6 +126,9 @@ create(store, {
       .then(res => {
         console.log(res)
         wx.pro.hideLoading()
+        wx.showToast({
+          title: '提交成功',
+        })
         t.hideModal()
       })
       .catch(console.error)

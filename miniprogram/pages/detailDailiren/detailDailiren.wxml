@@ -50,7 +50,7 @@
                 role="img"></image>
           </view>
 
-          <view class="info data-v-cfeaf816">服务年限{{detailDailiren.workYear}}</view>
+          <view class="info data-v-cfeaf816">服务年限：{{detailDailiren.workYear}}年</view>
           <view class="broker-credentials data-v-cfeaf816">
             <view class="items data-v-cfeaf816">
               <image class="icon data-v-cfeaf816" mode="aspectFit"
@@ -70,7 +70,7 @@
       </view>
       <view class="broker-attr-box data-v-cfeaf816">
         <view class="items data-v-cfeaf816">
-          <view class="label data-v-cfeaf816">主营城市</view>
+          <view class="label data-v-cfeaf816">主营区域</view>
           <view class="showServiceArea">{{detailDailiren.chengshi}}</view>
           <view class="icon data-v-cfeaf816">
           </view>
@@ -115,17 +115,25 @@
   </view>
 </view>
 
-<view class="services storeItem">
-  <view class="servicesleft">
+<!-- <view class="services storeItem">
+  <view class="servicesleft"> -->
     <!-- <view class="servicesimg justify-center">
       <image src="https://cdn-fhy-file.bgy.com.cn/bu00310-prd1/5f913118e4b0ebfd8e18e879" style="width:40px;height:40px;" mode="aspectFill"></image>
     </view> -->
-    <view class="servicesp grid col-1 ">
+    <!-- <view class="servicesp grid col-1 ">
       <view class="servicesp1">邀请您体验一对一专属服务</view>
       <view class="servicesp2">{{detailDailiren.mingcheng}}将竭诚为您服务</view>
     </view>
   </view>
   <view bind:tap="handleChat" data-target="formChat" class="servicesbtn">申请服务</view>
+</view> -->
+<view class="help-find-house-box data-v-2789d440" bindtap="helpVIPTofindHouse" wx:if="{{$.zixunxinxi.length > 0}}">
+  <view class="help-find-house data-v-2789d440">
+    <image class="picture data-v-2789d440" mode="aspectFill" src="../../assets/image/yuyuedailirenbg.png"></image>
+    <view class="text data-v-top-2789d440">预约专属服务</view>
+    <view class="text data-v-2789d440">{{detailDailiren.mingcheng}}将竭诚为您服务</view>
+    <view bind:tap="handleChat" data-target="formChat" class="btn data-v-2789d440">申请服务</view>
+  </view>
 </view>
 
 <view class="consumerShare">

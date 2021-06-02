@@ -173,7 +173,7 @@ const getAllHouseList = () => {
     for (var i = 0, markersData = []; i < houselist.length; i++) {
       let jingweidu = houselist[i]['jingweidu'].split(',')
       markersData.push({
-        "iconPath": "https://weather.ioslide.com/bgylocation.png",
+        "iconPath": "https://7868-xhy-craft-1gpv4s5596b1f3b9-1305059458.tcb.qcloud.la/shop-navigation.png?sign=97aa9317bd852744d7ad9be8ed092612&t=1622623065",
         "id": houselist[i]['_id'],
         "latitude": jingweidu[0],
         "longitude": jingweidu[1],
@@ -184,14 +184,14 @@ const getAllHouseList = () => {
           "content": houselist[i]['loupanmingcheng'] + "\n" + houselist[i]['loupandanjia'],
           "display": "ALWAYS",
           "padding": 5,
-          "bgColor": "#D25D5D",
-          "borderColor": "#D25D5D",
+          "bgColor": "#b1a183",
+          "borderColor": "#b1a183",
           "color": "#fff",
           "borderRadius": 5,
           "fontSize": 14,
           "textAlign": "center",
           "areaName": houselist[i]['chengshi'] + houselist[i]['loupanmingcheng'],
-          "logoUrl": "https://xsfile.bgy.com.cn/fileservice/file/view?fileId=f6ec2f90-7da2-442a-a555-ff9fbbd24ea9",
+          "logoUrl": "https://7868-xhy-craft-1gpv4s5596b1f3b9-1305059458.tcb.qcloud.la/shop-navigation.png?sign=97aa9317bd852744d7ad9be8ed092612&t=1622623065",
           "city": houselist[i]['chengshi'],
           "region": houselist[i]['jutidizhi'],
           "lables": houselist[i]['biaoqian'],
