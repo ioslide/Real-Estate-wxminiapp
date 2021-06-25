@@ -8,7 +8,7 @@
 </swiper>
 <view class="help-find-house-box data-v-2789d440" bindtap="navRuzhu">
   <view class="help-find-house data-v-2789d440">
-    <image class="picture data-v-2789d440" mode="aspectFill" src="../../assets/image/help-find-house.png"></image>
+    <image class="picture data-v-2789d440" mode="aspectFill" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/help-find-house.png"></image>
     <view class="text data-v-top-2789d440">入驻论方略</view>
     <view class="text data-v-2789d440">简单填写，一键抢先入驻！</view>
     <view class="btn data-v-2789d440">立即填写</view>
@@ -21,6 +21,7 @@
   <view class="list-view" wx:if="{{currentTab == 0}}">
     <view class="list-cell list-item" hover-class="hover" hover-stay-time="150" bindtap="detail">
       <view>
+        <!-- <image src="../../assets/image/logo-row.png" mode="widthFix"></image> -->
         <view class="" style="line-height:30px;font-size:14px;letter-spacing: 1px;text-align:left;">
           {{gongsijieshao.pinpaijianjie}}</view>
       </view>
@@ -48,11 +49,6 @@
         <view class="" style="line-height:30px;font-size:14px;letter-spacing: 1px;text-align:left;">
           {{gongsijieshao.pinpaiyuanjin}}</view>
       </view>
-    </view>
-  </view>
-  <view class="list-view" wx:if="{{currentTab == 4}}">
-    <view class="list-cell list-item" hover-class="hover" hover-stay-time="150" bindtap="detail">
-      <image src="../../assets/image/logo.png" mode="widthFix" style="width:100%;"></image>
     </view>
   </view>
   <view class="common-title margin-bottom-10">

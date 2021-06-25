@@ -69,7 +69,7 @@ i {
   line-height: 1.2;
   text-align: center;
   box-sizing: border-box;
-  background: linear-gradient(90deg,#d0bf9d,#b1a183)
+  background: linear-gradient(90deg,#5380F1,#6CB1F1)
 }
 
 .icon-liuyan:before {

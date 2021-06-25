@@ -69,14 +69,14 @@ create(store, {
 
     let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
     let database2 = pinyin.getPinyin(temp2).replace(/\s+/g, "");
-    
+
     db.collection(database).get().then(res => {
       let allHouseList = res.data
       var results = allHouseList.filter(function (entry) {
         return entry._id === options.houseId;
       });
       log(results[0])
-      results[0].kaipanshijian = results[0].kaipanshijian.substr(0,10)
+      results[0].kaipanshijian = results[0].kaipanshijian.substr(0, 10)
       let jingweidu = results[0].jingweidu.split(',')
       let latitude = jingweidu[0]
       let longitude = jingweidu[1]
@@ -86,6 +86,12 @@ create(store, {
         latitude: Number(latitude),
         houseDetail: results[0]
       })
+      
+      let curHouseList = results[0]
+      let houseZujiLists = wx.getStorageSync('houseZujiLists') || []
+      houseZujiLists.unshift(curHouseList)
+      houseZujiLists.slice(0,10)
+      wx.setStorageSync('houseZujiLists', houseZujiLists)
 
       db.collection(database2).doc(results[0].loupanshouxidailiren).get().then(res => {
         log('loupanshouxidailiren', res.data)
@@ -149,12 +155,6 @@ create(store, {
       modalName: null
     })
   },
-  navDetailDailiren(e) {
-    log(e.currentTarget.dataset.id)
-    wx.navigateTo({
-      url: '../detailDailiren/detailDailiren?dailirenId=' + e.currentTarget.dataset.id,
-    })
-  },
   getCurrentTime() {
     let date = new Date()
     let Y = date.getFullYear()
@@ -170,8 +170,7 @@ create(store, {
   submitForm(e) {
     log(e)
     const t = this
-    let rules = [
-      {
+    let rules = [{
         name: "nameInput",
         rule: ["required", "minLength:2", "maxLength:30"],
         msg: ["请输入姓名", "必须2个或以上字符", "姓名不能超过20个字符"]
@@ -198,16 +197,16 @@ create(store, {
       let temp = _key + 'gukeyuyue'
       let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
       db.collection(database).add({
-        data: {
-          username: e.detail.value.nameInput,
-          yixiangfangyuan: e.detail.value.houseInput,
-          userphone: e.detail.value.phoneInput,
-          jiedaidailixingming: t.data.curDaili.name,
-          jiedaidailidianhua: t.data.curDaili.phone,
-          dailiid: t.data.curDaili.id,
-          tijiaoshijian: t.getCurrentTime(),
-          guketijiaolaiyuan:'房产详情页'
-        }
+          data: {
+            username: e.detail.value.nameInput,
+            yixiangfangyuan: e.detail.value.houseInput,
+            userphone: e.detail.value.phoneInput,
+            jiedaidailixingming: t.data.curDaili.name,
+            jiedaidailidianhua: t.data.curDaili.phone,
+            dailiid: t.data.curDaili.id,
+            tijiaoshijian: t.getCurrentTime(),
+            guketijiaolaiyuan: '房产详情页'
+          }
         })
         .then(res => {
           console.log(res)
@@ -227,6 +226,11 @@ create(store, {
     log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: '../detailDailiren/detailDailiren?dailirenId=' + e.currentTarget.dataset.id,
+    })
+  },
+  goToAllhouseList() {
+    wx.navigateTo({
+      url: '../allhouseList/allhouseList'
     })
   },
   guideTo() {
@@ -263,7 +267,23 @@ create(store, {
       promise
     }
   },
+  guanzhu() {
+    const t = this
+    let submitData = t.data.houseDetail
+    let guanzhuHouseLists = wx.getStorageSync('guanzhuHouseLists') || []
+    guanzhuHouseLists.push(submitData)
+    let obj = {};
 
+    let reduceguanzhuHouseLists = guanzhuHouseLists.reduce((cur, next) => {
+      obj[next._id] ? "" : obj[next._id] = true && cur.push(next);
+      return cur;
+    }, [])
+    wx.setStorageSync('guanzhuHouseLists', reduceguanzhuHouseLists)
+    wx.showToast({
+      title: '关注成功',
+    })
+
+  },
   onShow: function () {
 
   },

@@ -7,7 +7,7 @@
 
 <swiper class="card-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
   duration="500"  indicator-color="#8799a3" indicator-active-color="#0081ff">
-  <swiper-item bindtap="showModal" data-target="Image" wx:for="{{detailhuodong.lunbotu}}" wx:key="_id" class="{{cardCur==index?'cur':''}}">
+  <swiper-item wx:for="{{detailhuodong.lunbotu}}" wx:key="_id" class="{{cardCur==index?'cur':''}}">
     <view class="swiper-item">
       <image src="{{item}}" mode="aspectFill"></image>
     </view>
@@ -20,14 +20,10 @@
   </view>
   <view class="detail-label-box border-box detail-margin" style="margin-bottom:5px">
     <view class="cu-tag bg-red light sm"
-      style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">企业服务
-    </view>
-    <view class="cu-tag bg-gold font-weight-400 text-white sm"
-      style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;color:#fff">
-      {{detailhuodong.shengfen}} {{detailhuodong.huodongchengshi}}
+      style="border-radius:10px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">企业服务
     </view>
     <view wx:for="{{detailhuodong.biaoqian}}" wx:key="_id" class="cu-tag bg-grey light sm"
-      style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{detailhuodong.biaoqian}}
+      style="border-radius:10px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{detailhuodong.biaoqian}}
     </view>
   </view>
 </view>
@@ -53,30 +49,19 @@
   <view class="detail-area-wrap">
     <view class="detail-left-box">
       <view class="detail-area-box detail-common border-box">
-        <view class="detail-area-label border-box" style="margin-bottom: 0;">具体地址</view>
+        <view class="detail-area-label border-box" style="margin-bottom: 0;">日期</view>
         <view class="detail-area-num border-box detail-area-beyond">
-          {{detailhuodong.huodongriqi}}
+          {{detailhuodong.huodongkaishiriqi}} - {{detailhuodong.huodongjieshuriqi}}
         </view>
       </view>
     </view>
   </view>
+  
   <view class="address-box data-v-63601b40" bind:tap="guideTo">
-    <view class="text data-v-63601b40">发布日期: {{detailhuodong.jutidizhi}}</view>
-    <image class="detail-right-map-img" color="#333" src="../../../assets/image/shop-navigation.png" mode="widthFix"
+    <view class="text data-v-63601b40">具体地址: {{detailhuodong.jutidizhi}}</view>
+    <image class="detail-right-map-img" color="#333" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/shop-navigation.png" mode="widthFix"
       style="width:30px;height: 30px;"></image>
   </view>
- 
-</view>
-
-<view class="common-title">
-  <view class="common-title-left margin-left-10" style="font-size:16px">视频介绍</view>
-</view>
-
-<view class="flex solid-bottom padding-15 align-center" wx:if="{{detailhuodong.huodongshipin}}">
-  <video style="border-radius:0px;width:100%;height:150px" src="{{detailhuodong.huodongshipin[0]}}"
-    poster="{{detailhuodong.image[0]}}" loop="{{false}}" muted="{{false}}" show-fullscreen-btn="true"
-    title="{{detailhuodong.title}}" enable-progress-gesture="{{true}}" show-play-btn="{{true}}" controls="{{true}}"
-    objectFit="cover"></video>
 </view>
 
 <view class="padding-15 bg-white">
@@ -84,11 +69,26 @@
     {{detailhuodong.content}}
   </view>
 </view>
+<block wx:for="{{detailhuodong.huodongshipin}}">
+<view class="common-title">
+  <view class="common-title-left margin-left-10" style="font-size:16px">视频介绍</view>
+</view>
 
+<view class="flex solid-bottom padding-15 align-center" wx:if="{{detailhuodong.huodongshipin}}">
+  <video style="border-radius:10px;width:100%;height:150px" src="{{detailhuodong.huodongshipin}}"
+    poster="{{detailhuodong.image[0]}}" loop="{{false}}" muted="{{false}}" show-fullscreen-btn="true"
+    title="{{detailhuodong.title}}" enable-progress-gesture="{{true}}" show-play-btn="{{true}}" controls="{{true}}"
+    objectFit="cover"></video>
+</view>
+</block>
 <view class="common-title">
   <view class="common-title-left margin-left-10" style="font-size:16px">相册</view>
 </view>
-
+<view class="grid col-3 margin-bottom text-center">
+  <view wx:for="{{detailhuodong.image}}" style="height:120px" > 
+    <image src="{{item}}" mode="aspectFill" style="width:100%;height: 100%;" bindtap="showModal" data-target="Image" data-index="{{index}}"></image>
+  </view>
+</view>
 <view class="cu-modal {{modalName=='Image'?'show':''}}">
 	<view class="cu-dialog" style="height: 100%;width: 100%;">
 		<swiper bindchange="swipeEnd" class="view_box" current="{{currDay}}" vertical="{{true}}" style="width:100%;height: 100%;">
@@ -99,9 +99,10 @@
 	</view>
 </view>
 
+<block wx:for="{{detailhuodong.wendang}}">
 <view class="common-title">
   <view class="common-title-left  margin-left-10" style="font-size:16px">文档详细介绍</view>
 </view>
 <view class="flex solid-bottom padding justify-start">
-  <view bindtap="downloadFile" class="margin-left-15 cu-btn bg-gold margin-tb-sm lg">下载文档</view>
-</view>
+  <view bindtap="downloadFile" class="margin-left-15 cu-btn bg-gold margin-tb-sm lg" style="border-radius:20px">下载文档</view>
+</view></block>

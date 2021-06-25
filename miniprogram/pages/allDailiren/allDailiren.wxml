@@ -51,13 +51,6 @@
             <text class="nameTag">{{item.mingcheng}}</text></view>
           <view class="saleman-item-label-bot border-box">{{item.chengshi}}</view>
         </view>
-        <view class="saleman-round-3">
-          <image class="medalregion-item-right-img border-box" mode="aspectFill"
-            src="/packages_FloorDetail/resources/floorDetail/one.png"></image>
-        </view>
-        <view class="saleman-round3 saleman-round-3">
-          <image class="medalregion-item-right-img border-box" mode="aspectFill" role="img"></image>
-        </view>
       </view>
       <view class="saleman-item-right">
         <view catch:tap="handleChat" data-target="formChat" class="saleman-round saleman-round-1" data-id="{{item._id}}"
@@ -99,7 +92,7 @@
             maxlength="11" placeholder="您的手机号" placeholderClass="model-placeholder" value="{{userphone}}"></input>
         </view>
         <view class="model-btn" slot="btn" style="margin:0">
-          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover" style="background:linear-gradient(90deg,#d0bf9d,#b1a183);border-radius:0;bottom:0;width: 100%;">
+          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover" style="background:linear-gradient(90deg,#5380F1,#6CB1F1);border-radius:0;bottom:0;width: 100%;">
             提交
           </button>
         </view>

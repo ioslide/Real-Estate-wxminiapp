@@ -2,7 +2,7 @@
 const cloud = require('wx-server-sdk')
 
 cloud.init({
-  env: 'wunderweather-nwepb'
+  env: 'lunfanglue-7g33jtt446e6cefa'
 })
 
 exports.main = async (event, context) => {

@@ -1,0 +1,42 @@
+<view class="cu-card article padding-bottom-30" id="loupandaquan">
+  <view class="cu-item shadow margin-15" bindtap="navDetail" data-id="{{item._id}}" wx:for="{{allHouseList}}">
+    <view bindtap="navDetail" data-id="{{item._id}}">
+      <!-- <view class="title">
+        <view class="text-cut">{{item.loupanmingcheng}}</view>
+      </view> -->
+      <view class="content">
+        <image src="{{item.loupanxiangce[0]}}" mode="aspectFill" style="border-radius:20px;height: 110px;"></image>
+        <view class="desc">
+          <view class="margin-bottom-5" wx:if="{{housetag == 'anxiang'}}" style="font-weight:600;font-size:16px">
+            <view class="anxiang">{{item.loupanmingcheng}}</view>
+          </view>
+          <view class="margin-bottom-5" wx:if="{{housetag == 'didanjia'}}" style="font-weight:600;font-size:16px">
+            <view class="didanjia">{{item.loupanmingcheng}}</view>
+          </view>
+          <view class="margin-bottom-5" wx:if="{{housetag == 'xuequfang'}}" style="font-weight:600;font-size:16px">
+            <view class="xuequfang">{{item.loupanmingcheng}}</view>
+          </view>
+          <view class="margin-bottom-5" wx:else style="font-weight:600;font-size:16px">
+            <view class="normalfang">{{item.loupanmingcheng}}</view>
+          </view>
+          <view class="margin-bottom-5" style="color: #000;font-weight:600;font-size:14px">{{item.jianzumianji}}</view>
+          <view class="margin-bottom-5" style="color: #999;font-size:14px">
+            <text class="cuIcon-location lg text-grey margin-right-5"></text>{{item.jutidizhi}}</view>
+          <view class="margin-bottom-5">
+            <view wx:for="{{item.biaoqian}}" wx:key="_id" class="cu-tag light sm"
+              style="color:#999;border-radius:15px;background:#F8F8F8;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">
+              {{item}}
+            </view>
+          </view>
+          <view class="margin-bottom-5" style="color: #4f7df9;font-size:12px">￥ <text
+              style="font-size:17px;font-weight:600;">{{item.zuidijiage}}-{{item.zuigaojiage}} </text>/㎡</view>
+
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{allHouseList.length == 0}}" style="background:#ffffff">
+    <nodata boxStyle="padding-top:50rpx" btnUrl="{{noDataUrl}}" imgStyle="width:340rpx"
+      imgUrl="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/no-result.png" tipsData="{{['没有数据']}}"></nodata>
+  </view>
+</view>

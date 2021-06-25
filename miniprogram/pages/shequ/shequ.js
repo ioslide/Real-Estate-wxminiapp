@@ -75,17 +75,16 @@ create(store, {
         }).then(function (result) {
           log('[' + res.data[i].title + ']',result.result)
           res.data[i].tag = result.result.entities
-          if(res.data.length == 4){
+          if(res.data.length-1 == i){
           log(res.data)
             t.setData({
               qiuzuqiugou: res.data,
               showCancel: false
             })
-            wx.pro.hideLoading()
           }
         }).catch(console.error)
       }
-
+      wx.pro.hideLoading()
     })
   },
   hideModal(e) {

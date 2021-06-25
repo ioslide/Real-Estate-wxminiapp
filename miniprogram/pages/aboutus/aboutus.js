@@ -27,9 +27,6 @@ create(store, {
       name: "品牌理念"
     }, {
       name: "品牌愿景"
-    },
-    {
-      name: "品牌logo"
     }],
     winHeight: "", //窗口高度
     currentTab: 0, //预设当前项的值

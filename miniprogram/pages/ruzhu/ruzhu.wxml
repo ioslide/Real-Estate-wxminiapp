@@ -1,8 +1,9 @@
 <view class="help-find-house-box data-v-2789d440" style="padding:0">
   <view class="help-find-house data-v-2789d440">
-    <image class="picture data-v-2789d440" style="width:100%" mode="aspectFill" src="../../assets/image/help-find-house.png"></image>
+    <image class="picture data-v-2789d440" style="width:100%" mode="aspectFill"
+      src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/help-find-house.png"></image>
     <view class="text data-v-top-2789d440">限时免费！</view>
-    <view class="text data-v-2789d440">立即填写入驻论方略！！</view>
+    <view class="text data-v-2789d440">立即填写入驻论方略区域代理！！</view>
   </view>
 </view>
 <form bindsubmit="submitForm">
@@ -10,9 +11,9 @@
     <view class="title">您的姓名</view>
     <input class="title" name="nameInput" placeholder="姓名"></input>
   </view>
-  <view class="cu-form-group">
+  <!-- <view class="cu-form-group">
     <view class="title">手机号码</view>
-    <input class="title" name="phoneInput" maxlength="11" placeholder="输入框带标签"></input>
+    <input class="title" name="phoneInput" maxlength="11" placeholder="手机号"></input>
     <view class="cu-capsule radius">
       <view class="cu-tag bg-gold">
         +86
@@ -21,13 +22,19 @@
         中国大陆
       </view>
     </view>
+  </view> -->
+  <phoneCodeButton bind:verifySmsCode="verifySmsCode" />
+  
+  <view class="cu-form-group">
+    <view class="title" style="padding-right:30rpx">验证码</view>
+    <input class="title" bindinput='checkcodeInput' name="codeInput" placeholder="验证码"></input>
   </view>
 
   <view class="cu-form-group margin-top">
     <view class="title">代理区域</view>
     <input class="title" name="ruzhuquyuInput" placeholder="意向代理区域"></input>
   </view>
-  <view class="cu-form-group align-start">
+  <view class="cu-form-group align-start" style="border-bottom:0.5px solid #eee;">
     <view class="title">备注事项</view>
     <textarea name="beizhuInput" maxlength="-1" disabled="{{modalName!=null}}" bindinput="textareaBInput"
       placeholder="备注"></textarea>
@@ -55,13 +62,18 @@
     </view>
   </view>
   <view class="cu-form-group align-center" style="border-bottom:1rpx solid #eee">
-    <view class="title" bindtap="uploadFile" style="background:#FFF9EE;text-align:center;line-height: 30px;margin:0;padding:0;height:30px;">附件上传</view>
+    <view class="title" bindtap="uploadFile"
+      style="background:#FFF9EE;text-align:center;line-height: 30px;margin:0;padding:0;height:30px;">附件上传</view>
     <view class="title" wx:for="{{uploadFilePathsName}}">{{item}}</view>
   </view>
   <view class="cu-form-group margin-top">
     <view class="title">注意: 申请成功会下发账号和密码</view>
   </view>
+  <!-- <view class="cu-form-group margin-top">
+    <image class="picture data-v-2789d440" style="height:40px" mode="widthFix" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/bottomBg.png">
+    </image>
+  </view> -->
   <view class="footer-fixed">
-    <button form-type="submit" class="items" href="/shenzhen/ask/answer/169048?fromSource=WECHAT">提交审核</button>
+    <button form-type="submit" class="items" style="border-radius:0">提交审核</button>
   </view>
 </form>

@@ -1,0 +1,12 @@
+<view class="page-body data-v-5330271f">
+  <view class="remaining-container data-v-5330271f">
+    <scroll-view class="scroll-body data-v-5330271f">
+      <view class="page-content data-v-5330271f">
+        <image class="logo data-v-5330271f" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/logo.png" mode="aspectFit"></image>
+        <button class="login data-v-5330271f" disabled="{{disabledAuthorized}}"
+          hoverClass="none" bindtap="getUserProfile" loading="{{disabledAuthorized}}" openType="getUserInfo">微信授权登录</button>
+        <!-- <view catchtap="__e" class="button data-v-5330271f">手机验证码登录</view> -->
+      </view>
+    </scroll-view>
+  </view>
+</view>

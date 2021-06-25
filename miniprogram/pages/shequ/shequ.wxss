@@ -206,8 +206,8 @@ section {
   font-size: 14px;
   color: #fff;
   line-height: 1.2;
-  border-radius: 3px;
-  background: linear-gradient(90deg,#d0bf9d,#b1a183)
+  border-radius: 20px;
+  background: linear-gradient(90deg,#5380F1,#6CB1F1)
 }
 
 .ask-question .items .icon {

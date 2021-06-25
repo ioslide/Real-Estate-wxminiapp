@@ -31,12 +31,20 @@ create(store, {
     submitUploadImgList: [],
     submitFileList: [],
     modalName: null,
+    code:'0000'
   },
   onLoad: function (options) {
 
   },
   genID(length) {
     return Number(Math.random().toString().substr(3, length) + Date.now()).toString(36);
+  },
+  verifySmsCode(e){
+    log(e)
+    this.setData({
+      code : e.detail.code,
+      phone: e.detail.phone
+    })
   },
   submitForm(e) {
     log(e)
@@ -47,9 +55,9 @@ create(store, {
         msg: ["请输入姓名", "姓名必须是中文", "必须2个或以上字符", "姓名不能超过20个字符"]
       },
       {
-        name: "phoneInput",
-        rule: ["required", "isMobile"],
-        msg: ["请输入手机号", "请输入正确的手机号"]
+        name: "codeInput",
+        rule: ["required"],
+        msg: ["请输入验证码"]
       },
       {
         name: "ruzhuquyuInput",
@@ -65,7 +73,14 @@ create(store, {
     let formData = e.detail.value;
     let checkRes = form.validation(formData, rules);
     let imageList = t.data.imgList
-    log(imageList, checkRes)
+    log(imageList, checkRes,formData)
+    if(formData.codeInput !== t.data.code && formData.codeInput !== ""){
+      wx.showToast({
+        title: '验证码不正确',
+        icon:'none'
+      })
+      return false
+    }
     if (!checkRes && imageList.length !== 0) {
       log('验证通过')
       wx.pro.showLoading({
@@ -89,10 +104,10 @@ create(store, {
               if(i == t.data.uploadFilePaths.length-1 && j == t.data.imgList.length-1){
               db.collection('ruzhudaili').add({
                   data: {
-                    name: e.detail.value.nameInput,
-                    phone: e.detail.value.phoneInput,
-                    yixiangdailiquyu: e.detail.value.ruzhuquyuInput,
-                    beizhu: e.detail.value.beizhuInput,
+                    name: formData.nameInput,
+                    phone: t.data.phoneInput,
+                    yixiangdailiquyu: formData.ruzhuquyuInput,
+                    beizhu: formData.beizhuInput,
                     hetongtupian: t.data.submitUploadImgList,
                     fujian: t.data.submitFileList,
                     time: app.getCurrentTime()

@@ -1,0 +1,75 @@
+
+        <view class="_1L092V6Z8Ay-SiUA24pD1n">
+          <view class="ZM5CgaDsX8vyU1PmPZiGS">
+            <view class="qhNlkmRwAlATtR4VTxHhc">
+              <p class="_3i71Dpwt49oZ08IalnbFWL">信息录入</p>
+              <ul>
+                <li><text>所在城市</text><span avoidtouch="true"
+                    class="n9rb-5K_xtN9w3i7t5Quo _2ZVmefi9tLkIOP7qH9b64n">淮安</span></li>
+                <li><text>所在小区</text><span avoidtouch="true"
+                    class="n9rb-5K_xtN9w3i7t5Quo _2ZVmefi9tLkIOP7qH9b64n">北京西路85号</span></li>
+                <li><text>具体地址</text><span avoidtouch="true" class="n9rb-5K_xtN9w3i7t5Quo ">请输入门牌号</span></li>
+                <li><text>期望租金</text><span avoidtouch="true"
+                    class="n9rb-5K_xtN9w3i7t5Quo _3RD_CmzgNhHlMBOQxvwcps ">请输入期望租金</span></li>
+                <li><text>出租方式</text>
+                  <!-- <view class="n9rb-5K_xtN9w3i7t5Quo _3z3WtYNr_3BCR-c-TYpxGJ">
+                  <option value="1">整租</option>
+                  <option value="2">合租</option>
+                  <option value="3">转租</option>
+                </view> -->
+                </li>
+                <li><text>如何称呼</text><input type="text" maxlength="5" placeholder="请输入姓名" value=""></input></li>
+                <li><text>联系方式</text><input type="number" disabled="" readonly="" placeholder="请输入手机号"
+                    value="16602877006"></input></li>
+              </ul>
+            </view>
+            <view class="_17uBWjJjzhkgKkcMW7uKhg">
+              <view class="SZgvxgNGuMj8T2HIADMyP">
+                <p class="_3i71Dpwt49oZ08IalnbFWL">房源发布流程</p>
+                <view class="_2C_BFZEvgZ-Kt6XHSYzNrs">
+                  <image
+                    src="https://s1.ljcdn.com/rent_landlord/_next/static/images/release_progress@3x-5193363e12ed4f9cd93c00513e9bd3df.png"
+                    alt="房源发布流程"></image>
+                </view>
+              </view>
+              <view class="_2Taso5eYe_JSbcEZvf2vUG">
+                <view class="_1r6zXzxItMqSRIJyPUra6h">服务介绍</view>
+                <view class="_1hOAHwHqMA-P2eRMTmI2mT">
+                  <view class="_3Uz8iqqSjcD5MLNrGAAUbs">
+                    <image
+                      src="https://s1.ljcdn.com/rent_landlord/_next/static/images/icon_fast_beike@3x-d7470caadcb192b63d6d3f3bea4926f7.png"
+                      alt="icon" class="_3ncupkSL3luq-jv6YtNOtn"></image>
+                    <p class="_2LEltTu5KoyOKooFtqimkI">快速上架</p>
+                    <p class="NB7UXO4OEZ4feNwGT7J8_">24小时内上架房源</p>
+                  </view>
+                  <view class="_3Uz8iqqSjcD5MLNrGAAUbs">
+                    <image
+                      src="https://s1.ljcdn.com/rent_landlord/_next/static/images/icon_arrow_beike@3x-1d63c3c054fed9ab16c73f0427032679.png"
+                      alt="icon" class="_3ncupkSL3luq-jv6YtNOtn"></image>
+                    <p class="_2LEltTu5KoyOKooFtqimkI">海量租客</p>
+                    <p class="NB7UXO4OEZ4feNwGT7J8_">全网精准快速匹配租客</p>
+                  </view>
+                  <view class="_3Uz8iqqSjcD5MLNrGAAUbs">
+                    <image
+                      src="https://s1.ljcdn.com/rent_landlord/_next/static/images/icon_s_beike@3x-9300a193332a92885ce0ade8b963ddd3.png"
+                      alt="icon" class="_3ncupkSL3luq-jv6YtNOtn"></image>
+                    <p class="_2LEltTu5KoyOKooFtqimkI">全程服务</p>
+                    <p class="NB7UXO4OEZ4feNwGT7J8_">25万+专业经纪人为您服务</p>
+                  </view>
+                  <view class="_3Uz8iqqSjcD5MLNrGAAUbs">
+                    <image
+                      src="https://s1.ljcdn.com/rent_landlord/_next/static/images/icon_money_beike@3x-ff69f6a56d14ca249c6a9c40324ea539.png"
+                      alt="icon" class="_3ncupkSL3luq-jv6YtNOtn"></image>
+                    <p class="_2LEltTu5KoyOKooFtqimkI">收益稳定</p>
+                    <p class="NB7UXO4OEZ4feNwGT7J8_">快速出房，出租更省心</p>
+                  </view>
+                </view>
+              </view>
+              <p class="_3VYU_C04fxcxuTgk5N6Pdb">
+                提示：您点击“提交委托”后，若您的房源通过平台初步审核，将会由平台上的经纪人和您取得联系，并对您的房源进行再次核实，核实无误后将与您建立服务关系。平台仅提供信息展示和网络技术服务。</p>
+            </view>
+          </view>
+          <view class="_3W7RBT-LaXk2V4ae88wc-J ">
+            <view class="_1-Z5G0ysBdqUr-_BOwzpws IdSEQVX9SkFmZzYliw8Zq ">提交委托</view>
+          </view>
+        </view>

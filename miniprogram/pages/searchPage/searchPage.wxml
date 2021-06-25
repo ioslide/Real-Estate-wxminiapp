@@ -2,8 +2,9 @@
   <view class="search-box data-v-7a95ed29">
     <text class="fhyfont icon-search"></text>
     <input bindconfirm="searchArean" class="text data-v-7a95ed29 placeholder data-v-5832b5b8" confirmType="搜索"
-      placeholder="请搜索楼盘/城市" value="{{keyword}}" type="text" selection-start="-1" selection-end="-1" cursor="-1" bindfocus="inputfocus" bindblur="inputblur" ></input>
-      <text bindtap="clearKeyword" class="fhyfont iconicon-deletetext" size="16" type="clear" style="color: #AAAAAA;"
+      placeholder="请搜索楼盘/城市" value="{{keyword}}" type="text" selection-start="-1" selection-end="-1" cursor="-1"
+      bindfocus="inputfocus" bindblur="inputblur"></input>
+    <text bindtap="clearKeyword" class="fhyfont iconicon-deletetext" size="16" type="clear" style="color: #AAAAAA;"
       wx:if="{{showClear}}"></text>
   </view>
 </view>
@@ -13,7 +14,7 @@
 
   <view wx:if="{{hasHouseList == false}}" style="background:#ffffff">
     <nodata boxStyle="padding-top:50rpx" btnUrl="{{noDataUrl}}" imgStyle="width:340rpx"
-      imgUrl="../../assets/image/no-result.png" tipsData="{{['没有找到相应的房源']}}"></nodata>
+      imgUrl="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/no-result.png" tipsData="{{['没有找到相应的房源']}}"></nodata>
   </view>
   <block wx:if="{{hasHouseList == false}}">
     <view class="common-title" wx:if="{{$.allHouseList.length !==0}}">
@@ -21,23 +22,23 @@
       <view bind:tap="goToAllhouseList" class="more-apartment common-title-right">查看全部</view>
     </view>
     <view class="cu-card article padding-bottom-30" id="loupandaquan" wx:if="{{$.allHouseList.length !==0}}">
-      <view class="cu-item shadow margin-left-15 margin-right-15 " style="background: #fbfbfb;"
-        wx:for="{{$.allHouseList}}" wx:key="_id" bindtap="navHousedetail" data-id="{{item._id}}">
+      <view class="cu-item shadow margin-left-15 margin-right-15 " style="background: #ffffff;"
+        wx:for="{{$.allHouseList}}" wx:key="_id" wx:if="{{index<10}}" bindtap="navHousedetail" data-id="{{item._id}}">
         <view class="content" style="padding:0px">
           <image src="{{item.loupanxiangce[0]}}" mode="aspectFill"></image>
           <view class="desc">
             <view class="margin-bottom-5" style="font-weight:600;">{{item.loupanmingcheng}}</view>
             <view class="margin-bottom-5" style="color: #999;">{{item.quxian}} | 建面：{{item.jianzumianji}}</view>
-            <view class="margin-bottom-5" style="color: #ff6d6d">{{item.loupandanjia}}</view>
+            <view class="margin-bottom-5" style="color: #ff6d6d"> {{item.zuidijiage}}-{{item.zuigaojiage}}元/㎡</view>
             <view>
-          <view class="cu-tag bg-gold font-weight-400 text-black text-white sm"
-            style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;color:#fff">
-            {{item.chanpinleixing}}
-          </view>
-          <view wx:for="{{item.biaoqian}}" wx:key="_id" class="cu-tag bg-grey light sm"
-            style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{item}}
-          </view>
-        </view>
+              <view class="cu-tag bg-gold font-weight-400 text-black text-white sm"
+                style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;color:#fff">
+                {{item.chanpinleixing}}
+              </view>
+              <view wx:for="{{item.biaoqian}}" wx:key="_id" class="cu-tag bg-grey light sm"
+                style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{item}}
+              </view>
+            </view>
           </view>
         </view>
       </view>
@@ -49,23 +50,23 @@
       <view class="cuIcon-titles common-title-left" style="font-size: 16px;">搜索结果</view>
     </view>
     <view class="cu-card article padding-bottom-30">
-      <view class="cu-item shadow margin-left-15 margin-right-15 " style="background: #fbfbfb;"
+      <view class="cu-item shadow margin-left-15 margin-right-15 " style="background: #ffffff;"
         wx:for="{{searchHouseList}}" wx:key="_id" bindtap="navHousedetail" data-id="{{item._id}}">
         <view class="content" style="padding:0px">
           <image src="{{item.loupanxiangce[0]}}" mode="aspectFill"></image>
           <view class="desc">
             <view class="margin-bottom-5" style="font-weight:600;">{{item.loupanmingcheng}}</view>
             <view class="margin-bottom-5" style="color: #999;">{{item.quxian}} | 建面：{{item.jianzumianji}}</view>
-            <view class="margin-bottom-5" style="color: #ff6d6d">{{item.loupandanjia}}</view>
+            <view class="margin-bottom-5" style="color: #ff6d6d">{{item.zuidijiage}}-{{item.zuigaojiage}}元/㎡</view>
             <view>
-          <view class="cu-tag bg-gold font-weight-400 text-black text-white sm"
-            style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">
-            {{item.chanpinleixing}}
-          </view>
-          <view wx:for="{{item.biaoqian}}" wx:key="_id" class="cu-tag bg-grey light sm"
-            style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{item}}
-          </view>
-        </view>
+              <view class="cu-tag bg-gold font-weight-400 text-black text-white sm"
+                style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">
+                {{item.chanpinleixing}}
+              </view>
+              <view wx:for="{{item.biaoqian}}" wx:key="_id" class="cu-tag bg-grey light sm"
+                style="border-radius:0px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{item}}
+              </view>
+            </view>
           </view>
         </view>
       </view>

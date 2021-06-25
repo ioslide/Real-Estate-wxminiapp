@@ -1,0 +1,22 @@
+
+.cu-form-group {
+  background-color: var(--white);
+  padding: 1rpx 5px 0 30rpx;
+  display: flex;
+  align-items: center;
+  min-height: 100rpx;
+}
+.cu-form-group+.cu-form-group {
+  border-top: 1rpx solid #eee;
+}
+.cu-form-group .title {
+  text-align: justify;
+  font-size: 30rpx;
+  position: relative;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.cu-capsule {
+  display: inline-flex;
+  vertical-align: middle;
+}

@@ -36,7 +36,7 @@
         <view class="content flex-sub">
           <view class="text-grey">{{item.title}}</view>
           <view class="text-gray text-sm flex justify-between">
-            {{item.huodongriqi}}
+            {{item.huodongkaishiriqi}} - {{item.huodongjiezhiriqi}}
             <view class="text-gray text-sm">
                 <view wx:for="{{item.huodongbiaoqian}}" wx:key="_id" class="cu-tag bg-red light sm round">{{item}}</view>
             </view>
@@ -46,7 +46,6 @@
     </view>
   </view>
 </view>
-
 <foot/>
 
 
@@ -70,7 +69,7 @@
             maxlength="11" placeholder="您的手机号" placeholderClass="model-placeholder" value="{{userphone}}"></input>
         </view>
         <view class="model-btn" slot="btn" style="margin:0">
-          <button form-type="submit" style="background:linear-gradient(90deg,#d0bf9d,#b1a183);border-radius:0;bottom:0;width: 100%;" class="model-submit-btn" hoverClass="model-btn-hover">
+          <button form-type="submit" style="background:linear-gradient(90deg,#5380F1,#6CB1F1);border-radius:0;bottom:0;width: 100%;" class="model-submit-btn" hoverClass="model-btn-hover">
             提交兑换
           </button>
         </view>

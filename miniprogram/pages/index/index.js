@@ -22,6 +22,23 @@ import store from '../../store/index'
 const form = require("../../util/formValidation.js")
 
 create(store, {
+  use: [
+    'allRentHouseList',
+    'rentHouseMarkersData',
+    'adSwiperList',
+    'swiperList',
+    'dailiren',
+    'allHouseList',
+    'homepageHouseList',
+    'maifangliucheng',
+    'goufangzhengce',
+    'markersData',
+    'latitude',
+    'longitude',
+    'zixunxinxi',
+    'startImage',
+    'curCity'
+  ],
   data: {
     scrollTop: 0,
     currentTag: 'shouye',
@@ -32,19 +49,19 @@ create(store, {
     btnList: [],
     shareBtnList: [{
       bgColor: "#ffffff",
-      imgUrl: "../../assets/image/huodongBtn.svg",
+      imgUrl: "cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/huodongBtn.svg",
       text: "活动中心",
       fontSize: 34,
       color: "#fff"
     }, {
       bgColor: "#ffffff",
-      imgUrl: "../../assets/image/shareBtn.svg",
+      imgUrl: "cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/shareBtn.svg",
       text: "分享抽奖",
       fontSize: 34,
       color: "#fff"
     }, {
       bgColor: "#ffffff",
-      imgUrl: "../../assets/image/find.svg",
+      imgUrl: "cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/find.svg",
       text: "求租求购",
       fontSize: 34,
       color: "#fff"
@@ -79,50 +96,35 @@ create(store, {
       id: ''
     },
     modalName: '',
-    ruzhuList:[{}],
-    use: [
-      'adSwiperList',
-      'swiperList',
-      'dailiren',
-      'allHouseList',
-      'homepageHouseList',
-      'maifangliucheng',
-      'goufangzhengce',
-      'markersData',
-      'latitude',
-      'longitude',
-      'zixunxinxi',
-      'startImage',
-      'curCity'
-    ],
+    ruzhuList: [{}]
   },
   onLoad: function (options) {
     log('options', options)
     // const t = this
-//     var token = jwt.sign({ foo: 'bar' }, privateKey, { algorithm: 'RS256' });
+    //     var token = jwt.sign({ foo: 'bar' }, privateKey, { algorithm: 'RS256' });
 
-//     const signedData = jwths256.encode(EncodingAESKey, {
-//       uid: t.globalData.openid, 
-//       data: {
-//          q:"微信智言与微信智聆两大技术的支持下，微信AI团队推出了“微信对话开放平台”和“腾讯小微”智能硬件两大核心产品。微信支付团队最新发布的“微信青蛙Pro”在现场设置了体验区，让大家感受AI认脸的本事。"
-//       }
-//     }
-// )
-//     wx.request({
-//       url: 'https://openai.weixin.qq.com/openapi/nlp/tokenize/WmlasdlPkVIUh9hvwdKaVA1CRCYSaX',
-//       data: {
-//         query: signedData
-//       },
-//       enableCache: true,
-//       enableHttp2: true,
-//       enableQuic: true,
-//       method: 'post',
-//       responseType: responseType,
-//       timeout: 0,
-//       success: (result) => {},
-//       fail: (res) => {},
-//       complete: (res) => {},
-//     })
+    //     const signedData = jwths256.encode(EncodingAESKey, {
+    //       uid: t.globalData.openid, 
+    //       data: {
+    //          q:"微信智言与微信智聆两大技术的支持下，微信AI团队推出了“微信对话开放平台”和“腾讯小微”智能硬件两大核心产品。微信支付团队最新发布的“微信青蛙Pro”在现场设置了体验区，让大家感受AI认脸的本事。"
+    //       }
+    //     }
+    // )
+    //     wx.request({
+    //       url: 'https://openai.weixin.qq.com/openapi/nlp/tokenize/WmlasdlPkVIUh9hvwdKaVA1CRCYSaX',
+    //       data: {
+    //         query: signedData
+    //       },
+    //       enableCache: true,
+    //       enableHttp2: true,
+    //       enableQuic: true,
+    //       method: 'post',
+    //       responseType: responseType,
+    //       timeout: 0,
+    //       success: (result) => {},
+    //       fail: (res) => {},
+    //       complete: (res) => {},
+    //     })
 
     wx.setStorageSync('hongbuyuCishu', 1)
     if (options.pageid == 'luckdraw') {
@@ -139,7 +141,7 @@ create(store, {
       })
       t.store.data.curCity = curCity
       t.revAddress(curCity)
-    }else {
+    } else {
       t.setData({
         curCity: '锦江区'
       })
@@ -157,7 +159,7 @@ create(store, {
     // t.store.data.longitude = Number(selectedCity.location.longitude),
     // t.store.data.latitude = Number(selectedCity.location.latitude)
     let revAddressName = e.detail.value[0] + e.detail.value[1] + e.detail.value[2]
-    log('[pickerRegon]', revAddressName,e.detail.value[2])
+    log('[pickerRegon]', revAddressName, e.detail.value[2])
     t.revAddress(revAddressName)
     t.reloadData(e.detail.value[2])
   },
@@ -228,7 +230,7 @@ create(store, {
     // for (var i = 0, markersData = []; i < houselist.length; i++) {
     //   let jingweidu = houselist[i]['jingweidu'].split(',')
     //   markersData.push({
-    //     "iconPath": "../../assets/image/location.png",
+    //     "iconPath": "cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/location.png",
     //     "id": houselist[i]['_id'],
     //     "latitude": jingweidu[0],
     //     "longitude": jingweidu[1],
@@ -318,8 +320,7 @@ create(store, {
   vipsubmitForm(e) {
     log(e)
     const t = this
-    let rules = [
-      {
+    let rules = [{
         name: "nameInput",
         rule: ["required", "minLength:2", "maxLength:30"],
         msg: ["请输入姓名", "必须2个或以上字符", "姓名不能超过20个字符"]
@@ -341,12 +342,12 @@ create(store, {
       let temp = _key + 'gukeyuyue'
       let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
       db.collection(database).add({
-        data: {
-          guketijiaolaiyuan:"首页VIP选房小帮手",
-          username: e.detail.value.nameInput,
-          userphone: e.detail.value.phoneInput,
-          tijiaoshijian: app.getCurrentTime()
-        }
+          data: {
+            guketijiaolaiyuan: "首页VIP选房小帮手",
+            username: e.detail.value.nameInput,
+            userphone: e.detail.value.phoneInput,
+            tijiaoshijian: app.getCurrentTime()
+          }
         })
         .then(res => {
           console.log(res)
@@ -407,7 +408,7 @@ create(store, {
       success: function (res) {
         log('[revAddressName]', dizhi, res)
         t.store.data.longitude = res.result.location.lng,
-        t.store.data.latitude = res.result.location.lat
+          t.store.data.latitude = res.result.location.lat
       },
       fail: function (error) {
         console.error(error);
@@ -429,10 +430,10 @@ create(store, {
       url: '../aboutus/aboutus',
     })
   },
-  helpVIPTofindHouse(){
+  helpVIPTofindHouse() {
     const t = this
     t.setData({
-      modalName : 'helpVIPTofindHouse'
+      modalName: 'helpVIPTofindHouse'
     })
   },
   navHousedetail(e) {
@@ -447,9 +448,16 @@ create(store, {
       url: '../detailDailiren/detailDailiren?dailirenId=' + e.currentTarget.dataset.id,
     })
   },
-  goToAllhouseList() {
+  goToAllhouseList(e) {
+    log(e.currentTarget.dataset.housetag)
     wx.navigateTo({
-      url: '../allhouseList/allhouseList'
+      url: '../allhouseList/allhouseList?housetag=' + e.currentTarget.dataset.housetag
+    })
+  },
+  goToAllRentHouseList(e) {
+    log(e.currentTarget.dataset.housetag)
+    wx.navigateTo({
+      url: '../allRentHouseList/allRentHouseList?housetag=' + e.currentTarget.dataset.housetag
     })
   },
   navGongju() {
@@ -490,7 +498,7 @@ create(store, {
     if (options.from == 'button') {
       var eData = 'luckdraw'
       shareObj.title = '买房就上论方略-有奖派送'
-      shareObj.imageUrl = '../../assets/image/shareLipin.jpg'
+      shareObj.imageUrl = 'cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/shareLipin.jpg'
       shareObj.path = '/pages/index/index?pageid=' + eData
       wx.setStorageSync('luckdrawTimes', 1)
     }
@@ -531,7 +539,7 @@ create(store, {
       url: '../news/news'
     })
   },
-  navRuzhu(){
+  navRuzhu() {
     wx.navigateTo({
       url: '../ruzhu/ruzhu'
     })
@@ -596,7 +604,7 @@ create(store, {
                     if (dataAu.authSetting["scope.userLocation"] == true) {
                       //再次授权，调用wx.getLocation的API
                       t.getLocation(dataAu)
-                      
+
                     } else {
                       wx.showToast({
                         title: '授权失败',
@@ -643,7 +651,7 @@ create(store, {
         //   longitude:Number(longitude)
         // })
         t.store.data.latitude = Number(latitude),
-        t.store.data.longitude = Number(longitude)
+          t.store.data.longitude = Number(longitude)
         t.revLatitude()
       },
       fail: function (res) {
@@ -709,6 +717,12 @@ create(store, {
       }
     })
   },
+  navDetailQiyefuwu(e) {
+    log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: '../qiyefuwuhuodong/detail/detail?detailid=' + e.currentTarget.dataset.id,
+    })
+  },
   reloadData(city) {
     const t = this
     wx.stopPullDownRefresh()
@@ -719,35 +733,43 @@ create(store, {
     // let shouyezhongjianguanggaolunbotutemp = _key + 'shouyezhongjianguanggaolunbotu'
     let startImagedatabasetemp = _key + 'shouyetanchucengguanggao'
     let zixunxinxitemp = _key + 'zixunxinxi'
+    let rentHousetemp = _key + 'rentHouse'
 
     let dailirendatabase = pinyin.getPinyin(dailirentemp).replace(/\s+/g, "");
     let dangeloupanxiangqingdatabase = pinyin.getPinyin(dangeloupanxiangqingtemp).replace(/\s+/g, "");
-    let startImagedatabase =pinyin.getPinyin(startImagedatabasetemp).replace(/\s+/g,"");
+    let startImagedatabase = pinyin.getPinyin(startImagedatabasetemp).replace(/\s+/g, "");
     let shouyelunbotudatabase = pinyin.getPinyin(shouyelunbotutemp).replace(/\s+/g, "");
     // let shouyezhongjianguanggaolunbotudatabase = pinyin.getPinyin(shouyezhongjianguanggaolunbotutemp).replace(/\s+/g, "");
-    let zixunxinxidatabase =pinyin.getPinyin(zixunxinxitemp).replace(/\s+/g,"");
-    log('首页轮播图DATABASE',shouyelunbotudatabase)
-    log('开屏广告DATABASE',startImagedatabase)
-    log('最新资讯DATABASE',zixunxinxidatabase)
-    log('代理人DATABASE',dailirendatabase)
-    const setNoneData = () =>{
+    let zixunxinxidatabase = pinyin.getPinyin(zixunxinxitemp).replace(/\s+/g, "");
+    let rentHousedatabase = pinyin.getPinyin(rentHousetemp).replace(/\s+/g, "");
+
+    log('首页轮播图DATABASE', shouyelunbotudatabase)
+    log('开屏广告DATABASE', startImagedatabase)
+    log('最新资讯DATABASE', zixunxinxidatabase)
+    log('代理人DATABASE', dailirendatabase)
+    log('新房DATABASE', dangeloupanxiangqingdatabase)
+    log('租房DATABASE', rentHousedatabase)
+
+    const setNoneData = () => {
       t.store.data.markersData = []
-      t.store.data.adSwiperList= []
-      t.store.data.swiperList= []
-      t.store.data.zixunxinxi= []
-      t.store.data.startImage= []
-      t.store.data.dailiren= []
-      t.store.data.allHouseList= []
-      t.store.data.maifangliucheng= []
-      t.store.data.goufangzhengce= []
+      t.store.data.rentHouseMarkersData = []
+      t.store.data.adSwiperList = []
+      t.store.data.swiperList = []
+      t.store.data.zixunxinxi = []
+      t.store.data.startImage = []
+      t.store.data.dailiren = []
+      t.store.data.allHouseList = []
+      t.store.data.maifangliucheng = []
+      t.store.data.goufangzhengce = []
     }
+
     db.collection(dangeloupanxiangqingdatabase).orderBy('_createTime', 'desc').get().then(res => {
       let houselist = res.data
       log('[houselist]', houselist)
       for (var i = 0, markersData = []; i < houselist.length; i++) {
         let jingweidu = houselist[i]['jingweidu'].split(',')
         markersData.push({
-          "iconPath": "https://7868-xhy-craft-1gpv4s5596b1f3b9-1305059458.tcb.qcloud.la/shop-navigation.png?sign=97aa9317bd852744d7ad9be8ed092612&t=1622623065",
+          "iconPath": "https://6c75-lunfanglue-7g33jtt446e6cefa-1306211988.tcb.qcloud.la/dly_sydc_icon%403x.png?sign=4b5a163eb5ff8634e4459a7f375988db&t=1623923855",
           "id": houselist[i]['_id'],
           "latitude": jingweidu[0],
           "longitude": jingweidu[1],
@@ -757,15 +779,15 @@ create(store, {
             "id": houselist[i]['_id'],
             "content": houselist[i]['loupanmingcheng'] + "\n" + houselist[i]['loupandanjia'],
             "display": "ALWAYS",
-            "padding": 5,
-            "bgColor": "#b1a183",
-            "borderColor": "#b1a183",
+            "padding": 10,
+            "bgColor": "#89A8FB",
+            "borderColor": "#ffffff",
             "color": "#fff",
-            "borderRadius": 5,
+            "borderRadius": 20,
             "fontSize": 14,
             "textAlign": "center",
             "areaName": houselist[i]['chengshi'] + houselist[i]['loupanmingcheng'],
-            "logoUrl": "https://7868-xhy-craft-1gpv4s5596b1f3b9-1305059458.tcb.qcloud.la/shop-navigation.png?sign=97aa9317bd852744d7ad9be8ed092612&t=1622623065",
+            "logoUrl": "https://6c75-lunfanglue-7g33jtt446e6cefa-1306211988.tcb.qcloud.la/dly_sydc_icon%403x.png?sign=4b5a163eb5ff8634e4459a7f375988db&t=1623923855",
             "city": houselist[i]['chengshi'],
             "region": houselist[i]['jutidizhi'],
             "lables": houselist[i]['biaoqian'],
@@ -801,25 +823,65 @@ create(store, {
       console.error('dangeloupanxiangqingdatabase', err)
     })
 
+    db.collection(rentHousedatabase).orderBy('_createTime', 'desc').get().then(res => {
+      let houselist = res.data
+      log('[houselist]',houselist)
+      for (var i = 0, rentHouseMarkersData = []; i < houselist.length; i++) {
+        let jingweidu = houselist[i]['jingweidu'].split(',')
+        rentHouseMarkersData.push({
+          "iconPath": "https://6c75-lunfanglue-7g33jtt446e6cefa-1306211988.tcb.qcloud.la/dly_sydc_icon%403x.png?sign=4b5a163eb5ff8634e4459a7f375988db&t=1623923855",
+          "id": houselist[i]['_id'],
+          "latitude": jingweidu[0],
+          "longitude": jingweidu[1],
+          "width": 30,
+          "height": 30,
+          "callout": {
+            "id": houselist[i]['_id'],
+            "content": houselist[i]['xiaoqumingcheng'] + "\n" + houselist[i]['rentMoney'] + '元/月',
+            "display": "ALWAYS",
+            "padding": 10,
+            "bgColor": "#89A8FB",
+            "borderColor": "#ffffff",
+            "color": "#fff",
+            "borderRadius": 20,
+            "fontSize": 14,
+            "textAlign": "center",
+            "areaName": houselist[i]['quxian'] + houselist[i]['xiaoqumingcheng'],
+            "logoUrl": "https://6c75-lunfanglue-7g33jtt446e6cefa-1306211988.tcb.qcloud.la/dly_sydc_icon%403x.png?sign=4b5a163eb5ff8634e4459a7f375988db&t=1623923855",
+            "city": houselist[i]['quxian'],
+            "region": houselist[i]['jutidizhi'],
+            "lables": houselist[i]['tag'],
+            "averagePriceJoin": houselist[i]['rentMoney'],
+            "areaIntervalJoin": houselist[i]['mianji']
+          }
+        });
+      }
+      t.store.data.rentHouseMarkersData = rentHouseMarkersData
+      t.store.data.allRentHouseList = res.data
+    })
+
+    db.collection('qiyefuwulunbotu').orderBy('_createTime', 'desc').get().then(res => {
+      t.store.data.adSwiperList = res.data
+    })
     db.collection(dailirendatabase).orderBy('paimingshunxu', 'desc').get().then(res => {
       t.store.data.dailiren = res.data
     })
 
     db.collection(zixunxinxidatabase).orderBy('_createTime', 'desc').get().then(res => {
       t.store.data.zixunxinxi = res.data
-    }).catch( err =>{
+    }).catch(err => {
       log(err)
       setNoneData()
       wx.showToast({
-        icon : "error",
+        icon: "error",
         title: '当前区域无楼盘数据',
       })
     })
 
     db.collection(startImagedatabase).orderBy('_createTime', 'desc').get().then(res => {
-     t.store.data.startImage = res.data
+      t.store.data.startImage = res.data
     })
-    
+
     db.collection(shouyelunbotudatabase).orderBy('_createTime', 'desc').get().then(res => {
       t.store.data.swiperList = res.data
     })

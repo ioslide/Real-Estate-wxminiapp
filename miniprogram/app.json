@@ -24,14 +24,33 @@
     "pages/fangchanwenda/detail/detail",
     "pages/shequ/detail/detail",
     "pages/aboutus/aboutus",
-    "pages/ruzhu/ruzhu"
+    "pages/ruzhu/ruzhu",
+    "pages/usercenter/usercenter",
+    "pages/login/login",
+    "pages/usercenter/orderDaili",
+    "pages/usercenter/guanzhuHouse",
+    "pages/usercenter/houseZuji",
+    "pages/rentHouse/rentHouse",
+    "pages/rentHouse/publishRent/publishRent",
+    "pages/usercenter/userSetting",
+    "pages/hehuorenAuth/hehuorenAuth",
+    "pages/helpFindHouse/helpFindHouse",
+    "pages/helpSaleHouse/helpSaleHouse",
+    "pages/allRentHouseList/allRentHouseList",
+    "pages/allRentHouseList/detail/detail"
   ],
   "usingComponents": {
     "tui-fab": "/components/tui-fab/tui-fab",
     "foot": "/components/foot/foot",
-    "nodata": "/components/nodata/nodata"
+    "send-coupon": "plugin://sendCoupon/send-coupon",
+    "nodata": "/components/nodata/nodata",
+    "phoneCodeButton": "/components/phoneCodeButton/phoneCodeButton"
   },
   "plugins": {
+    "sendCoupon": {
+      "version": "1.1.5",
+      "provider": "wxf3f436ba9bd4be7b"
+    },
     "chooseLocation": {
       "version": "1.0.5",
       "provider": "wx76a9a06e5b4e693e"
@@ -51,11 +70,10 @@
     }
   },
   "window": {
-    "enablePullDownRefresh":true,
     "backgroundColor": "#ffffff",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTitleText": "论方略",
+    "navigationBarTitleText": "论方略房产服务",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",

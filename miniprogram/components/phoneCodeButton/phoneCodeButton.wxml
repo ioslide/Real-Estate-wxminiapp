@@ -1,0 +1,11 @@
+<view class="cu-form-group">
+  <view class="title" style="padding-right:30rpx">手机号码</view>
+  <input class="title" name="phoneInput" maxlength="11" bindinput='getPhoneValue' value='{{phone}}'
+    placeholder="手机号"></input>
+  <view class="cu-capsule">
+    <button class="codeButton" disabled='{{disabled}}' bindtap='phoneInputCheck'
+      style="width:100px;font-size:12px;padding: 5px;">
+      {{codeName}}
+    </button>
+  </view>
+</view>

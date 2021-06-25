@@ -1,0 +1,76 @@
+<!-- <form bindsubmit="submitSearch">
+  <view class="cu-bar bg-white search ">
+    <view class="search-form round">
+      <text class="cuIcon-search"></text>
+      <input bindinput="nameInput" bindconfirm="submitSearch" name="nameInput" type="text" placeholder="输入搜索的楼盘名称" confirm-type="search"></input>
+    </view>
+    <view class="action">
+      <button form-type="submit" class="cu-btn bg-gradual-green shadow-blur round " style="width: 100px;">搜索</button>
+    </view>
+  </view>
+</form> -->
+
+<view class="search-global-container data-v-7a95ed29">
+  <view class="search-box data-v-7a95ed29">
+    <text class="fhyfont icon-search"></text>
+    <input bindconfirm="submitSearch" selection-start="-1" selection-end="-1" cursor="-1" bindfocus="inputfocus"
+      bindblur="inputblur" class="text data-v-7a95ed29 placeholder data-v-5832b5b8" confirmType="搜索" value="{{keyword}}"
+      placeholder="输入搜索的楼盘" type="text" style="padding:0 16rpx"></input>
+    <text bindtap="clearKeyword" class="fhyfont iconicon-deletetext" size="16" type="clear" style="color: #AAAAAA;"
+      wx:if="{{showClear}}"></text>
+  </view>
+</view>
+
+<view class="cu-card article margin-15">
+  <map style="width:100%;height:240rpx" show-location="true" bindmarkertap="markertap" bindcallouttap="markertap"
+    subkey="NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7" setting="{{mapsetting}}" longitude="{{$.longitude}}"
+    latitude="{{$.latitude}}" scale="9" min-scale="8" markers="{{$.rentHouseMarkersData}}"></map>
+</view>
+
+
+<!-- 
+<view class="common-title" style="margin-left:20px;margin-bottom: 0;">
+  <view class="cuIcon-titles common-title-left">楼盘大全</view>
+</view> -->
+
+<view class="cu-card article padding-bottom-30" id="loupandaquan">
+  <view class="cu-item shadow margin-15" bindtap="navDetail" data-id="{{item._id}}" wx:for="{{allHouseList}}"
+    wx:key="_id">
+    <view bindtap="navDetail" data-id="{{item._id}}">
+      <!-- <view class="title">
+        <view class="text-cut">{{item.title}}</view>
+      </view> -->
+      <view class="content">
+        <image src="{{item.image[0]}}" mode="aspectFill" style="border-radius:20px;height: 110px;"></image>
+        <view class="desc">
+          <view class="margin-bottom-5" wx:if="{{housetag == 'anxiang'}}" style="font-weight:600;font-size:16px">
+            <view class="anxiang">{{item.title}}</view>
+          </view>
+          <view class="margin-bottom-5" wx:if="{{housetag == 'didanjia'}}" style="font-weight:600;font-size:16px">
+            <view class="didanjia">{{item.title}}</view>
+          </view>
+          <view class="margin-bottom-5" wx:if="{{housetag == 'xuequfang'}}" style="font-weight:600;font-size:16px">
+            <view class="xuequfang">{{item.title}}</view>
+          </view>
+          <view class="margin-bottom-5" wx:else style="font-weight:600;font-size:16px">
+            <view class="normalfang">{{item.title}}</view>
+          </view>
+          <view class="margin-bottom-5" style="color: #000;font-weight:600;font-size:14px">{{item.fangxing}}/{{item.mianji}}㎡/{{item.chaoxiang}}</view>
+          <view class="margin-bottom-5" style="color: #999;font-size:14px">
+            <text class="cuIcon-location lg text-grey margin-right-5"></text>{{item.location}}</view>
+          <view class="margin-bottom-5">
+            <view wx:for="{{item.tag}}" wx:key="_id" class="cu-tag light sm"
+              style="color:#999;border-radius:15px;background:#F8F8F8;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">
+              {{item}}
+            </view>
+          </view>
+          <view class="margin-bottom-5" style="color: #4f7df9;font-size:12px">￥ <text
+              style="font-size:17px;font-weight:600;">{{item.rentMoney}}元 </text>/月</view>
+
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<foot />

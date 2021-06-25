@@ -67,16 +67,17 @@ create(store, {
         }).then(function (result) {
           log('[' + res.data[i].title + ']',result.result)
           res.data[i].tag = result.result.entities
-          if(res.data.length == 4){
+          log(i)
+          if(res.data.length-1 == i){
           log(res.data)
             t.setData({
               fangchanwenda: res.data,
               showCancel: false
             })
-            wx.pro.hideLoading()
           }
         }).catch(console.error)
       }
+      wx.pro.hideLoading()
     })
   },
   hideModal(e) {
@@ -196,6 +197,7 @@ create(store, {
         }
         wx.setStorageSync('storage_info', 1);
         wx.setStorageSync('userInfo', userInfo)
+        t.store.data.userInfo = userInfo
         t.setData({
           userInfo: userInfo
         })
@@ -217,8 +219,8 @@ create(store, {
       },
       {
         name: "title",
-        rule: ["required", "minLength:2", "maxLength:30"],
-        msg: ["请输入标题", "必须2个或以上字符", "姓名不能超过30个字符"]
+        rule: ["required", "minLength:2", "maxLength:60"],
+        msg: ["请输入标题", "必须2个或以上字符", "不能超过60个字符"]
       }
     ];
     const willTime = () => {

@@ -1,0 +1,22 @@
+<view class="saleman-scroll-box detail-margin border-box">
+  <scroll-view class="scroll-box" bindscrolltolower="getMoreData">
+    <view class="saleman-item border-box" bindtap="navDetailDailiren" data-id="{{item._id}}" wx:for="{{dailirenOrderLists}}"
+      wx:key="_id">
+      <view class="saleman-item-left border-box">
+        <view class="saleman-item-left-label border-box">
+          <view class="saleman-item-label-top border-box">
+            <text class="goldTag">{{item.username}}</text>
+            <text class="nameTag">{{item.tijiaoshijian}}</text></view>
+          <view class="saleman-item-label-bot border-box">预约代理:{{item.jiedaidailixingming}}</view>
+        </view>
+      </view>
+      <view class="saleman-item-right">
+
+      </view>
+    </view>
+    <view wx:if="{{dailirenOrderLists.length == 0}}" style="background:#ffffff">
+    <nodata boxStyle="padding-top:50rpx" btnUrl="{{noDataUrl}}" imgStyle="width:340rpx"
+      imgUrl="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/no-result.png" tipsData="{{['没有数据']}}"></nodata>
+  </view>
+  </scroll-view>
+</view>

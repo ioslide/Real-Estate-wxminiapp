@@ -17,11 +17,11 @@
     </view>
     <view >找房</view>
   </view>
-  <view class="action" bindtap="navQiuzuqiugou">
+  <view class="action" bindtap="navWode">
     <view class='cuIcon-cu-image'>
-      <image src="../../assets/image/huodong{{currentTag == 'huodong' ? '-active' : ''}}.png"></image>
+      <image src="../../assets/image/huodong{{currentTag == 'wode' ? '-active' : ''}}.png"></image>
     </view>
-    <view >圈子</view>
+    <view >我的</view>
   </view>
 </view>
 <!-- 

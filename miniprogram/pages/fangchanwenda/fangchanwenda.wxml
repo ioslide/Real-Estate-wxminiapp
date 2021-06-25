@@ -15,7 +15,7 @@
     <text class="fhyfont icon-search"></text>
     <input bindconfirm="submitSearch" selection-start="-1" selection-end="-1" cursor="-1" bindfocus="inputfocus"
       bindblur="inputblur" class="text data-v-7a95ed29 placeholder data-v-5832b5b8" confirmType="搜索" value="{{keyword}}"
-      placeholder="输入搜索的楼盘" type="text" style="padding:0 16rpx"></input>
+      placeholder="输入搜索的问答" type="text" style="padding:0 16rpx"></input>
     <text bindtap="clearKeyword" class="fhyfont iconicon-deletetext" size="16" type="clear" style="color: #AAAAAA;"
       wx:if="{{showClear}}"></text>
   </view>
@@ -72,7 +72,7 @@
         </view>
         <view class="model-btn" slot="btn" style="margin: 0;">
           <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover"
-            style="width:100%;border-radius:0;background: linear-gradient(90deg,#d0bf9d,#b1a183)">
+            style="width:100%;border-radius:0;background: linear-gradient(90deg,#5380F1,#6CB1F1)">
             发布
           </button>
         </view>

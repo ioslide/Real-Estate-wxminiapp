@@ -58,6 +58,12 @@
         {
           "name": "pages/luckdraw/luckdraw",
           "pathName": "pages/luckdraw/luckdraw",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/rentHouse/publishRent/publishRent",
+          "pathName": "pages/rentHouse/publishRent/publishRent",
           "scene": null
         }
       ]

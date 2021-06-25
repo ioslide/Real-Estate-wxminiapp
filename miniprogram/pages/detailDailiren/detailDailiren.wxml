@@ -114,7 +114,51 @@
     </view>
   </view>
 </view>
+<view class="common-title padding-left-20 padding-right-20" style="margin-top:0;margin-bottom:0">
+  <view class="cuIcon-titles common-title-left" style="font-size: 16px;">代理租房</view>
+</view>
 
+<view class="cu-card article padding-bottom-30" id="loupandaquan">
+  <view class="cu-item shadow margin-15" wx:for="{{dailirenRentHouseGroup}}"
+    wx:key="_id">
+    <view bindtap="navRentHousedetail" data-id="{{item._id}}">
+      <view class="content" style="padding:0">
+        <image src="{{item.image[0]}}" mode="aspectFill"></image>
+        <view class="desc">
+          <view class="margin-bottom-5" wx:if="{{housetag == 'anxiang'}}" style="font-weight:600;">
+            <view class="anxiang">{{item.title}}</view>
+          </view>
+          <view class="margin-bottom-5" wx:if="{{housetag == 'didanjia'}}" style="font-weight:600;">
+            <view class="didanjia">{{item.title}}</view>
+          </view>
+          <view class="margin-bottom-5" wx:if="{{housetag == 'xuequfang'}}" style="font-weight:600;">
+            <view class="xuequfang">{{item.title}}</view>
+          </view>
+          <view class="margin-bottom-5" wx:else style="font-weight:600;">
+            <view class="normalfang">{{item.title}}</view>
+          </view>
+          <view class="margin-bottom-5" style="color: #000;font-weight:600;font-size:14px">
+            {{item.fangxing}}/{{item.mianji}}㎡/{{item.chaoxiang}}</view>
+          <view class="margin-bottom-5" style="color: #999;font-size:14px">
+            <text class="cuIcon-location lg text-grey margin-right-5"></text>{{item.location}}</view>
+          <view class="margin-bottom-5">
+            <view class="cu-tag light sm"
+              style="color:#999;border-radius:15px;background:#F8F8F8;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">
+              {{item.rentMethod}}
+            </view>
+            <view wx:for="{{item.tag}}" wx:key="_id" class="cu-tag light sm"
+              style="color:#999;border-radius:15px;background:#F8F8F8;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">
+              {{item}}
+            </view>
+          </view>
+          <view class="margin-bottom-5" style="color: #4f7df9;font-size:12px">￥ <text
+              style="font-size:17px;font-weight:600;">{{item.rentMoney}}元 </text>/月</view>
+
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
 <!-- <view class="services storeItem">
   <view class="servicesleft"> -->
     <!-- <view class="servicesimg justify-center">
@@ -167,7 +211,7 @@
         </view>
         <view class="model-btn" slot="btn" style="margin:0">
           <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover"
-            style="background:linear-gradient(90deg,#d0bf9d,#b1a183);border-radius:0;bottom:0;width: 100%;">
+            style="background:linear-gradient(90deg,#5380F1,#6CB1F1);border-radius:0;bottom:0;width: 100%;">
             预约沟通
           </button>
         </view>

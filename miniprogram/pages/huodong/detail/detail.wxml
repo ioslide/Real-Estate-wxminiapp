@@ -51,9 +51,9 @@
   <view class="detail-area-wrap">
     <view class="detail-left-box">
       <view class="detail-area-box detail-common border-box">
-        <view class="detail-area-label border-box" style="margin-bottom: 0;">截止日期</view>
+        <view class="detail-area-label border-box" style="margin-bottom: 0;">活动日期</view>
         <view class="detail-area-num border-box detail-area-beyond">
-          {{detailhuodong.huodongriqi}}
+          {{detailhuodong.huodongkaishiriqi}} - {{detailhuodong.huodongjiezhiriqi}}
         </view>
       </view>
     </view>
@@ -61,7 +61,7 @@
 
   <view class="address-box data-v-63601b40" bind:tap="guideTo">
     <view class="text data-v-63601b40">具体地址:{{detailhuodong.jutidizhi}}</view>
-    <image class="detail-right-map-img" color="#333" src="../../../assets/image/shop-navigation.png" mode="widthFix"
+    <image class="detail-right-map-img" color="#333" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/shop-navigation.png" mode="widthFix"
       style="width:30px;height: 30px;"></image>
   </view>
  

@@ -258,7 +258,7 @@ page{
   width: 43%;
   display: inline-block;
   color: #fff;
-  border-radius: 4px;
+  border-radius: 20px;
   margin: 0 8px;
   padding: 12px 40px
 }
@@ -278,7 +278,7 @@ page{
 }
 
  .consumerShare .share2btn .chatbtn {
-  background: linear-gradient(90deg,#d0bf9d,#b1a183)
+  background: linear-gradient(90deg,#5380F1,#6CB1F1)
 }
 
 

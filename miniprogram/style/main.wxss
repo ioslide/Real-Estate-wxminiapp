@@ -1590,7 +1590,6 @@ button.icon.lg {
 	position: relative;
 	align-items: center;
 	min-height: 100rpx;
-	justify-content: space-between;
 }
 
 .cu-bar .action {
@@ -2438,7 +2437,6 @@ button.icon.lg {
 
 .cu-card.case .image .cu-bar {
 	position: absolute;
-	bottom: 0;
 	width: 100%;
 	background-color: transparent;
 	padding: 0rpx 30rpx;
@@ -2751,7 +2749,7 @@ button.icon.lg {
 }
 
 .cu-dialog {
-	border-radius: 5px;
+	border-radius: 20px;
 	position: relative;
 	display: inline-block;
 	vertical-align: middle;
@@ -3155,7 +3153,7 @@ swiper.round-dot .wx-swiper-dot.wx-swiper-dot-active {
 }
 
 .card-swiper {
-	height: 420rpx !important;
+	height: 420rpx;
 }
 
 .card-swiper swiper-item {
@@ -3390,7 +3388,9 @@ scroll-view.cu-steps .cu-item {
 .basis-xsm {
 	flex-basis: 30%;
 }
-
+.basis-33 {
+	flex-basis: 33%;
+}
 .basis-sxm {
 	flex-basis: 35%;
 }
@@ -3581,7 +3581,18 @@ scroll-view.cu-steps .cu-item {
 .grid.col-5.grid-square>view:nth-child(5n) {
 	margin-right: 0;
 }
-
+.top-0{
+	top:0
+}
+.bottom-0{
+	bottom:0
+}
+.left-0{
+	left:0
+}
+.right-0{
+	right:0
+}
 .grid.col-1>view {
 	width: 100%;
 }
@@ -4243,7 +4254,45 @@ scroll-view.cu-steps .cu-item {
 .padding-left-50 {
 	padding-left: 50px;
 }
+.padding-right-0 {
+	padding-right: 0px;
+}
 
+.padding-right-3 {
+	padding-right: 3px;
+}
+
+.padding-right-5 {
+	padding-right: 5px;
+}
+
+.padding-right-7 {
+	padding-right: 7px;
+}
+
+.padding-right-10 {
+	padding-right: 10px;
+}
+
+.padding-right-15 {
+	padding-right: 15px;
+}
+
+.padding-right-20 {
+	padding-right: 20px;
+}
+
+.padding-right-25 {
+	padding-right: 25px;
+}
+
+.padding-right-30 {
+	padding-right: 30px;
+}
+
+.padding-right-50 {
+	padding-right: 50px;
+}
 /* .padding-left-xs {
 	padding-left: 10rpx;
 }
@@ -4272,7 +4321,7 @@ scroll-view.cu-steps .cu-item {
 	padding-right: 5px;
 }
 
-.padding-lr-10px {
+.padding-lr-10 {
 	padding-left: 10px;
 	padding-right: 10px;
 }
@@ -4488,7 +4537,7 @@ scroll-view.cu-steps .cu-item {
 	color: var(--black);
 }
 .bg-gold{
-	background: linear-gradient(90deg,#d0bf9d,#b1a183);
+	background: linear-gradient(90deg,#5380F1,#6CB1F1);
 	color: #ffffff
 }
 .bg-olive {
@@ -5041,7 +5090,16 @@ scroll-view.cu-steps .cu-item {
 .lines-white {
 	color: var(--white);
 }
-
+.text-ccc,
+.line-ccc,
+.lines-ccc {
+	color: #cccccc
+}
+.text-333,
+.line-333,
+.lines-333 {
+	color: #333333
+}
 .text-pur {
 	color: rgba(201, 215, 230, 0.8)
 }

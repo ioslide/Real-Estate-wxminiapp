@@ -43,7 +43,7 @@
 
 <view class="padding flex flex-direction margin-top-20"  bindtap="getShequ"  wx:if="{{qiuzuqiugou.length == 0}}">
   <nodata boxStyle="padding-top:50rpx" btnUrl="{{noDataUrl}}" imgStyle="width:340rpx"
-      imgUrl="../../assets/image/no-result.png" tipsData="{{['没有找到相应的信息']}}"></nodata>
+      imgUrl="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/no-result.png" tipsData="{{['没有找到相应的信息']}}"></nodata>
 </view>
 
 <view bindtap="addComment" class="ask-question">

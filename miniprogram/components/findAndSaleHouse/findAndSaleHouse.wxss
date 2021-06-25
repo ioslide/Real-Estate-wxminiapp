@@ -1,0 +1,67 @@
+
+.enterbox {
+  margin-top: 8rpx;
+  padding: 0 32rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.enterbox .enter-item {
+  position: relative;
+  box-sizing: border-box;
+  padding: 32rpx 20rpx;
+  width: 333rpx;
+  height: 150rpx;
+  background: #fff;
+  box-shadow: 0 0 10rpx 0 rgba(0,0,0,.06);
+  border-radius: 4rpx;
+  overflow: hidden;
+}
+
+.enterbox .enter-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200%;
+  height: 200%;
+  box-sizing: border-box;
+  border: 1px solid #e2e2e2;
+  border-radius: 8rpx;
+  transform: scale(.5);
+  transform-origin: 0 0;
+  z-index: 1;
+}
+
+.enterbox .bg {
+  width: 150rpx;
+  height: 150rpx;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.enterbox .tit {
+  position: relative;
+  font-size: 32rpx;
+  font-weight: 600;
+  line-height: 45rpx;
+  color: #000;
+}
+
+.enterbox .link {
+  position: relative;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #414141;
+}
+
+.enterbox .link .enter {
+  width: 20rpx;
+  height: 20rpx;
+  margin-left: 2rpx;
+  position: relative;
+  top: 2rpx;
+  color: #414141;
+}

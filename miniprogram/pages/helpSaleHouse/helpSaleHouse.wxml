@@ -1,0 +1,35 @@
+<form bindsubmit="submitForm">
+  <view class="cu-form-group margin-top">
+    <view class="title">姓名</view>
+    <input class="title" name="nameInput" placeholder="姓名"></input>
+  </view>
+  <view class="cu-form-group margin-top">
+    <view class="title">小区名称</view>
+    <input class="title" name="houseNameInput" placeholder="名称"></input>
+  </view>
+  <view class="cu-form-group margin-top">
+    <view class="title">楼栋房号</view>
+    <input class="title" name="houseIdInput" placeholder="楼栋房号"></input>
+  </view>
+  <view class="cu-form-group margin-top">
+    <view class="title">期望售价</view>
+    <input class="title" name="dreamSalePriceInput" placeholder="万元"></input>
+  </view>
+  <view class="cu-form-group margin-top">
+    <view class="title">同时出租</view>
+    <switch bindchange="switchRent" name="isRentHouseInput" role="checkbox" aria-disabled="false" aria-checked="false"></switch>
+  </view>
+  <view class="cu-form-group margin-top" wx:if="{{switchRent == true}}">
+    <view class="title">期望租价</view>
+    <input class="title" name="dreamRentPriceInput" placeholder="元/月"></input>
+  </view>
+  <phoneCodeButton bind:verifySmsCode="verifySmsCode" />
+
+  <view class="cu-form-group">
+    <view class="title" style="padding-right:30rpx">验证码</view>
+    <input class="title" name="codeInput" placeholder="验证码"></input>
+  </view>
+  <view class="footer-fixed">
+    <button form-type="submit" class="items" style="border-radius:0">提交审核</button>
+  </view>
+</form>

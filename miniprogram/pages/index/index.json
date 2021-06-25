@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "startScreen": "/components/startScreen/startScreen"
+    "startScreen": "/components/startScreen/startScreen",
+    "findAndSaleHouse": "/components/findAndSaleHouse/findAndSaleHouse"
   }
 }

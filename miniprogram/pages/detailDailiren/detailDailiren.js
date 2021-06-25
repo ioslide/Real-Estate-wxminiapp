@@ -47,10 +47,29 @@ create(store, {
     // });
 
     let dailirenHouseGroup = []
+    let dailirenRentHouseGroup = []
+
     let _key = t.store.data.curCity
     let temp = _key + 'dangeloupanxiangqing'
     let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    let temp2 = _key + 'zufangxiangqing'
+    let rentHousedatabase = pinyin.getPinyin(temp2).replace(/\s+/g, "");
+    
     log('楼盘详情数据库', database)
+    log('租房详情数据库', rentHousedatabase)
+
+    for (let i = 0; i < detailDailiren.dailizufangliebiao.length; i++) {
+      log(detailDailiren.dailizufangliebiao[i])
+      db.collection(rentHousedatabase).doc(detailDailiren.dailizufangliebiao[i]).get().then(res => {
+        dailirenRentHouseGroup.push(res.data)
+        log(dailirenRentHouseGroup, detailDailiren.dailizufangliebiao.length)
+        if (dailirenRentHouseGroup.length == detailDailiren.dailizufangliebiao.length) {
+          t.setData({
+            dailirenRentHouseGroup: dailirenRentHouseGroup
+          })
+        }
+      })
+    }
 
     for (let i = 0; i < detailDailiren.daililoupanliebiao.length; i++) {
       log(detailDailiren.daililoupanliebiao[i])
@@ -73,6 +92,12 @@ create(store, {
     log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: '../housedetail/housedetail?houseId=' + e.currentTarget.dataset.id,
+    })
+  },
+  navRentHousedetail(e) {
+    log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: '../allRentHouseList/detail/detail?houseId=' + e.currentTarget.dataset.id,
     })
   },
   handleChat(e) {
@@ -109,6 +134,18 @@ create(store, {
     wx.pro.showLoading({
       title: '提交中',
     })
+    let submitData = {
+      username: e.detail.value.nameInput,
+      yixiangfangyuan: e.detail.value.houseInput,
+      userphone: e.detail.value.phoneInput,
+      jiedaidailixingming: t.data.detailDailiren.mingcheng,
+      jiedaidailidianhua: t.data.detailDailiren.dianhua,
+      dailiid: t.data.detailDailiren._id,
+      tijiaoshijian: t.getCurrentTime()
+    }
+    let dailirenOrderLists = wx.getStorageSync('dailirenOrderLists') || []
+    dailirenOrderLists.push(submitData)
+    wx.setStorageSync('dailirenOrderLists', dailirenOrderLists)
     let _key = t.store.data.curCity
     let temp = _key + 'gukeyuyue'
     let database = pinyin.getPinyin(temp).replace(/\s+/g, "");

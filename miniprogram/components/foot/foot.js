@@ -22,13 +22,21 @@ Component({
    */
   methods: {
     navMap() {
+      if(this.data.currentTag == "zhaofang") return
       wx.navigateTo({
         url: '/pages/index/mapDetail/mapDetail',
       })
     },
     navQiyefuwu() {
+      if(this.data.currentTag == "fuwu") return
       wx.navigateTo({
         url: '/pages/qiyefuwuhuodong/qiyefuwuhuodong',
+      })
+    },
+    navWode() {
+      if(this.data.currentTag == "wode") return
+      wx.navigateTo({
+        url: '/pages/usercenter/usercenter'
       })
     },
     navQiuzuqiugou() {

@@ -18,28 +18,28 @@ create(store, {
     luckdrawTimes: wx.getStorageSync('luckdrawTimes') || 0,
     circleList: 24, //圆点
     awardList: [{
-      img: "../../assets/image/ia_100000003.png",
+      img: "cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/ia_100000003.png",
       name: "楼盘礼品"
     }, {
-      img: "../../assets/image/ia_100000004.png",
+      img: "cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/ia_100000004.png",
       name: "楼盘模型"
     }, {
-      img: "../../assets/image/ia_100000005.png",
+      img: "cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/ia_100000005.png",
       name: "专业顾问咨询"
     }, {
-      img: "../../assets/image/ia_100000006.png",
+      img: "cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/ia_100000006.png",
       name: "专属内购机会"
     }, {
-      img: "../../assets/image/ia_100000007.png",
+      img: "cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/ia_100000007.png",
       name: "VIP顾问一对一咨询"
     }, {
-      img: "../../assets/image/ia_100000008.png",
+      img: "cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/ia_100000008.png",
       name: "9折购房"
     }, {
-      img: "../../assets/image/ia_100000009.png",
+      img: "cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/ia_100000009.png",
       name: "楼盘模型"
     }, {
-      img: "../../assets/image/ia_100000010.png",
+      img: "cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/ia_100000010.png",
       name: "VIP顾问一对一咨询"
     }],
     indexSelect: 0, //被选中的奖品index
@@ -63,7 +63,7 @@ create(store, {
     if (options.from == 'button') {
       var eData = 'luckdraw'
       shareObj.title = '搜房客有奖派送'
-      shareObj.imageUrl = '../../assets/image/shareLipin.jpg'
+      shareObj.imageUrl = 'cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/shareLipin.jpg'
       shareObj.path = '/pages/index/index?pageid=' + eData
       let luckdrawTimes = Number(wx.getStorageSync('luckdrawTimes'))
       luckdrawTimes = luckdrawTimes + 1

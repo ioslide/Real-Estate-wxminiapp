@@ -55,6 +55,7 @@ create(store, {
   showModal(e) {
     var t = this
     t.setData({
+      currDay:e.currentTarget.dataset.index,
       modalName: e.currentTarget.dataset.target
     })
   },

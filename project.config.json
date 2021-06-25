@@ -2,7 +2,7 @@
   "miniprogramRoot": "miniprogram/",
   "cloudfunctionRoot": "cloudfunctions/",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
     "enhance": true,
     "postcss": true,
@@ -21,7 +21,7 @@
     "compileHotReLoad": false,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
-    "useApiHostProcess": true,
+    "useApiHostProcess": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -37,8 +37,8 @@
     "packNpmRelationList": [],
     "minifyWXSS": true
   },
-  "appid": "wx28048b96a99a186f",
-  "projectname": "%E7%A2%A7%E6%A1%82%E5%9B%AD",
+  "appid": "wx49028930deea54a6",
+  "projectname": "论方略",
   "libVersion": "2.14.0",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {

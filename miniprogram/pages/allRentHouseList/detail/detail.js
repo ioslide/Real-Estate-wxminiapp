@@ -1,0 +1,301 @@
+const app = getApp()
+const globalData = getApp().globalData
+const log = console.log.bind(console)
+const group = console.group.bind(console)
+const groupEnd = console.groupEnd.bind(console)
+const error = console.error.bind(console)
+const db = wx.cloud.database()
+const _ = db.command
+const QQMapWX = require('../../../util/qqmap-wx-jssdk.min.js');
+var qqmapsdk = new QQMapWX({
+  key: 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7'
+});
+import {
+  promisifyAll
+} from 'wx-promise-pro'
+promisifyAll()
+import pinyin from "wl-pinyin"
+import create from '../../../util/create'
+import store from '../../..//store/index'
+const form = require("../../../util/formValidation.js")
+
+create(store, {
+  use: [
+    'adSwiperList',
+    'swiperList',
+    'dailiren',
+    'allHouseList',
+    'maifangliucheng',
+    'goufangzhengce',
+    'markersData',
+    'curCity'
+  ],
+  data: {
+    curDaili: {
+      name: '',
+      level: '',
+      phone: '',
+      id: ''
+    },
+    mapsetting: {
+      skew: 0,
+      rotate: 0,
+      showLocation: false,
+      showScale: false,
+      subKey: 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7',
+      layerStyle: 1,
+      enableZoom: true,
+      enableScroll: true,
+      enableRotate: false,
+      showCompass: false,
+      enable3D: false,
+      enableOverlooking: false,
+      enableSatellite: false,
+      enableTraffic: false,
+    },
+    latitude: '31.46751',
+    longitude: '104.6796',
+    searchWord: "",
+    hasHouseList: false,
+  },
+  onLoad: function (options) {
+    const t = this
+    wx.showLoading({
+      title: 'Loading',
+    })
+    let key = t.store.data.curCity
+    let temp = key + 'zufangxiangqing'
+    let temp2 = key + 'dailiren'
+
+    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    let database2 = pinyin.getPinyin(temp2).replace(/\s+/g, "");
+
+    db.collection(database).get().then(res => {
+      let allRentHouseList = res.data
+      var results = allRentHouseList.filter(function (entry) {
+        return entry._id === options.houseId;
+      });
+      log(results[0])
+      let jingweidu = results[0].jingweidu.split(',')
+      let latitude = jingweidu[0]
+      let longitude = jingweidu[1]
+      log('jingweidu', jingweidu)
+      t.setData({
+        longitude: Number(longitude),
+        latitude: Number(latitude),
+        houseDetail: results[0]
+      })
+      
+      // let curHouseList = results[0]
+      // let houseZujiLists = wx.getStorageSync('houseZujiLists') || []
+      // houseZujiLists.unshift(curHouseList)
+      // houseZujiLists.slice(0,10)
+      // wx.setStorageSync('houseZujiLists', houseZujiLists)
+
+      db.collection(database2).doc(results[0].shouxidailiguwen).get().then(res => {
+        log('shouxidailiguwen', res.data)
+        t.setData({
+          loupanshouxidailiren: res.data
+        })
+      })
+
+      db.collection(database2).where({
+        dailizufangliebiao: options.houseId
+      }).get().then(res => {
+        log('daliren', res.data)
+        t.setData({
+          dailiren: res.data
+        })
+      })
+      wx.hideLoading({
+        success: (res) => {},
+      })
+    })
+
+  },
+
+  handlePhone(e) {
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.phone
+    })
+  },
+  navHousedetail(e) {
+    log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: './detail?houseId=' + e.currentTarget.dataset.id,
+    })
+  },
+  navNearBuilding() {
+    log('[navNearBuilding]')
+    const t = this
+    let locationKey = 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7'
+    const appReferer = '论方略';
+    const locationCategory = '学校,公交,医院';
+    const location = JSON.stringify({
+      'latitude': Number(t.data.latitude),
+      'longitude': Number(t.data.longitude),
+    });
+    wx.navigateTo({
+      url: 'plugin://chooseLocation/index?key=' + locationKey + '&referer=' + appReferer + '&category=' + locationCategory + '&location=' + location
+    });
+  },
+  handleChat(e) {
+    this.setData({
+      'curDaili.name': e.currentTarget.dataset.name,
+      'curDaili.level': e.currentTarget.dataset.level,
+      'curDaili.phone': e.currentTarget.dataset.phone,
+      'curDaili.id': e.currentTarget.dataset.id,
+      modalName: e.currentTarget.dataset.target
+    })
+    log(e.currentTarget.dataset)
+  },
+  hideModal(e) {
+    this.setData({
+      modalName: null
+    })
+  },
+  navDetailDailiren(e) {
+    log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url: '../../detailDailiren/detailDailiren?dailirenId=' + e.currentTarget.dataset.id,
+    })
+  },
+  getCurrentTime() {
+    let date = new Date()
+    let Y = date.getFullYear()
+    let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
+    let D = date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate()
+    let hours = date.getHours()
+    let minutes = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+    let seconds = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+    date = Y + '-' + M + '-' + D + ' ' + hours + ':' + minutes + ':' + seconds
+    console.log(date) // 2019-10-12 15:19:28
+    return date
+  },
+  submitForm(e) {
+    log(e)
+    const t = this
+    let rules = [{
+        name: "nameInput",
+        rule: ["required", "minLength:2", "maxLength:30"],
+        msg: ["请输入姓名", "必须2个或以上字符", "姓名不能超过20个字符"]
+      },
+      {
+        name: "phoneInput",
+        rule: ["required", "isMobile"],
+        msg: ["请输入手机号", "请输入正确的手机号"]
+      },
+      {
+        name: "houseInput",
+        rule: ["required"],
+        msg: ["请输入意向楼盘"]
+      }
+    ];
+    let formData = e.detail.value;
+    let checkRes = form.validation(formData, rules);
+    if (!checkRes) {
+      log('验证通过')
+      wx.pro.showLoading({
+        title: '提交中',
+      })
+      let _key = t.store.data.curCity
+      let temp = _key + 'gukeyuyue'
+      let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+      db.collection(database).add({
+          data: {
+            username: e.detail.value.nameInput,
+            yixiangfangyuan: e.detail.value.houseInput,
+            userphone: e.detail.value.phoneInput,
+            jiedaidailixingming: t.data.curDaili.name,
+            jiedaidailidianhua: t.data.curDaili.phone,
+            dailiid: t.data.curDaili.id,
+            tijiaoshijian: t.getCurrentTime(),
+            guketijiaolaiyuan: '房产详情页'
+          }
+        })
+        .then(res => {
+          console.log(res)
+          wx.pro.hideLoading()
+          t.hideModal()
+        })
+        .catch(console.error)
+    } else {
+      wx.showToast({
+        title: checkRes,
+        icon: "none"
+      });
+    }
+
+  },
+  goToAllhouseList() {
+    wx.navigateTo({
+      url: '../../allRentHouseList/allRentHouseList'
+    })
+  },
+  guideTo() {
+    const t = this
+    let plugin = requirePlugin('routePlan');
+    let endPoint = JSON.stringify({
+      'name': t.data.houseDetail.loupanmingcheng,
+      'latitude': Number(t.data.latitude),
+      'longitude': Number(t.data.longitude),
+    });
+    let key = 'NILBZ-E3U3F-V2WJ5-NS7HA-BH5CH-GOBR7'
+    let referer = '论方略';
+    wx.navigateTo({
+      url: 'plugin://routePlan/index?key=' + key + '&referer=' + referer + '&endPoint=' + endPoint
+    })
+  },
+  handlePhone(e) {
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.phone
+    })
+  },
+  onShareAppMessage() {
+    const t = this
+    const promise = new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          title: '论方略-' + t.data.houseDetail.loupanmingcheng,
+        })
+      }, 2000)
+    })
+    return {
+      title: '论方略-' + t.data.houseDetail.loupanmingcheng,
+      path: '/pages/houseDetail/houseDetail?houseId=' + t.data.houseDetail._id,
+      promise
+    }
+  },
+  guanzhu() {
+    const t = this
+    let submitData = t.data.houseDetail
+    let guanzhuHouseLists = wx.getStorageSync('guanzhuHouseLists') || []
+    guanzhuHouseLists.push(submitData)
+    let obj = {};
+
+    let reduceguanzhuHouseLists = guanzhuHouseLists.reduce((cur, next) => {
+      obj[next._id] ? "" : obj[next._id] = true && cur.push(next);
+      return cur;
+    }, [])
+    wx.setStorageSync('guanzhuHouseLists', reduceguanzhuHouseLists)
+    wx.showToast({
+      title: '关注成功',
+    })
+
+  },
+  onShow: function () {
+
+  },
+  onHide: function () {
+
+  },
+  onUnload: function () {
+
+  },
+  onPullDownRefresh: function () {
+
+  },
+  onReachBottom: function () {
+
+  },
+})

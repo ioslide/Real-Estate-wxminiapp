@@ -58,9 +58,11 @@ create(store, {
     })
   },
   onLoad: function (options) {
+    log(options)
     const t = this
     this.setData({
-      keyword: wx.getStorageSync('curCity')
+      keyword: wx.getStorageSync('curCity'),
+      housetag:options.housetag
     })
     wx.pro.showLoading({
       title: 'Loading'
@@ -69,13 +71,35 @@ create(store, {
     let temp = key + 'dangeloupanxiangqing'
     let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
     log('全部楼盘数据库', database)
-    db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
-      log(res.data)
-      wx.pro.hideLoading()
-      t.setData({
-        allHouseList: res.data
+
+    if(options.housetag == "xuequfang"){
+      db.collection(database).where({
+        isxuequfang: true
+      }).orderBy('_createTime', 'desc').get().then(res => {
+        log(res.data)
+        wx.pro.hideLoading()
+        t.setData({
+          allHouseList: res.data
+        })
       })
-    })
+    }if(options.housetag == "didanjia"){
+      db.collection(database).orderBy('zuidijiage', 'asc').get().then(res => {
+        log(res.data)
+        wx.pro.hideLoading()
+        t.setData({
+          allHouseList: res.data
+        })
+      })
+    }else{
+      db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
+        log(res.data)
+        wx.pro.hideLoading()
+        t.setData({
+          allHouseList: res.data
+        })
+      })
+    }
+
   },
   navHome() {
     wx.navigateBack({
@@ -88,9 +112,9 @@ create(store, {
     })
   },
   markertap(e) {
-    let houseId = this.store.data.allHouseList[e.detail.markerId - 900000000]
+    let houseId = e.detail.markerId
     wx.navigateTo({
-      url: '../housedetail/housedetail?houseId=' + houseId._id,
+      url: '../housedetail/housedetail?houseId=' + houseId,
     })
   },
   navHuodong(e) {

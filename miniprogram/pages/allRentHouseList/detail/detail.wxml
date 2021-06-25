@@ -1,0 +1,354 @@
+<!-- <swiper class="card-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
+  duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+  <swiper-item wx:for="{{houseDetail.lunbotu}}" wx:key="_id" class="{{cardCur==index?'cur':''}}">
+    <view class="swiper-item">
+      <image src="{{item}}" mode="aspectFill"></image>
+    </view>
+  </swiper-item>
+</swiper> -->
+
+<swiper class="screen-swiper square-dot margin-20" indicator-dots="true" circular="true" autoplay="true" interval="5000"
+  duration="500" style="height:280px;">
+  <swiper-item wx:for="{{houseDetail.image}}" wx:key="_id" class="{{cardCur==index?'cur':''}}">
+    <view class="swiper-item">
+      <image src="{{item}}" mode="aspectFill" style="border-radius:35px"></image>
+    </view>
+  </swiper-item>
+</swiper>
+
+<view class="detail-price border-box">
+  <view class="detail-title-box detail-margin border-box" style="margin-bottom:5px">
+    <view class="detail-title-text border-box">{{houseDetail.xiaoqumingcheng}}</view>
+    <view style="position:absolute;right: 0;width:50px;">
+      <image bindtap="guanzhu" src="https://i.qfangimg.com/resource/qfang-mobile-wx/img/user-center-three.png?20210407"
+        mode="aspectFill" class="detail-title-text border-box"
+        style="width:30px;height:30px;right:15px;position: initial;"></image>关注
+    </view>
+  </view>
+
+  <view class="detail-title-box detail-margin border-box text-red" style="margin-bottom:5px">
+    <view class="detail-title-text border-box">{{houseDetail.rentMoney}}元/月</view>
+  </view>
+
+  <view class="detail-label-box border-box detail-margin" style="margin-bottom:15px">
+    <view class="cu-tag bg-grey light sm"
+      style="border-radius:15px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">
+      {{houseDetail.rentMethod}}
+    </view>
+    <view class="cu-tag bg-grey light sm"
+      style="border-radius:15px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">
+      {{houseDetail.zhuangxiu}}
+    </view>
+    <view wx:for="{{houseDetail.tag}}" wx:key="_id" class="cu-tag bg-grey light sm" wx:if="{{index<4}}"
+      style="border-radius:15px;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">{{item}}
+    </view>
+  </view>
+</view>
+
+<view class="topic-box">
+  <view bindtap="gotoRank" class="topic-item rank2" class_name="二手房" data-index="1">
+    <view class="tit"> {{houseDetail.fangxing}}</view>
+    <view class="link">户型<image class="arrow" src="{{staticImgPath}}/index/v4/icon-arrow.png"></image>
+    </view>
+    <!-- <view class="tag">HOT</view> -->
+  </view>
+  <view bindtap="gotoRank" class="topic-item rank2" class_name="二手房" data-index="2">
+    <view class="tit"> {{houseDetail.mianji}}</view>
+    <view class="link">面积<image class="arrow" src="{{staticImgPath}}/index/v4/icon-arrow.png"></image>
+    </view>
+  </view>
+  <view bindtap="gotoRank" class="topic-item rank2" class_name="新房" data-index="3">
+    <view class="tit">{{houseDetail.louceng}}</view>
+    <view class="link">楼层<image class="arrow" src="{{staticImgPath}}/index/v4/icon-arrow.png"></image>
+    </view>
+  </view>
+  <view bindtap="gotoRank" class="topic-item rank2" class_name="小区" data-index="4">
+    <view class="tit"> {{houseDetail.chaoxiang}}</view>
+    <view class="link">朝向<image class="arrow" src="{{staticImgPath}}/index/v4/icon-arrow.png"></image>
+    </view>
+  </view>
+</view>
+
+<view class="floor-detail border-box" style="margin-top: 10px;">
+  <view class="detail-line-box detail-margin border-box"></view>
+  <view class="detail-area-wrap">
+    <view class="detail-left-box">
+      <view class="detail-area-box detail-common border-box">
+        <view class="detail-area-label border-box">户型类型</view>
+        <view class="detail-area-num border-box detail-area-beyond">
+          {{houseDetail.fangxing}}
+        </view>
+      </view>
+      <view class="detail-area-box detail-common border-box">
+        <view class="detail-area-label border-box">发布时间</view>
+        <view class="detail-area-num border-box detail-area-beyond">
+          {{houseDetail.faburiqi}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="detail-area-wrap">
+    <view class="detail-left-box">
+      <view class="detail-area-box detail-common border-box">
+        <view class="detail-area-label border-box">支付方式</view>
+        <view class="detail-area-num border-box detail-area-beyond">
+          {{houseDetail.yafu}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="detail-area-wrap">
+    <view class="detail-left-box">
+      <view class="detail-area-box detail-common border-box">
+        <view class="detail-area-label border-box">建筑面积</view>
+        <view class="detail-area-num border-box detail-area-beyond">
+          {{houseDetail.mianji}}
+        </view>
+      </view>
+      <view class="detail-area-box detail-common border-box">
+        <view class="detail-area-label border-box">用途</view>
+        <view class="detail-area-num border-box detail-area-beyond">
+          {{houseDetail.fangwuleixing}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="address-box data-v-63601b40" bind:tap="guideTo">
+    <view class="text data-v-63601b40">房屋地址: {{houseDetail.location}}</view>
+    <image class="detail-right-map-img" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/shop-navigation.png" mode="widthFix"
+      style="width:30px;height: 30px;"></image>
+  </view>
+</view>
+
+<view class="around-box border-box">
+  <view class="common-title border-box">
+    <view class="common-title-left" style="font-size: 16px;">楼盘周边</view>
+  </view>
+  <view class="map-box detail-margin border-box">
+    <map style="border-radius:15px" bindcallouttap="tapMap" setting="{{mapsetting}}" bindtap="tapMap" class="map"
+      data-active-index="0" enableScroll="{{false}}" enableZoom="{{false}}" id="map" latitude="{{latitude}}"
+      longitude="{{longitude}}" markers="{{$.rentHouseMarkersData}}" scale="14" showLocation="{{false}}"></map>
+  </view>
+  <view class="around-btn border-box">
+    <view class="around-btn">
+      <view bindtap="navNearBuilding" class="around-btn-item">
+        <image class="around-item-img" mode="widthFix" lazyLoad="true"
+          style="width:40px;height:40px;padding:0;margin: 0;" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/16.png"></image>
+        <view class="around-item-label">交通</view>
+      </view>
+      <view bindtap="navNearBuilding" class="around-btn-item">
+        <image class="around-item-img" mode="widthFix" lazyLoad="true"
+          style="width:40px;height:40px;padding:0;margin: 0;" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/4.png"></image>
+        <view class="around-item-label">教育</view>
+      </view>
+      <view bindtap="navNearBuilding" class="around-btn-item">
+        <image class="around-item-img" mode="widthFix" lazyLoad="true"
+          style="width:40px;height:40px;padding:0;margin: 0;" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/14.png"></image>
+        <view class="around-item-label">医疗</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<!-- <view class="around-box border-box" wx:if="{{showList.length}}"> -->
+<view class="around-box border-box">
+  <view class="common-title border-box">
+    <view class="common-title-left" style="font-size: 16px;">周边配套</view>
+  </view>
+  <view class="" style="margin: 0 20px 0 20px;">
+    <view class="">{{houseDetail.zhoubianpeitao}}</view>
+  </view>
+</view>
+<view class="around-box border-box">
+  <view class="common-title border-box">
+    <view class="common-title-left" style="font-size: 16px;">交通出行</view>
+  </view>
+  <view class="" style="margin: 0 20px 0 20px;">
+    <view class="">{{houseDetail.jiaotongchuxing}}</view>
+  </view>
+</view>
+<view class="around-box border-box">
+  <view class="common-title border-box">
+    <view class="common-title-left" style="font-size: 16px;">教育配套</view>
+  </view>
+  <view class="" style="margin: 0 20px 0 20px;">
+    <view class="">{{houseDetail.jiaoyupeitao}}</view>
+  </view>
+</view>
+<!-- <view class="recommend-house-layer" wx:if="{{isHasData}}"> -->
+<view class="recommend-house-layer">
+  <view class="head w90">
+    <view class="h1">楼盘相册</view>
+  </view>
+  <swiper class="screen-swiper square-dot margin-20" indicator-dots="true" circular="true" autoplay="true"
+    interval="5000" duration="500" style="height:160px;border-radius:15px">
+    <swiper-item style="border-radius:15px" wx:for="{{houseDetail.image}}" wx:key="_id"
+      class="{{cardCur==index?'cur':''}}">
+      <view class="swiper-item" style="border-radius:15px">
+        <image src="{{item}}" mode="aspectFill" style="border-radius:15px"></image>
+      </view>
+    </swiper-item>
+  </swiper>
+</view>
+
+<view class="recommend-house-layer" wx:if="{{houseDetail.loupanshipin}}">
+  <view class="head w90">
+    <view class="h1">楼盘视频</view>
+  </view>
+  <swiper class="screen-swiper square-dot margin-20" indicator-dots="true" circular="true" autoplay="true"
+    interval="5000" duration="500" style="height:160px;border-radius:15px">
+    <swiper-item style="border-radius:15px" wx:for="{{houseDetail.loupanshipin}}" wx:key="_id"
+      class="{{cardCur==index?'cur':''}}">
+      <view class="swiper-item" style="border-radius:15px">
+        <video src="{{item}}" loop="{{false}}" muted="{{false}}" controls="{{true}}" show-play-btn="{{true}}"
+          object-fit="{{contain}}" autoplay="{{false}}"></video>
+      </view>
+    </swiper-item>
+  </swiper>
+</view>
+
+<!-- <view class="saleman-box border-box" wx:if="{{saleList.length>0}}"> -->
+
+<view class="apartment-box border-box">
+  <view class="common-title" style="margin-bottom: 0;">
+    <view class="common-title-left" style="font-size: 16px;">销售顾问</view>
+  </view>
+  <!-- <view class="service-box data-v-188b6c76">
+    <view class="items data-v-188b6c76">全程免费</view>
+    <view class="items data-v-188b6c76">专业服务</view>
+    <view class="items data-v-188b6c76">楼盘解读</view>
+    <view class="items data-v-188b6c76">户型解析</view>
+  </view> -->
+  <view class="saleman-scroll-box margin-left-15 margin-right-15 border-box">
+
+    <!-- 销售顾问 -->
+    <view wx:for="{{dailiren}}" wx:key="_id"  class="saleman-item border-box">
+      <view bind:tap="navDetailDailiren" data-id="{{item._id}}" class="saleman-item-left border-box">
+        <view class="left-img first">
+          <view class="saleman-img-box">
+            <image binderror="imgError" class="saleman-item-left-img border-box" data-index="0" mode="aspectFill"
+              src="{{item.zhaopian}}" role="img"></image>
+          </view>
+          <view class="comImg" wx:if="{{item.dailidengji == '金牌'}}">
+            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9925.png"
+              role="img"></image>
+          </view>
+          <view class="comImg" wx:if="{{item.dailidengji == '银牌'}}">
+            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9939.png"
+              role="img"></image>
+          </view>
+          <view class="comImg" wx:if="{{item.dailidengji == '铜牌'}}">
+            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de993a.png"
+              role="img"></image>
+          </view>
+        </view>
+        <view class="saleman-item-left-label border-box">
+          <view class="saleman-item-label-top border-box">{{item.mingcheng}}</view>
+          <view class="saleman-item-label-bot border-box">{{item.dailidengji}}顾问</view>
+        </view>
+      </view>
+      <!-- <view class="saleman-item-right">
+        <view bindtap="handleChat" data-target="formChat" class="saleman-round saleman-round-1" data-id="{{item._id}}"
+          data-level="{{item.dailidengji}}顾问" data-name="{{item.mingcheng}}" data-phone="{{item.dianhua}}">
+          <text class="fhyfont iconIMliaotiantubiao iconText" style="color:#d4cec2"></text></view>
+        <view bindtap="handlePhone" class="saleman-round saleman-round-2" data-phone="{{item.dianhua}}">
+          <text class="fhyfont iconphone1 iconText" style="color:#d4cec2"></text>
+        </view>
+      </view> -->
+    </view>
+  </view>
+</view>
+
+<view class="common-title" wx:if="{{$.allRentHouseList.length !==0}}">
+  <view class="common-title-left" style="font-size: 16px;">猜你喜欢</view>
+  <view bind:tap="goToAllhouseList" class="more-apartment common-title-right">查看全部</view>
+</view>
+<view class="cu-card article padding-bottom-30" id="loupandaquan" wx:if="{{$.allRentHouseList.length !==0}}">
+  <view class="cu-item shadow margin-15" wx:for="{{$.allRentHouseList}}"
+    wx:key="_id">
+    <view bindtap="navHousedetail" data-id="{{item._id}}">
+      <view class="content" style="padding:0">
+        <image src="{{item.image[0]}}" mode="aspectFill" style="border-radius:20px;height: 110px;"></image>
+        <view class="desc">
+          <view class="margin-bottom-5" wx:if="{{housetag == 'anxiang'}}" style="font-weight:600;font-size:16px">
+            <view class="anxiang">{{item.title}}</view>
+          </view>
+          <view class="margin-bottom-5" wx:if="{{housetag == 'didanjia'}}" style="font-weight:600;font-size:16px">
+            <view class="didanjia">{{item.title}}</view>
+          </view>
+          <view class="margin-bottom-5" wx:if="{{housetag == 'xuequfang'}}" style="font-weight:600;font-size:16px">
+            <view class="xuequfang">{{item.title}}</view>
+          </view>
+          <view class="margin-bottom-5" wx:else style="font-weight:600;font-size:16px">
+            <view class="normalfang">{{item.title}}</view>
+          </view>
+          <view class="margin-bottom-5" style="color: #000;font-weight:600;font-size:14px">
+            {{item.fangxing}}/{{item.mianji}}㎡/{{item.chaoxiang}}</view>
+          <view class="margin-bottom-5" style="color: #999;font-size:14px">
+            <text class="cuIcon-location lg text-grey margin-right-5"></text>{{item.location}}</view>
+          <view class="margin-bottom-5">
+            <view wx:for="{{item.tag}}" wx:key="_id" class="cu-tag light sm"
+              style="color:#999;border-radius:15px;background:#F8F8F8;margin:5px 5px 0 0;height:20px;font-size:12px;line-height: 20px;">
+              {{item}}
+            </view>
+          </view>
+          <view class="margin-bottom-5" style="color: #4f7df9;font-size:12px">￥ <text
+              style="font-size:17px;font-weight:600;">{{item.rentMoney}}元 </text>/月</view>
+
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="cu-modal {{modalName =='formChat'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">预约沟通</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl" style="background: #ffffff;">
+      <form bindsubmit="submitForm">
+        <view class="model-form" slot="form">
+          <input bindinput="nameInput" name="nameInput" class="model-form-input text-left" cursorSpacing="145"
+            placeholder="您的姓名" placeholderClass="model-placeholder" value="{{username}}"></input>
+          <input bindinput="houseInput" name="houseInput" class="model-form-input text-left" cursorSpacing="145"
+            placeholder="意向房源" placeholderClass="model-placeholder"
+            value="{{houseDetail.loupanmingcheng}}">{{houseDetail.loupanmingcheng}}</input>
+          <input bindinput="phoneInput" name="phoneInput" class="model-form-input text-left" cursorSpacing="90"
+            maxlength="11" placeholder="您的手机号" placeholderClass="model-placeholder" value="{{userphone}}"></input>
+        </view>
+        <view class="model-btn" slot="btn" style="margin:0">
+          <button form-type="submit" class="model-submit-btn" hoverClass="model-btn-hover"
+            style="background:linear-gradient(90deg,#5380F1,#6CB1F1);border-radius:15px;bottom:0;width: 100%;">
+            提交
+          </button>
+        </view>
+      </form>
+    </view>
+  </view>
+</view>
+
+<view class="footer-fixed-container data-v-00532eba" style="padding-bottom:0px;" wx:if="{{loupanshouxidailiren._id}}">
+  <view class="broker-info data-v-00532eba" bindtap="navDetailDailiren" data-id="{{loupanshouxidailiren._id}}">
+    <image class="portrait data-v-00532eba" mode="aspectFit" src="{{loupanshouxidailiren.zhaopian}}"></image>
+    <view class="info-box data-v-00532eba">
+      <view class="name-box data-v-00532eba">
+        <view class="name data-v-00532eba">{{loupanshouxidailiren.mingcheng}}</view>
+      </view>
+      <view class="company data-v-00532eba">{{loupanshouxidailiren.dailidengji}}</view>
+    </view>
+  </view>
+  <view class="button-box data-v-00532eba" bindtap="handlePhone" data-phone="{{loupanshouxidailiren.dianhua}}">
+    <view class="contact data-v-00532eba">
+      联系Ta
+    </view>
+  </view>
+</view>
