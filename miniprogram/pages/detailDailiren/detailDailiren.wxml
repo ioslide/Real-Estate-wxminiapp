@@ -87,6 +87,7 @@
 </view>
 
 
+<block wx:if="{{dailirenHouseGroup.length > 0}}">
 
 <view class="common-title padding-left-20 padding-right-20" style="margin-top:0;margin-bottom:0">
   <view class="cuIcon-titles common-title-left" style="font-size: 16px;">代理楼盘</view>
@@ -114,6 +115,9 @@
     </view>
   </view>
 </view>
+</block>
+
+<block wx:if="{{dailirenRentHouseGroup.length > 0}}">
 <view class="common-title padding-left-20 padding-right-20" style="margin-top:0;margin-bottom:0">
   <view class="cuIcon-titles common-title-left" style="font-size: 16px;">代理租房</view>
 </view>
@@ -159,6 +163,7 @@
     </view>
   </view>
 </view>
+</block>
 <!-- <view class="services storeItem">
   <view class="servicesleft"> -->
     <!-- <view class="servicesimg justify-center">
@@ -173,7 +178,7 @@
 </view> -->
 <view class="help-find-house-box data-v-2789d440" bindtap="helpVIPTofindHouse" wx:if="{{$.zixunxinxi.length > 0}}">
   <view class="help-find-house data-v-2789d440">
-    <image class="picture data-v-2789d440" mode="aspectFill" src="../../assets/image/yuyuedailirenbg.png"></image>
+    <image class="picture data-v-2789d440" mode="aspectFill" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/yuyuedailirenbg.png"></image>
     <view class="text data-v-top-2789d440">预约专属服务</view>
     <view class="text data-v-2789d440">{{detailDailiren.mingcheng}}将竭诚为您服务</view>
     <view bind:tap="handleChat" data-target="formChat" class="btn data-v-2789d440">申请服务</view>

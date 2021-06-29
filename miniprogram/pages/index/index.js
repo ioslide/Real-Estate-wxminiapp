@@ -100,32 +100,6 @@ create(store, {
   },
   onLoad: function (options) {
     log('options', options)
-    // const t = this
-    //     var token = jwt.sign({ foo: 'bar' }, privateKey, { algorithm: 'RS256' });
-
-    //     const signedData = jwths256.encode(EncodingAESKey, {
-    //       uid: t.globalData.openid, 
-    //       data: {
-    //          q:"微信智言与微信智聆两大技术的支持下，微信AI团队推出了“微信对话开放平台”和“腾讯小微”智能硬件两大核心产品。微信支付团队最新发布的“微信青蛙Pro”在现场设置了体验区，让大家感受AI认脸的本事。"
-    //       }
-    //     }
-    // )
-    //     wx.request({
-    //       url: 'https://openai.weixin.qq.com/openapi/nlp/tokenize/WmlasdlPkVIUh9hvwdKaVA1CRCYSaX',
-    //       data: {
-    //         query: signedData
-    //       },
-    //       enableCache: true,
-    //       enableHttp2: true,
-    //       enableQuic: true,
-    //       method: 'post',
-    //       responseType: responseType,
-    //       timeout: 0,
-    //       success: (result) => {},
-    //       fail: (res) => {},
-    //       complete: (res) => {},
-    //     })
-
     wx.setStorageSync('hongbuyuCishu', 1)
     if (options.pageid == 'luckdraw') {
       wx.navigateTo({
@@ -134,6 +108,7 @@ create(store, {
     }
     const t = this
     t.getUserLocation()
+ 
     if (wx.getStorageSync('curCity')) {
       let curCity = wx.getStorageSync('curCity')
       t.setData({
@@ -225,43 +200,6 @@ create(store, {
     const t = this
     t.selectComponent('#startScreen').screenFadeOut()
     t.showADmodal()
-    // let houselist = t.store.data.allHouseList
-    // log('[houselist]',houselist)
-    // for (var i = 0, markersData = []; i < houselist.length; i++) {
-    //   let jingweidu = houselist[i]['jingweidu'].split(',')
-    //   markersData.push({
-    //     "iconPath": "cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/location.png",
-    //     "id": houselist[i]['_id'],
-    //     "latitude": jingweidu[0],
-    //     "longitude": jingweidu[1],
-    //     "width": 30,
-    //     "height": 30,
-    //     "callout": {
-    //       "id": houselist[i]['_id'],
-    //       "content": houselist[i]['loupanmingcheng'] + "\n" + houselist[i]['loupandanjia'],
-    //       "display": "ALWAYS",
-    //       "padding": 5,
-    //       "bgColor": "#D25D5D",
-    //       "borderColor": "#4BA6EE",
-    //       "color": "#fff",
-    //       "borderRadius": 5,
-    //       "fontSize": 14,
-    //       "textAlign": "center",
-    //       "areaName": houselist[i]['chengshi'] + houselist[i]['loupanmingcheng'],
-    //       "logoUrl": "https://xsfile.bgy.com.cn/fileservice/file/view?fileId=f6ec2f90-7da2-442a-a555-ff9fbbd24ea9",
-    //       "city": houselist[i]['chengshi'],
-    //       "region": houselist[i]['jutidizhi'],
-    //       "lables": houselist[i]['biaoqian'],
-    //       "averagePriceJoin": houselist[i]['loupandanjia'],
-    //       "areaIntervalJoin": houselist[i]['jianzumianji']
-    //     }
-    //   });
-    // }
-    // t.setData({
-    //   markersData: markersData
-    // })
-
-    // log('[markersData]', markersData, houselist.length)
   },
   onUnload() {
     citySelector.clearCity();

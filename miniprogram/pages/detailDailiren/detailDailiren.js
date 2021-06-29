@@ -54,21 +54,23 @@ create(store, {
     let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
     let temp2 = _key + 'zufangxiangqing'
     let rentHousedatabase = pinyin.getPinyin(temp2).replace(/\s+/g, "");
-    
+
     log('楼盘详情数据库', database)
     log('租房详情数据库', rentHousedatabase)
 
-    for (let i = 0; i < detailDailiren.dailizufangliebiao.length; i++) {
-      log(detailDailiren.dailizufangliebiao[i])
-      db.collection(rentHousedatabase).doc(detailDailiren.dailizufangliebiao[i]).get().then(res => {
-        dailirenRentHouseGroup.push(res.data)
-        log(dailirenRentHouseGroup, detailDailiren.dailizufangliebiao.length)
-        if (dailirenRentHouseGroup.length == detailDailiren.dailizufangliebiao.length) {
-          t.setData({
-            dailirenRentHouseGroup: dailirenRentHouseGroup
-          })
-        }
-      })
+    if (detailDailiren.dailizufangliebiao) {
+      for (let i = 0; i < detailDailiren.dailizufangliebiao.length; i++) {
+        log(detailDailiren.dailizufangliebiao[i])
+        db.collection(rentHousedatabase).doc(detailDailiren.dailizufangliebiao[i]).get().then(res => {
+          dailirenRentHouseGroup.push(res.data)
+          log(dailirenRentHouseGroup, detailDailiren.dailizufangliebiao.length)
+          if (dailirenRentHouseGroup.length == detailDailiren.dailizufangliebiao.length) {
+            t.setData({
+              dailirenRentHouseGroup: dailirenRentHouseGroup
+            })
+          }
+        })
+      }
     }
 
     for (let i = 0; i < detailDailiren.daililoupanliebiao.length; i++) {

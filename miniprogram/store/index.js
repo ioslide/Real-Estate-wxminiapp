@@ -15,7 +15,6 @@ let $$ = {
   allHouseList: [],
   swiperList: [],
   dailiren: [],
-  userInfo:{},
   adSwiperList: [],
   maifangliucheng: [],
   goufangzhengce: [],
@@ -30,7 +29,6 @@ let $$ = {
 
 export default {
   data: {
-    userInfo: $$.userInfo,
     markersData:$$.markersData,
     rentHouseMarkersData:$$.rentHouseMarkersData,
     adSwiperList: $$.adSwiperList,
@@ -141,7 +139,33 @@ const getNews = () => {
   })
 }
 const getUserInfo = () =>{
-  module.exports.default.data.userInfo = wx.getStorageSync('userInfo')
+  log('getWxcontext')
+  wx.cloud.callFunction({
+    name: "openapi",
+    data: {
+      action: 'getContext',
+    },
+  }).then(function (res) {
+    log('[wxContext]',res.result)
+    let key = ''
+    if(wx.getStorageSync('curCity')){
+      key = wx.getStorageSync('curCity')
+    }else{
+      key = '锦江区'
+    }
+    let temp = key + 'userInfo'
+    let openid = res.result.openid
+    let userInfoDatabase =pinyin.getPinyin(temp).replace(/\s+/g,"");_
+    log('userInfoDatabase',userInfoDatabase,openid)
+    db.collection(userInfoDatabase).where({
+      openid : openid
+    }).get().then(res1 => {
+      log('userInfo',res1.data[0])
+      module.exports.default.data.userInfo = res1.data[0]
+    })
+  }).catch(
+    console.error)
+
 }
 const getStartImage = () => {
   let key = ''

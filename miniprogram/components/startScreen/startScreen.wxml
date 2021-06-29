@@ -3,7 +3,7 @@
 			<view class="flex justify-center align-center" style="opacity:1;height: 100%;width:{{windowWidth}}px;" >
 				<view>
 					<view class="flex justify-center padding-15 align-center">
-						<image class="square-300" mode="aspectFit" src="../../assets/image/logo.png"></image>
+						<image class="square-300" mode="aspectFit" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/logo.png"></image>
 					</view>
 					<!-- <view class="flex justify-center padding-15 align-center">
 						<text class="text-4a5568text-xl font-weight-300">你好</text>

@@ -6,7 +6,7 @@
           <image binderror="__e" class="portrait data-v-54c70c3a" mode="aspectFill"
             src="{{$.userInfo.avatarUrl||defaultPicture}}"></image>
           <view class="text-box data-v-54c70c3a">
-            <view class="name data-v-54c70c3a">{{$.userInfo.nickName}}</view>
+            <view class="name data-v-54c70c3a">{{$.userInfo.nickName}} <text class="text-red" style="font-size:14px">余额：{{$.userInfo.userMoney}}</text></view>
             <view wx:if="{{$.userInfo.ishehuoren == true}}" class="cu-tag light sm"
               style="color:#fff;border-radius:20px;margin:5px 5px 0 0;height:22px;padding: 1px 8px;background:linear-gradient(270deg,#bc91ff,#8833f5);font-size:12px;line-height:20px;">
               合伙人认证

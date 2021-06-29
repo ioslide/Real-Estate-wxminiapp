@@ -61,7 +61,7 @@ create(store, {
     log(options)
     const t = this
     this.setData({
-      keyword: wx.getStorageSync('curCity'),
+      placeholderWord: t.store.data.curCity,
       housetag:options.housetag
     })
     wx.pro.showLoading({

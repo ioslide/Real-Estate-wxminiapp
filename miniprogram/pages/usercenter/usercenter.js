@@ -50,6 +50,9 @@ create(store, {
   onLoad: function (options) {
     log()
     const t = this
+    wx.showLoading({
+      title: 'Loading',
+    })
     let _key = t.store.data.curCity
     let temp = _key + 'userInfo'
     let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
@@ -57,6 +60,7 @@ create(store, {
       openid: globalData.openid
     }).get()
       .then(res => {
+        wx.hideLoading()
         console.log(res.data[0])
         t.store.data.userInfo = res.data[0]
       })

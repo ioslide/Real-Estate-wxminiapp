@@ -30,7 +30,7 @@ create(store, {
     showCancel: false
   },
   onLoad: function (options) {
-    
+
   },
   navDetail(e) {
     log(e)
@@ -56,29 +56,36 @@ create(store, {
     let temp = key + 'fangchanwenda'
     let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
     db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
-      for(let i=0;i<res.data.length;i++){
-        wx.cloud.callFunction({
-          name: "openapi",
-          data: {
-            action: 'getTokenize',
-            msg : res.data[i].title,
-            openid: app.globalData.openid
-          },
-        }).then(function (result) {
-          log('[' + res.data[i].title + ']',result.result)
-          res.data[i].tag = result.result.entities
-          log(i)
-          if(res.data.length-1 == i){
-          log(res.data)
-            t.setData({
-              fangchanwenda: res.data,
-              showCancel: false
-            })
-          }
-        }).catch(console.error)
-      }
+      t.setData({
+        fangchanwenda: res.data,
+        showCancel: false
+      })
       wx.pro.hideLoading()
     })
+    // db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
+    //   for (let i = 0; i < res.data.length; i++) {
+    //     wx.cloud.callFunction({
+    //       name: "openapi",
+    //       data: {
+    //         action: 'getTokenize',
+    //         msg: res.data[i].title,
+    //         openid: app.globalData.openid
+    //       },
+    //     }).then(function (result) {
+    //       log('[' + res.data[i].title + ']', result.result)
+    //       res.data[i].tag = result.result.entities
+    //       log(i, res.data.length)
+    //       if (res.data.length - 1 == i) {
+    //         log(res.data)
+    //         t.setData({
+    //           fangchanwenda: res.data,
+    //           showCancel: false
+    //         })
+    //         wx.pro.hideLoading()
+    //       }
+    //     }).catch(console.error)
+    //   }
+    // })
   },
   hideModal(e) {
     this.setData({
@@ -117,14 +124,12 @@ create(store, {
     let _key = t.store.data.curCity
     let temp = _key + 'fangchanwenda'
     let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
-    db.collection(database).where(_.or([
-    {
+    db.collection(database).where(_.or([{
       title: db.RegExp({
         regexp: '.*' + key + '.*',
         options: 'i',
       })
-    }
-  ])).orderBy('_createTime', 'desc').get().then(res => {
+    }])).orderBy('_createTime', 'desc').get().then(res => {
       t.setData({
         fangchanwenda: res.data,
         showCancel: true
@@ -154,10 +159,13 @@ create(store, {
     log('[isLessThanFurtureTime]', isLessThanFurtureTime)
     if (isLessThanFurtureTime == false) { //过期了
       log('[isLessThanFurtureTime] 过期了')
-      t.getUserProfile()
-      t.setData({
-        modalName: 'addcomment'
-      })
+      if (!t.store.data.userInfo) {
+        t.getUserProfile()
+      } else {
+        t.setData({
+          modalName: 'addcomment'
+        })
+      }
     } else if (isLessThanFurtureTime == true) { //没过期
       log('[isLessThanFurtureTime] 没过期')
       wx.showToast({
@@ -172,34 +180,45 @@ create(store, {
     wx.getUserProfile({
       desc: '用于完善个人资料',
       success: function (res) {
+
+        t.setData({
+          modalName: 'addcomment'
+        })
+
         var userInfo = res.userInfo
         console.log('userInfo==>', userInfo)
-        //下面将userInfo存入服务器中的用户个人资料
-        if (!wx.getStorageSync('storage_info')) {
-          let _key = t.store.data.curCity
-          let temp = _key + 'userInfo'
-          let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
-          db.collection(database).add({
-              data: {
-                nickName: userInfo.nickName,
-                avatarUrl: userInfo.avatarUrl,
-                gender: userInfo.gender,
-                language: userInfo.language,
-                country: userInfo.country,
-                city: userInfo.city,
-                province: userInfo.province
-              }
-            })
-            .then(res => {
-              console.log(res)
-            })
-            .catch(console.error)
-        }
-        wx.setStorageSync('storage_info', 1);
-        wx.setStorageSync('userInfo', userInfo)
+
+        let temp = t.store.data.curCity + 'userInfo'
+        let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+        db.collection(database).add({
+            data: {
+              nickName: userInfo.nickName,
+              city: userInfo.city,
+              province: userInfo.province,
+              country: userInfo.country,
+              gender: userInfo.gender,
+              avatarUrl: userInfo.avatarUrl,
+              phone:'',
+              kabao:[],
+              tuiguangshouyi:0,
+              youxiaoyaoqingrenshu:0,
+              ishehuoren:false,
+              isdaili:false,
+              openid:globalData.openid,
+              unionid:globalData.unionid || "",
+              userMoney : 0
+            }
+          })
+          .then(res => {
+            console.log(res)
+          })
+          .catch(console.error)
         t.store.data.userInfo = userInfo
-        t.setData({
-          userInfo: userInfo
+      },
+      fail: function (err) {
+        wx.showToast({
+          icon: 'error',
+          title: '请授权',
         })
       }
     })
@@ -233,27 +252,41 @@ create(store, {
       wx.pro.showLoading({
         title: '提交中',
       })
-      let _key = t.store.data.curCity
-      let temp = _key + 'fangchanwenda'
-      let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
-      db.collection(database).add({
-          data: {
-            title: e.detail.value.title,
-            time: dayjs(new Date()).format('YYYY-MM-DD'),
-            publishName: t.data.userInfo.nickName,
-            avatar: t.data.userInfo.avatarUrl,
-            comment: [],
-            phone: e.detail.value.mobile,
-          }
-        })
-        .then(res => {
-          t.getShequ()
-          console.log(res)
-          wx.pro.hideLoading()
-          wx.setStorageSync('fangchanwendawillTime', willTime());
-          t.hideModal()
-        })
-        .catch(console.error)
+
+
+      wx.cloud.callFunction({
+        name: "openapi",
+        data: {
+          action: 'getTokenize',
+          msg: e.detail.value.title,
+          openid: app.globalData.openid
+        },
+      }).then(function (result) {
+        let _key = t.store.data.curCity
+        let temp = _key + 'fangchanwenda'
+        let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+        db.collection(database).add({
+            data: {
+              title: e.detail.value.title,
+              time: dayjs(new Date()).format('YYYY-MM-DD'),
+              publishName: t.store.data.userInfo.nickName,
+              chakanrenshu : 0,
+              avatar:  t.store.data.userInfo.avatarUrl,
+              comment: [],
+              phone: e.detail.value.mobile,
+              tag: result.result.entities
+            }
+          })
+          .then(res => {
+            t.getShequ()
+            console.log(res)
+            wx.pro.hideLoading()
+            wx.setStorageSync('fangchanwendawillTime', willTime());
+            t.hideModal()
+          })
+          .catch(console.error)
+      }).catch(console.error)
+
     } else {
       wx.showToast({
         title: checkRes,

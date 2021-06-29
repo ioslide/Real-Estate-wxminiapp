@@ -65,24 +65,44 @@ create(store, {
     wx.getUserProfile({
       desc: '用于完善个人资料',
       success: function (res) {
-        let commentUser = res.userInfo
-        console.log('commentUser==>', commentUser)
-        //下面将userInfo存入服务器中的用户个人资料
-        if (t.data.hascommentUser == false) {
-          t.setData({
-            hascommentUser:true,
-            modalName: 'addcomment',
-            commentUser: commentUser
+        let useInfo = res.userInfo
+        t.setData({
+          modalName: 'addcomment'
+        })
+
+        console.log('useInfo==>', useInfo)
+
+        let temp = t.store.data.curCity + 'userInfo'
+        let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+        db.collection(database).add({
+          data: {
+            nickName: userInfo.nickName,
+            city: userInfo.city,
+            province: userInfo.province,
+            country: userInfo.country,
+            gender: userInfo.gender,
+            avatarUrl: userInfo.avatarUrl,
+            phone:'',
+            kabao:[],
+            tuiguangshouyi:0,
+            youxiaoyaoqingrenshu:0,
+            ishehuoren:false,
+            isdaili:false,
+            openid:globalData.openid,
+            unionid:globalData.unionid || "",
+            userMoney : 0
+          }
           })
-        }else if(t.data.hascommentUser == true) {
-          t.setData({
-            modalName: 'addcomment'
+          .then(res => {
+            console.log(res)
           })
-        }
+          .catch(console.error)
+        t.store.data.userInfo = userInfo
+
       },
-      fail:function(err){
+      fail: function (err) {
         wx.showToast({
-          icon:'error',
+          icon: 'error',
           title: '请授权',
         })
       }
@@ -140,9 +160,9 @@ create(store, {
       })
       let newComment = t.data.qiuzuqiugou.comment
       newComment.push({
-        avatar : t.data.commentUser.avatarUrl,
+        avatar :  t.store.data.userInfo.avatarUrl,
         comment:formData.comment,
-        name:t.data.commentUser.nickName || '热心网友',
+        name: t.store.data.userInfo.nickName || '热心网友',
         time: dayjs(new Date()).format('YYYY-MM-DD mm-ss')
       })
       log('newComment',newComment)

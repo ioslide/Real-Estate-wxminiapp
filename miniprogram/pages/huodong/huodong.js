@@ -31,10 +31,14 @@ create(store, {
     let _key = t.store.data.curCity
     let temp = _key + 'zuixinhuodong'
     let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    wx.showLoading({
+      title: 'Loading',
+    })
     db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
       t.setData({
         zuixinhuodong: res.data
       })
+      wx.hideLoading()
     })
     if(dayjs().minute() > 0 && dayjs().minute()<60){
       t.loadHongbao()

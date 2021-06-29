@@ -18,7 +18,8 @@ create(store, {
    * 页面的初始数据
    */
   data: {
-
+    code : '1949',
+    phone : ''
   },
 
   /**
@@ -68,7 +69,14 @@ create(store, {
     log(checkRes,formData.codeInput,t.data.code)
     if(formData.codeInput !== t.data.code && formData.codeInput !== ""){
       wx.showToast({
-        title: '验证码不正确',
+        title: '手机号或验证码不正确',
+        icon:'none'
+      })
+      return false
+    }
+    if(t.data.phone == ''){
+      wx.showToast({
+        title: '请获取验证码',
         icon:'none'
       })
       return false

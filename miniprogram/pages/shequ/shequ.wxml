@@ -69,8 +69,8 @@
             placeholder="您的手机号" placeholderClass="model-placeholder"></input>
           <input name="title" class="model-form-input text-left" cursorSpacing="145" placeholder="标题"
             placeholderClass="model-placeholder"></input>
-          <input name="qiuzuORqiugou" class="model-form-input text-left" cursorSpacing="145" placeholder="出租？求租？出售"
-            placeholderClass="model-placeholder"></input>
+          <!-- <input name="qiuzuORqiugou" class="model-form-input text-left" cursorSpacing="145" placeholder="出租？求租？出售"
+            placeholderClass="model-placeholder"></input> -->
           <!-- <radio-group class="block" name="qiuzuORqiugou" >
             <view class="model-form-input  cu-form-group" style="background: rgba(245,246,250,1);">
               <view class="title" style="padding-left:15px;color: #CACBD5;">出租</view>

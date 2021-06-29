@@ -24,7 +24,7 @@ App({
     windowWidth: "",
     windowHeight: "",
     screenWidth: "",
-    openid: '',
+    openid: '0',
     unionid: '',
     isIpx: !1,
     systemInfo: {},

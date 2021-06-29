@@ -1,25 +1,25 @@
 <view class="cu-bar tabbar bg-white shadow foot" style="height: 62px;padding:0;margin:0">
   <view class="action" bindtap="navHome">
     <view class='cuIcon-cu-image'>
-      <image src="../../assets/image/home{{currentTag == 'shouye' ? '-active' : ''}}.png"></image>
+      <image src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/home{{currentTag == 'shouye' ? '-active' : ''}}.png"></image>
     </view>
     <view >首页</view>
   </view>
   <view class="action" bindtap="navQiyefuwu">
     <view class='cuIcon-cu-image'>
-      <image src="../../assets/image/service{{currentTag == 'fuwu' ? '-active' : ''}}.png"></image>
+      <image src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/service{{currentTag == 'fuwu' ? '-active' : ''}}.png"></image>
     </view>
     <view >服务</view>
   </view>
   <view class="action" bindtap="navMap">
     <view class='cuIcon-cu-image'>
-      <image src="../../assets/image/findhouse{{currentTag == 'zhaofang' ? '-active' : ''}}.png"></image>
+      <image src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/findhouse{{currentTag == 'zhaofang' ? '-active' : ''}}.png"></image>
     </view>
     <view >找房</view>
   </view>
   <view class="action" bindtap="navWode">
     <view class='cuIcon-cu-image'>
-      <image src="../../assets/image/huodong{{currentTag == 'wode' ? '-active' : ''}}.png"></image>
+      <image src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/huodong{{currentTag == 'wode' ? '-active' : ''}}.png"></image>
     </view>
     <view >我的</view>
   </view>
@@ -28,25 +28,25 @@
 <view class="cu-bar tabbar bg-white shadow foot" style="height: 62px;padding:0;margin:0">
   <view class="action" bindtap="navHome">
     <view class='cuIcon-cu-image'>
-      <image src="../../assets/image/icon-estate{{currentTag == 'shouye' ? '-active' : ''}}.png"></image>
+      <image src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/icon-estate{{currentTag == 'shouye' ? '-active' : ''}}.png"></image>
     </view>
     <view >首页</view>
   </view>
   <view class="action" bindtap="navQiyefuwu">
     <view class='cuIcon-cu-image'>
-      <image src="../../assets/image/icon-loupan{{currentTag == 'fuwu' ? '-active' : ''}}.png"></image>
+      <image src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/icon-loupan{{currentTag == 'fuwu' ? '-active' : ''}}.png"></image>
     </view>
     <view >服务</view>
   </view>
   <view class="action" bindtap="navMap">
     <view class='cuIcon-cu-image'>
-      <image src="../../assets/image/icon-office{{currentTag == 'zhaofang' ? '-active' : ''}}.png"></image>
+      <image src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/icon-office{{currentTag == 'zhaofang' ? '-active' : ''}}.png"></image>
     </view>
     <view >找房</view>
   </view>
   <view class="action" bindtap="navHuodong">
     <view class='cuIcon-cu-image'>
-      <image src="../../assets/image/icon-shop{{currentTag == 'huodong' ? '-active' : ''}}.png"></image>
+      <image src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/icon-shop{{currentTag == 'huodong' ? '-active' : ''}}.png"></image>
     </view>
     <view >活动</view>
   </view>

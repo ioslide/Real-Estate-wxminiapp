@@ -15,7 +15,7 @@
     <text class="fhyfont icon-search"></text>
     <input bindconfirm="submitSearch" selection-start="-1" selection-end="-1" cursor="-1" bindfocus="inputfocus"
       bindblur="inputblur" class="text data-v-7a95ed29 placeholder data-v-5832b5b8" confirmType="搜索" value="{{keyword}}"
-      placeholder="输入搜索的楼盘" type="text" style="padding:0 16rpx"></input>
+      placeholder="{{placeholderWord}}" type="text" style="padding:0 16rpx"></input>
     <text bindtap="clearKeyword" class="fhyfont iconicon-deletetext" size="16" type="clear" style="color: #AAAAAA;"
       wx:if="{{showClear}}"></text>
   </view>
@@ -34,7 +34,7 @@
 </view> -->
 
 <view class="cu-card article padding-bottom-30" id="loupandaquan">
-  <view class="cu-item shadow margin-15" bindtap="navDetail" data-id="{{item._id}}" wx:for="{{allHouseList}}"
+  <view class="cu-item shadow" style="margin: 10px 5px 10px 10px;" bindtap="navDetail" data-id="{{item._id}}" wx:for="{{allHouseList}}"
     wx:key="_id">
     <view bindtap="navDetail" data-id="{{item._id}}">
       <!-- <view class="title">

@@ -24,7 +24,7 @@
     </view>
   </view> -->
   <phoneCodeButton bind:verifySmsCode="verifySmsCode" />
-  
+
   <view class="cu-form-group">
     <view class="title" style="padding-right:30rpx">验证码</view>
     <input class="title" bindinput='checkcodeInput' name="codeInput" placeholder="验证码"></input>
@@ -40,17 +40,17 @@
       placeholder="备注"></textarea>
   </view>
 
-  <view class="cu-bar bg-white margin-top">
+  <!-- <view class="cu-bar bg-white margin-top">
     <view class="action">
       合同图片上传
     </view>
     <view class="action">
       {{imgList.length}}/4
     </view>
-  </view>
-  <view class="cu-form-group">
+  </view> -->
+  <!-- <view class="cu-form-group">
     <view class="grid col-4 grid-square flex-sub">
-      <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+      <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
         <image src='{{imgList[index]}}' mode='aspectFill'></image>
         <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
           <text class="cuIcon-close"></text>
@@ -60,15 +60,24 @@
         <text class="cuIcon-cameraadd"></text>
       </view>
     </view>
+  </view> -->
+
+  <view class="cu-bar bg-white margin-top"  bindtap="uploadFile">
+    <view class="action"
+      style="background:#FFF9EE;text-align:center;line-height: 30px;margin:0;padding:0;height:30px;width:30%">
+      合同附件上传
+    </view>
+    <view class="action">
+      {{uploadFilePathsName.length}}/1
+    </view>
   </view>
-  <view class="cu-form-group align-center" style="border-bottom:1rpx solid #eee">
-    <view class="title" bindtap="uploadFile"
-      style="background:#FFF9EE;text-align:center;line-height: 30px;margin:0;padding:0;height:30px;">附件上传</view>
-    <view class="title" wx:for="{{uploadFilePathsName}}">{{item}}</view>
+  <view class="cu-form-group align-center" style="border-bottom:1rpx solid #eee" wx:if="{{uploadFilePathsName.length !== 0}}">
+    <view class="title ellipsis-text" style="width:70%" wx:for="{{uploadFilePathsName}}" wx:key="index">{{item}}</view>
   </view>
+<!-- 
   <view class="cu-form-group margin-top">
     <view class="title">注意: 申请成功会下发账号和密码</view>
-  </view>
+  </view> -->
   <!-- <view class="cu-form-group margin-top">
     <image class="picture data-v-2789d440" style="height:40px" mode="widthFix" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/bottomBg.png">
     </image>

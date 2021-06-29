@@ -27,11 +27,11 @@ create(store, {
   data: {
     uploadFilePaths: [],
     uploadFilePathsName: [],
-    imgList: [],
     submitUploadImgList: [],
     submitFileList: [],
     modalName: null,
-    code:'0000'
+    phone: '',
+    code: '1949'
   },
   onLoad: function (options) {
 
@@ -39,10 +39,10 @@ create(store, {
   genID(length) {
     return Number(Math.random().toString().substr(3, length) + Date.now()).toString(36);
   },
-  verifySmsCode(e){
+  verifySmsCode(e) {
     log(e)
     this.setData({
-      code : e.detail.code,
+      code: e.detail.code,
       phone: e.detail.phone
     })
   },
@@ -72,96 +72,64 @@ create(store, {
     ];
     let formData = e.detail.value;
     let checkRes = form.validation(formData, rules);
-    let imageList = t.data.imgList
-    log(imageList, checkRes,formData)
-    if(formData.codeInput !== t.data.code && formData.codeInput !== ""){
+    log(checkRes, formData)
+    if (formData.codeInput !== t.data.code && formData.codeInput !== "") {
       wx.showToast({
         title: '验证码不正确',
+        icon: 'none'
+      })
+      return false
+    }
+    if (t.data.uploadFilePaths.length == 0) {
+      wx.showToast({
+        title: '请上传合同附件',
+        icon: "none"
+      });
+      return false
+    } 
+    if(t.data.phone == ''){
+      wx.showToast({
+        title: '请获取验证码',
         icon:'none'
       })
       return false
     }
-    if (!checkRes && imageList.length !== 0) {
+    if (!checkRes) {
       log('验证通过')
       wx.pro.showLoading({
         title: '提交中',
       })
-      for (let j = 0; j < t.data.imgList.length; j++) {
-        wx.cloud.uploadFile({
-          cloudPath: t.genID(20),
-          filePath: t.data.imgList[j], // 文件路径
-        }).then(res => {
-          t.data.submitUploadImgList.push(res.fileID)
-          console.log(res)
 
-          for (let i = 0; i < t.data.uploadFilePaths.length; i++) {
-            wx.cloud.uploadFile({
-              cloudPath: t.genID(20),
-              filePath: t.data.uploadFilePaths[i], // 文件路径
-            }).then(res => {
-              t.data.submitFileList.push(res.fileID)
-              console.log(res)
-              if(i == t.data.uploadFilePaths.length-1 && j == t.data.imgList.length-1){
-              db.collection('ruzhudaili').add({
-                  data: {
-                    name: formData.nameInput,
-                    phone: t.data.phoneInput,
-                    yixiangdailiquyu: formData.ruzhuquyuInput,
-                    beizhu: formData.beizhuInput,
-                    hetongtupian: t.data.submitUploadImgList,
-                    fujian: t.data.submitFileList,
-                    time: app.getCurrentTime()
-                  }
-                })
-                .then(res => {
-                  console.log(res)
-                  wx.pro.hideLoading()
-                  wx.showToast({
-                    title: '提交成功',
-                  })
-                  t.setData({
-                    uploadFilePaths:[],
-                    uploadFilePathsName:[],
-                    imgList:[],
-                    submitUploadImgList:[],
-                    submitFileList:[]
-                  })
-                })
-                .catch(console.error)
-              }
-            }).catch(error => {
-              // handle error
-            })
-          }
-
-        }).catch(error => {
-          // handle error
+      db.collection('ruzhudaili').add({
+        data: {
+          name: formData.nameInput,
+          phone: t.data.phone,
+          yixiangdailiquyu: formData.ruzhuquyuInput,
+          beizhu: formData.beizhuInput,
+          hetongtupian: t.data.submitUploadImgList,
+          fujian: t.data.submitFileList,
+          time: app.getCurrentTime()
+        }
+      })
+      .then(res => {
+        console.log(res)
+        wx.pro.hideLoading()
+        wx.showToast({
+          title: '提交成功',
         })
-      }
+        t.setData({
+          uploadFilePaths: [],
+          uploadFilePathsName: [],
+          submitUploadImgList: [],
+          submitFileList: []
+        })
+        wx.navigateBack({
+          delta: 1,
+        })
+      })
+      .catch(console.error)
 
-
-      // db.collection('ruzhudaili').add({
-      //   data: {
-      //     name: e.detail.value.nameInput,
-      //     phone: e.detail.value.phoneInput,
-      //     yixiangdailiquyu: e.detail.value.ruzhuquyuInput,
-      //     beizhu: e.detail.value.beizhuInput,
-      //     hetongtupian: t.data.imgList,
-      //     fujian: t.data.uploadFilePaths,
-      //     time: app.getCurrentTime()
-      //   }
-      //   })
-      //   .then(res => {
-      //     console.log(res)
-      //     wx.pro.hideLoading()
-      //   })
-      //   .catch(console.error)
-    } else if (imageList.length == 0) {
-      wx.showToast({
-        title: '请上传合同图片',
-        icon: "none"
-      });
-    } else {
+    }else {
       wx.showToast({
         title: checkRes,
         icon: "none"
@@ -172,9 +140,10 @@ create(store, {
   uploadFile() {
     const t = this
     wx.chooseMessageFile({
-      count: 3,
+      count: 1,
       type: 'file',
       success(res) {
+        log(res)
         const tempFilePaths = res.tempFiles
         let _tempFilePaths = []
         let _tempFilePathsName = []
@@ -186,7 +155,6 @@ create(store, {
           uploadFilePaths: _tempFilePaths,
           uploadFilePathsName: _tempFilePathsName,
         })
-        log(res)
       },
       fail(err) {
         wx.showToast({
@@ -196,46 +164,28 @@ create(store, {
       }
     })
   },
-  ChooseImage() {
-    wx.chooseImage({
-      count: 4, //默认9
-      sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album'], //从相册选择
-      success: (res) => {
-        if (this.data.imgList.length != 0) {
-          this.setData({
-            imgList: this.data.imgList.concat(res.tempFilePaths)
-          })
-        } else {
-          this.setData({
-            imgList: res.tempFilePaths
-          })
-        }
-      }
-    });
-  },
-  DelImg(e) {
-    wx.showModal({
-      title: '合同图片',
-      content: '确定删除这张图片?',
-      cancelText: '取消',
-      confirmText: '确定',
-      success: res => {
-        if (res.confirm) {
-          this.data.imgList.splice(e.currentTarget.dataset.index, 1);
-          this.setData({
-            imgList: this.data.imgList
-          })
-        }
-      }
-    })
-  },
-  ViewImage(e) {
-    wx.previewImage({
-      urls: this.data.imgList,
-      current: e.currentTarget.dataset.url
-    });
-  },
+  // DelImg(e) {
+  //   wx.showModal({
+  //     title: '合同图片',
+  //     content: '确定删除这张图片?',
+  //     cancelText: '取消',
+  //     confirmText: '确定',
+  //     success: res => {
+  //       if (res.confirm) {
+  //         this.data.imgList.splice(e.currentTarget.dataset.index, 1);
+  //         this.setData({
+  //           imgList: this.data.imgList
+  //         })
+  //       }
+  //     }
+  //   })
+  // },
+  // ViewImage(e) {
+  //   wx.previewImage({
+  //     urls: this.data.imgList,
+  //     current: e.currentTarget.dataset.url
+  //   });
+  // },
   onReady: function () {
 
   },

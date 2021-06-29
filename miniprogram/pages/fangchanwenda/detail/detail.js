@@ -22,17 +22,17 @@ create(store, {
     'curCity'
   ],
   data: {
-    hascommentUser:false
+    hascommentUser: false
   },
   onLoad: function (options) {
     const t = this
     log(options)
     t.setData({
-      options:options
+      options: options
     })
     t.getDetailcomment(options)
   },
-  getDetailcomment(options){
+  getDetailcomment(options) {
     const t = this
     let _key = t.store.data.curCity
     let temp = _key + 'fangchanwenda'
@@ -46,7 +46,7 @@ create(store, {
       })
     })
   },
-  reloadDetailcomment(options){
+  reloadDetailcomment(options) {
     const t = this
     let _key = t.store.data.curCity
     let temp = _key + 'fangchanwenda'
@@ -65,24 +65,44 @@ create(store, {
     wx.getUserProfile({
       desc: '用于完善个人资料',
       success: function (res) {
-        let commentUser = res.userInfo
-        console.log('commentUser==>', commentUser)
-        //下面将userInfo存入服务器中的用户个人资料
-        if (t.data.hascommentUser == false) {
-          t.setData({
-            hascommentUser:true,
-            modalName: 'addcomment',
-            commentUser: commentUser
+        let useInfo = res.userInfo
+        t.setData({
+          modalName: 'addcomment'
+        })
+
+        console.log('useInfo==>', useInfo)
+
+        let temp = t.store.data.curCity + 'userInfo'
+        let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+        db.collection(database).add({
+            data: {
+              nickName: userInfo.nickName,
+              city: userInfo.city,
+              province: userInfo.province,
+              country: userInfo.country,
+              gender: userInfo.gender,
+              avatarUrl: userInfo.avatarUrl,
+              phone: '',
+              kabao: [],
+              tuiguangshouyi: 0,
+              youxiaoyaoqingrenshu: 0,
+              ishehuoren: false,
+              isdaili: false,
+              openid: globalData.openid,
+              unionid: globalData.unionid || "",
+              userMoney: 0
+            }
           })
-        }else if(t.data.hascommentUser == true) {
-          t.setData({
-            modalName: 'addcomment'
+          .then(res => {
+            console.log(res)
           })
-        }
+          .catch(console.error)
+        t.store.data.userInfo = userInfo
+
       },
-      fail:function(err){
+      fail: function (err) {
         wx.showToast({
-          icon:'error',
+          icon: 'error',
           title: '请授权',
         })
       }
@@ -98,7 +118,7 @@ create(store, {
     const judgeTime = () => {
       let nowTime = Date.now();
       let commentIntervalTime = wx.getStorageSync('commentIntervalTime');
-      log('commentIntervalTime',commentIntervalTime)
+      log('commentIntervalTime', commentIntervalTime)
       if (commentIntervalTime && nowTime < commentIntervalTime) {
         return true;
       }
@@ -108,7 +128,13 @@ create(store, {
     log('[isLessThanFurtureTime]', isLessThanFurtureTime)
     if (isLessThanFurtureTime == false) { //过期了
       log('[isLessThanFurtureTime] 过期了')
-      t.getUserProfile()
+      if (!t.store.data.userInfo) {
+        t.getUserProfile()
+      } else {
+        t.setData({
+          modalName: 'addcomment'
+        })
+      }
     } else if (isLessThanFurtureTime == true) { //没过期
       log('[isLessThanFurtureTime] 没过期')
       wx.showToast({
@@ -121,13 +147,11 @@ create(store, {
   submitForm(e) {
     log(e)
     const t = this
-    let rules = [
-      {
-        name: "comment",
-        rule: ["required", "minLength:2"],
-        msg: ["请输入回答", "必须2个或以上字符"]
-      }
-    ];
+    let rules = [{
+      name: "comment",
+      rule: ["required", "minLength:2"],
+      msg: ["请输入回答", "必须2个或以上字符"]
+    }];
     const commentIntervalTime = () => {
       return Date.now() + 900000; //毫秒(15分钟)
     }
@@ -140,12 +164,12 @@ create(store, {
       })
       let newComment = t.data.fangchanwenda.comment
       newComment.push({
-        avatar : t.data.commentUser.avatarUrl,
-        comment:formData.comment,
-        name:t.data.commentUser.nickName || '热心网友',
+        avatar: t.store.data.userInfo.avatarUrl,
+        comment: formData.comment,
+        name: t.store.data.userInfo.nickName || '热心网友',
         time: dayjs(new Date()).format('YYYY-MM-DD mm-ss')
       })
-      log('newComment',newComment)
+      log('newComment', newComment)
       let _key = t.store.data.curCity
       let temp = _key + 'fangchanwenda'
       let database = pinyin.getPinyin(temp).replace(/\s+/g, "");

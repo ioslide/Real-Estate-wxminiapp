@@ -9,7 +9,7 @@
         </view>
       </block>
       <block wx:if="{{showStatus===2}}">
-        <image src="cloud://xhy-craft-1gpv4s5596b1f3b9.7868-xhy-craft-1gpv4s5596b1f3b9-1305059458/luckdrawbackground.gif" mode="widthFix"
+        <image src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/luckdrawbackground.gif" mode="widthFix"
   style="height:1035px;width:100%;display:flex;position:fixed;top:0;z-index: -1;"></image>
         <view class="rain-wrapper flex-column">
           <view class="time-info">

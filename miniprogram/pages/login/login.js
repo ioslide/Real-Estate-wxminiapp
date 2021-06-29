@@ -44,45 +44,48 @@ create(store, {
   onShow: function () {
 
   },
-  getUserProfile (e) {
+  getUserProfile() {
     const t = this
     wx.getUserProfile({
-      desc: '用于完善会员资料', 
-      success: (res) => {
-        if (!wx.getStorageSync('userInfo')) {
-          var userInfo = res.userInfo
-          let _key = t.store.data.curCity
-          let temp = _key + 'userInfo'
-          let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
-          db.collection(database).add({
-              data: {
-                openid: globalData.openid,
-                unionid: globalData.unionid,
-                nickName: userInfo.nickName,
-                avatarUrl: userInfo.avatarUrl,
-                gender: userInfo.gender,
-                language: userInfo.language,
-                country: userInfo.country,
-                city: userInfo.city,
-                province: userInfo.province,
-                phone:'',
-                ishehuoren:false,
-                isdaili:false,
-                youxiaoyaoqingrenshu:0,
-                tuiguangshouyi:0,
-                kabao:[]
-              }
-            })
-            .then(res => {
-              console.log(res)
-            })
-            .catch(console.error)
-        }
-        console.log(res.userInfo)
-        wx.setStorageSync('userInfo', res.userInfo)
-        this.store.data.userInfo = res.userInfo
+      desc: '用于完善个人资料',
+      success: function (res) {
+        var userInfo = res.userInfo
+        console.log('userInfo==>', userInfo)
+
+        let temp = t.store.data.curCity + 'userInfo'
+        let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+        db.collection(database).add({
+            data: {
+              nickName: userInfo.nickName,
+              city: userInfo.city,
+              province: userInfo.province,
+              country: userInfo.country,
+              gender: userInfo.gender,
+              avatarUrl: userInfo.avatarUrl,
+              phone: '',
+              kabao: [],
+              tuiguangshouyi: 0,
+              youxiaoyaoqingrenshu: 0,
+              ishehuoren: false,
+              isdaili: false,
+              openid: globalData.openid,
+              unionid: globalData.unionid || "",
+              userMoney: 0
+            }
+          })
+          .then(res => {
+            console.log(res)
+          })
+          .catch(console.error)
         wx.navigateBack({
           delta: 1,
+        })
+        t.store.data.userInfo = userInfo
+      },
+      fail: function (err) {
+        wx.showToast({
+          icon: 'error',
+          title: '请授权',
         })
       }
     })
