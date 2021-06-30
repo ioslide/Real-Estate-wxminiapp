@@ -60,6 +60,34 @@ page{
   color: #999;
   line-height: 1.2;
 }
+.head {
+  width: 100%;
+  height: 160rpx;
+  position: relative;
+  color: #fff;
+}
+
+.head-text {
+  font-size: 26rpx;
+  top: 20rpx;
+}
+
+.head-money,.head-text {
+  position: absolute;
+  left: 40rpx;
+}
+
+.head-money {
+  bottom: 20rpx;
+  font-size: 60rpx;
+  font-weight: bolder;
+}
+
+.head-yuan {
+  font-size: 40rpx;
+  font-weight: 400;
+  margin-left: 18rpx;
+}
 
 .direct-tab-container.data-v-54c70c3a {
   background-color: #fff;
@@ -139,7 +167,7 @@ page{
 .row-tab-container.data-v-54c70c3a {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   background-color: #fff;
-  padding: 40rpx 80rpx;
+  padding: 40rpx 50rpx;
   display: flex;
   -webkit-box-pack: justify;
   justify-content: space-between;

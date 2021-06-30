@@ -11,6 +11,8 @@ import store from '../../../store/index'
 import pinyin from "wl-pinyin"
 const dayjs = require('../../../util/day/day.js')
 const form = require("../../../util/formValidation.js")
+var plugin = requirePlugin("chatbot");
+
 create(store, {
   use: [
     'adSwiperList',
@@ -75,23 +77,26 @@ create(store, {
         let temp = t.store.data.curCity + 'userInfo'
         let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
         db.collection(database).add({
-            data: {
-              nickName: userInfo.nickName,
-              city: userInfo.city,
-              province: userInfo.province,
-              country: userInfo.country,
-              gender: userInfo.gender,
-              avatarUrl: userInfo.avatarUrl,
-              phone: '',
-              kabao: [],
-              tuiguangshouyi: 0,
-              youxiaoyaoqingrenshu: 0,
-              ishehuoren: false,
-              isdaili: false,
-              openid: globalData.openid,
-              unionid: globalData.unionid || "",
-              userMoney: 0
-            }
+          data: {
+            realName : "",
+            shenfengzhen : "",
+            nickName: userInfo.nickName,
+            city: userInfo.city,
+            province: userInfo.province,
+            country: userInfo.country,
+            gender: userInfo.gender,
+            avatarUrl: userInfo.avatarUrl,
+            phone:'',
+            kabao:[],
+            tuiguangshouyi:0,
+            youxiaoyaoqingrenshu:0,
+            ishehuoren:false,
+            isdaili:false,
+            openid:globalData.openid,
+            unionid:globalData.unionid || "",
+            userMoney : 0,
+            guanliankaquankabao : []
+          }
           })
           .then(res => {
             console.log(res)
@@ -157,6 +162,9 @@ create(store, {
     }
     let formData = e.detail.value;
     let checkRes = form.validation(formData, rules);
+
+    log(formData)
+    
     if (!checkRes) {
       log('验证通过')
       wx.pro.showLoading({
@@ -192,6 +200,64 @@ create(store, {
         icon: "none"
       });
     }
+    // plugin.api.nlp('sensitive', {
+    //   q: formData.comment,
+    //   mode: 'cnn'
+    // }).then(res => {
+    //   console.log("sensitive result : ", res)
+    //   let nlpContentPoint = 0
+    //   for (let cc = 0; cc < res.result.length; cc++) {
+    //     if (res.result[cc][0] == 'other') {
+    //       nlpContentPoint = res.result[cc][1]
+    //     }
+    //   }
+    //   if (nlpContentPoint > 0 && nlpContentPoint <= 1) {
+
+    //     if (!checkRes) {
+    //       log('验证通过')
+    //       wx.pro.showLoading({
+    //         title: '提交中',
+    //       })
+    //       let newComment = t.data.fangchanwenda.comment
+    //       newComment.push({
+    //         avatar: t.store.data.userInfo.avatarUrl,
+    //         comment: formData.comment,
+    //         name: t.store.data.userInfo.nickName || '热心网友',
+    //         time: dayjs(new Date()).format('YYYY-MM-DD mm-ss')
+    //       })
+    //       log('newComment', newComment)
+    //       let _key = t.store.data.curCity
+    //       let temp = _key + 'fangchanwenda'
+    //       let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    //       db.collection(database).doc(t.data.fangchanwenda._id).update({
+    //           data: {
+    //             comment: newComment
+    //           }
+    //         })
+    //         .then(res => {
+    //           t.reloadDetailcomment()
+    //           console.log(res)
+    //           wx.pro.hideLoading()
+    //           wx.setStorageSync('commentIntervalTime', commentIntervalTime());
+    //           t.hideModal()
+    //         })
+    //         .catch(console.error)
+    //     } else {
+    //       wx.showToast({
+    //         title: checkRes,
+    //         icon: "none"
+    //       });
+    //     }
+    //   } else {
+    //     log('包含违规内容！')
+    //     wx.showToast({
+    //       title: '包含违规内容！',
+    //       icon: 'none'
+    //     })
+    //     wx.hideLoading()
+    //   }
+    // })
+
 
   },
   navApp(e) {

@@ -2,47 +2,62 @@
   <view class="remaining-container data-v-54c70c3a">
     <scroll-view class="scroll-body data-v-54c70c3a" scrollY="{{true}}">
       <view class="page-container data-v-54c70c3a">
-        <view class="user-info data-v-54c70c3a" bindtap="navUsersetting" wx:if="{{$.userInfo}}">
-          <image binderror="__e" class="portrait data-v-54c70c3a" mode="aspectFill"
+        <view class="user-info data-v-54c70c3a" wx:if="{{hasUserInfo == true}}">
+          <image binderror="__e" bindtap="navUsersetting" class="portrait data-v-54c70c3a" mode="aspectFill"
             src="{{$.userInfo.avatarUrl||defaultPicture}}"></image>
           <view class="text-box data-v-54c70c3a">
-            <view class="name data-v-54c70c3a">{{$.userInfo.nickName}} <text class="text-red" style="font-size:14px">余额：{{$.userInfo.userMoney}}</text></view>
-            <view wx:if="{{$.userInfo.ishehuoren == true}}" class="cu-tag light sm"
+            <view class="name data-v-54c70c3a" bindtap="navUserMoney">{{$.userInfo.nickName}} <text class="text-red"
+              style="font-size:16px;margin-left: 10px;">余额：{{$.userInfo.userMoney}}</text></view>
+            <view bindtap="navUsersetting" wx:if="{{$.userInfo.ishehuoren == true}}" class="cu-tag light sm"
               style="color:#fff;border-radius:20px;margin:5px 5px 0 0;height:22px;padding: 1px 8px;background:linear-gradient(270deg,#bc91ff,#8833f5);font-size:12px;line-height:20px;">
               合伙人认证
             </view>
-            <view wx:if="{{$.userInfo.isdaili == true}}" class="cu-tag light sm"
+            <view bindtap="navUsersetting" wx:if="{{$.userInfo.isdaili == true}}" class="cu-tag light sm"
               style="color:#fff;border-radius:20px;margin:5px 5px 0 0;height:22px;padding: 1px 8px;background:linear-gradient(270deg,#bc91ff,#8833f5);font-size:12px;line-height:20px;">
               代理认证
             </view>
-            <view wx:if="{{$.userInfo.isdaili == false}}" class="cu-tag light sm"
+            <view bindtap="navUsersetting" wx:if="{{$.userInfo.isdaili == false}}" class="cu-tag light sm"
               style="color:#fff;border-radius:20px;margin:5px 5px 0 0;height:22px;padding: 1px 8px;background:#cccccc;font-size:12px;line-height:20px;">
               普通用户
             </view>
           </view>
         </view>
-        <navigator class="user-info data-v-54c70c3a" hoverClass="none" url="/pages/login/login" wx:else>
+        <navigator class="user-info data-v-54c70c3a" hoverClass="none" url="/pages/login/login"
+          wx:if="{{hasUserInfo == false}}">
           <image class="portrait data-v-54c70c3a" mode="aspectFill"
             src="https://i.qfangimg.com/resource/qfang-mobile-wx/img/avatar.png?20180822"></image>
           <view class="text data-v-54c70c3a">点击登录</view>
         </navigator>
         <view class="row-tab-container data-v-54c70c3a">
           <view bindtap="navorderdaili" class="tab-item data-v-54c70c3a">
-            <image class="item-img data-v-54c70c3a" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/16.png"></image>
+            <image class="item-img data-v-54c70c3a"
+              src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/16.png">
+            </image>
             <view class="item-text data-v-54c70c3a">预约</view>
           </view>
           <view bindtap="navguanzhuHouse" class="tab-item data-v-54c70c3a">
-            <image class="item-img data-v-54c70c3a" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/7.png"></image>
+            <image class="item-img data-v-54c70c3a"
+              src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/7.png">
+            </image>
             <view class="item-text data-v-54c70c3a">关注</view>
           </view>
           <view bindtap="navzuji" class="tab-item data-v-54c70c3a">
-            <image class="item-img data-v-54c70c3a" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/4.png"></image>
+            <image class="item-img data-v-54c70c3a"
+              src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/4.png">
+            </image>
             <view class="item-text data-v-54c70c3a">足迹</view>
+          </view>
+          <view bindtap="navMykabao" class="tab-item data-v-54c70c3a">
+            <image class="item-img data-v-54c70c3a"
+              src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/4.png">
+            </image>
+            <view class="item-text data-v-54c70c3a">卡包</view>
           </view>
         </view>
         <view class="help-find-house-box data-v-2789d440" bindtap="navRuzhu">
           <view class="help-find-house data-v-2789d440">
-            <image class="picture data-v-2789d440" mode="aspectFill" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/help-find-house.png">
+            <image class="picture data-v-2789d440" mode="aspectFill"
+              src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/help-find-house.png">
             </image>
             <view class="text data-v-top-2789d440">限时免费入驻区域代理</view>
             <view class="text data-v-2789d440">简单填写，一键抢先入驻！</view>

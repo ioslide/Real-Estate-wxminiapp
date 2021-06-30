@@ -47,17 +47,15 @@ Component({
 
     },
     generateMixed(n) {
-      let chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-      let res = "";
-      for (var i = 0; i < n; i++) {
-        var id = Math.ceil(Math.random() * 35);
-        res += chars[id];
+      var code = "";
+      for (var i = 1; i <= 4; i++) {
+          code += (parseInt(Math.random() * 10));
       }
       this.setData({
-        code : res
+        code : code
       })
-      log('code',res)
-      return res;
+      log('code',code)
+      return code;
     },
     phoneInputCheck: function () {
       var t = this;

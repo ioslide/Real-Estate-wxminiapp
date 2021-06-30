@@ -22,6 +22,63 @@ create(store, {
   data: {
 
   },
+  onLoad: function (options) {
+    // log()
+    // const t = this
+    // wx.showLoading({
+    //   title: 'Loading',
+    // })
+    // let _key = t.store.data.curCity
+    // let temp = _key + 'userInfo'
+    // let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+    // db.collection(database).where({
+    //   openid: globalData.openid
+    // }).get()
+    //   .then(res => {
+    //     wx.hideLoading()
+    //     console.log(res.data[0])
+    //     t.store.data.userInfo = res.data[0]
+    //   })
+    //   .catch(console.error)
+  },
+  onReady: function () {
+
+  },
+  onShow: function () {
+    const t = this
+    let cc = t.store.data.userInfo
+    log(t.store.data.userInfo,cc.hasOwnProperty('nickName'))
+    if(cc.hasOwnProperty('nickName')){
+      t.setData({
+        hasUserInfo : true
+      })
+      wx.showLoading({
+        title: 'Loading',
+      })
+      let _key = t.store.data.curCity
+      let temp = _key + 'userInfo'
+      let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+      db.collection(database).where({
+        openid: globalData.openid
+      }).get()
+        .then(res => {
+          wx.hideLoading()
+          console.log(res.data[0])
+          t.store.data.userInfo = res.data[0]
+        })
+        .catch(console.error)
+    }else{
+      t.setData({
+        hasUserInfo : false
+      })
+    }
+  },
+  onHide: function () {
+
+  },
+  onUnload: function () {
+
+  },
   navorderdaili(){
     wx.navigateTo({
       url: './orderDaili',
@@ -47,52 +104,26 @@ create(store, {
       url: './houseZuji',
     })
   },
-  onLoad: function (options) {
-    log()
-    const t = this
-    wx.showLoading({
-      title: 'Loading',
+  navUserMoney(){
+    wx.navigateTo({
+      url: '../userMoney/userMoney',
     })
-    let _key = t.store.data.curCity
-    let temp = _key + 'userInfo'
-    let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
-    db.collection(database).where({
-      openid: globalData.openid
-    }).get()
-      .then(res => {
-        wx.hideLoading()
-        console.log(res.data[0])
-        t.store.data.userInfo = res.data[0]
-      })
-      .catch(console.error)
   },
-  onReady: function () {
-
+  navMykabao(){
+    const t = this
+    wx.openCard({
+      cardList:t.store.data.userInfo.card,
+      success (res) {
+        log(res)
+       },
+       fail (err){
+         log(err)
+       }
+    })
   },
-  onShow: function () {
-
+  getcoupon(e){
+    log(e)
   },
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
   onReachBottom: function () {
 
   },

@@ -4,7 +4,8 @@ const groupEnd = console.groupEnd.bind(console)
 const error = console.error.bind(console)
 require("./pages/fangdaijisuan/utils/service");
 import util from "./util/weapp";
-import uma from'umtrack-wx';
+import uma from 'umtrack-wx';
+var plugin = requirePlugin("chatbot");
 
 
 var a = require("./pages/fangdaijisuan/utils/util.js"),
@@ -12,7 +13,7 @@ var a = require("./pages/fangdaijisuan/utils/util.js"),
   e = a.trimAll;
 App({
   globalData: {
-    uma :[],
+    uma: [],
     latitude: 30.664,
     longitude: 104.016,
     StatusBar: "",
@@ -40,15 +41,17 @@ App({
     },
     menu: {}
   },
-  umengConfig:{
-    appKey:'60acc0d053b67264990f437f',
-    useOpenid:true,
-    autoGetOpenid:false,// 是否需要通过友盟后台获取openid，如若需要，请到友盟后台设置appId及secret
-    debug:true,//是否打开调试模式
-    uploadUserInfo:true// 上传用户信息，上传后可以查看有头像的用户分享信息，同时在查看用户画像时，公域画像的准确性会提升。
-},
+  umengConfig: {
+    appKey: '60acc0d053b67264990f437f',
+    useOpenid: true,
+    autoGetOpenid: false, // 是否需要通过友盟后台获取openid，如若需要，请到友盟后台设置appId及secret
+    debug: true, //是否打开调试模式
+    uploadUserInfo: true // 上传用户信息，上传后可以查看有头像的用户分享信息，同时在查看用户画像时，公域画像的准确性会提升。
+  },
   onLaunch: function (options) {
     const t = this
+
+
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
 
@@ -89,7 +92,7 @@ App({
     }
     this.getSystemInfo();
   },
-  getWxcontext(){
+  getWxcontext() {
     const t = this
     log('getWxcontext')
     wx.cloud.callFunction({
@@ -98,15 +101,27 @@ App({
         action: 'getContext',
       },
     }).then(function (res) {
-      log('[wxContext]',res.result)
+      log('[wxContext]', res.result)
       wx.uma.setOpenid(res.result.openid)
+      plugin.init({
+        appid: "WmlasdlPkVIUh9hvwdKaVA1CRCYSaX",
+        openid: res.result.openid,
+        anonymous: true,
+        success: (res) => {
+          log(res)
+        }, //非必填
+        fail: (error) => {
+          log(error)
+        }, //非必填
+      });
+
       t.globalData.openid = res.result.openid
-      t.globalData.unionid  = res.result.unionid 
+      t.globalData.unionid = res.result.unionid
       wx.setStorage({
         data: res.result,
         key: 'wxContext',
       })
-      return  res.result
+      return res.result
     }).catch(console.error)
   },
   getLiLvList: function () {

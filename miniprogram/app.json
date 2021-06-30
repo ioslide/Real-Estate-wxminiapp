@@ -37,18 +37,27 @@
     "pages/helpFindHouse/helpFindHouse",
     "pages/helpSaleHouse/helpSaleHouse",
     "pages/allRentHouseList/allRentHouseList",
-    "pages/allRentHouseList/detail/detail"
+    "pages/allRentHouseList/detail/detail",
+    "pages/usercenter/userCoupon",
+    "pages/userMoney/userMoney"
   ],
   "usingComponents": {
+    "send-coupon": "plugin://sendCoupon/send-coupon",
     "tui-fab": "/components/tui-fab/tui-fab",
     "foot": "/components/foot/foot",
-    "send-coupon": "plugin://sendCoupon/send-coupon",
     "nodata": "/components/nodata/nodata",
     "phoneCodeButton": "/components/phoneCodeButton/phoneCodeButton"
   },
+  "requiredBackgroundModes": [
+    "audio"
+  ],
   "plugins": {
+    "chatbot": {
+      "version": "1.2.8",
+      "provider": "wx8c631f7e9f2465e1"
+    },
     "sendCoupon": {
-      "version": "1.1.5",
+      "version": "latest",
       "provider": "wxf3f436ba9bd4be7b"
     },
     "chooseLocation": {

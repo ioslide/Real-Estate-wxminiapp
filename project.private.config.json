@@ -64,6 +64,12 @@
         {
           "name": "pages/rentHouse/publishRent/publishRent",
           "pathName": "pages/rentHouse/publishRent/publishRent",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/userMoney/userMoney",
+          "pathName": "pages/userMoney/userMoney",
           "scene": null
         }
       ]

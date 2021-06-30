@@ -30,6 +30,9 @@ create(store, {
   onLoad: function (options) {
     log(options)
     const t = this
+    wx.showLoading({
+      title: 'Loading',
+    })
     let key = options.dailirenId
     log('key', key)
     // let allHouseList = this.store.data.allHouseList
@@ -84,6 +87,7 @@ create(store, {
           })
         }
       })
+      wx.hideLoading()
     }
 
     this.setData({

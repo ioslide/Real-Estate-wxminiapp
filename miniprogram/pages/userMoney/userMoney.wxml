@@ -1,0 +1,46 @@
+<view>
+  <view class="head">
+    <image src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/bg_logo.png"
+      style="width:100%;height:160rpx;"></image>
+    <view class="head-text">余额</view>
+    <view class="head-money">
+      <text>{{$.userInfo.userMoney}}</text>
+      <text class="head-yuan">元</text>
+    </view>
+    <!-- <view bindtap="refreshInfo" class="refresh-btn">
+      刷新
+    </view> -->
+  </view>
+  <view class="input-list">
+    <!-- <view class="input-item">
+            <text class="red" wx:if="{{!workNo}}">*</text>
+            <input maxlength="{{worknoLength}}" placeholder="请输入员工编号，查询饭卡编号" style="width:100%" value="{{workNo}}"></input>
+        </view> -->
+    <!-- <view bindtap="closeMask" class="mask" wx:if="{{showPicker1}}"></view>
+        <w-picker animation="{{animationData}}" bind:cancelSelect="cancelSelect" bind:confirmSelect="confirmSelect" class="picker1" types="{{canteens}}" wx:if="{{showPicker1}}"></w-picker> -->
+    <view style="height:16rpx;background:#F3F3F3"></view>
+    <view class="input-item">
+      <text class="red" wx:if="{{!recharge}}">*</text>
+      <input bindblur="testMoney" bindinput="inputMoney" maxlength="6" placeholder="请输入充值金额(必须是10的整倍数)" type="number"
+        value="{{recharge}}"></input>
+      <image alt="" bindtap="clearMoney" class="clear"
+        src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/remove02.png"
+        wx:if="{{recharge}}"></image>
+      <text class="right-text">元</text>
+    </view>
+    <view class="charge-money">
+      <text bindtap="chooseChargeMoney" class="charge-money-item {{currentRechargeIndex==index?'active':''}}"
+        data-index="{{index}}" data-value="{{item}}" wx:for="{{rechargeMoney}}" wx:key="{{index}}">{{item}}</text>
+    </view>
+  </view>
+  <view class="notice">
+    <view>注意</view>
+    <view>1、请检查好网络状态</view>
+    <view>2、充值过程请勿其他操作</view>
+  </view>
+  <view style="background:#f3f3f3;padding:0rpx 40rpx;">
+    <view bindtap="confirmCharge" class="btn {{rechargeClick == true ? 'bg-tr' : 'bg-grey'}} "
+      disabled="{{rechargeClick}}">确定充值</view>
+    <view bindtap="toHistory" class="history" wx:if="{{showHistory}}">充值记录</view>
+  </view>
+</view>

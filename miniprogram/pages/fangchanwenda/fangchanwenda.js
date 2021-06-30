@@ -11,6 +11,8 @@ import store from '../../store/index'
 const dayjs = require('../../util/day/day.js')
 const form = require("../../util/formValidation.js")
 import pinyin from "wl-pinyin"
+var plugin = requirePlugin("chatbot");
+
 import {
   promisifyAll
 } from 'wx-promise-pro'
@@ -192,21 +194,24 @@ create(store, {
         let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
         db.collection(database).add({
             data: {
+              realName: "",
+              shenfengzhen: "",
               nickName: userInfo.nickName,
               city: userInfo.city,
               province: userInfo.province,
               country: userInfo.country,
               gender: userInfo.gender,
               avatarUrl: userInfo.avatarUrl,
-              phone:'',
-              kabao:[],
-              tuiguangshouyi:0,
-              youxiaoyaoqingrenshu:0,
-              ishehuoren:false,
-              isdaili:false,
-              openid:globalData.openid,
-              unionid:globalData.unionid || "",
-              userMoney : 0
+              phone: "",
+              kabao: [],
+              tuiguangshouyi: 0,
+              youxiaoyaoqingrenshu: 0,
+              ishehuoren: false,
+              isdaili: false,
+              openid: globalData.openid,
+              unionid: globalData.unionid || "",
+              userMoney: 0,
+              guanliankaquankabao: []
             }
           })
           .then(res => {
@@ -230,6 +235,9 @@ create(store, {
   },
   submitForm(e) {
     log(e)
+    wx.showLoading({
+      title: 'Loading',
+    })
     const t = this
     let rules = [{
         name: "mobile",
@@ -247,52 +255,99 @@ create(store, {
     }
     let formData = e.detail.value;
     let checkRes = form.validation(formData, rules);
-    if (!checkRes) {
-      log('验证通过')
-      wx.pro.showLoading({
-        title: '提交中',
-      })
 
+    const txt = e.detail.value.title;
 
-      wx.cloud.callFunction({
-        name: "openapi",
-        data: {
-          action: 'getTokenize',
-          msg: e.detail.value.title,
-          openid: app.globalData.openid
-        },
-      }).then(function (result) {
-        let _key = t.store.data.curCity
-        let temp = _key + 'fangchanwenda'
-        let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
-        db.collection(database).add({
-            data: {
-              title: e.detail.value.title,
-              time: dayjs(new Date()).format('YYYY-MM-DD'),
-              publishName: t.store.data.userInfo.nickName,
-              chakanrenshu : 0,
-              avatar:  t.store.data.userInfo.avatarUrl,
-              comment: [],
-              phone: e.detail.value.mobile,
-              tag: result.result.entities
+    plugin.api.nlp('sensitive', {
+      q: txt,
+      mode: 'cnn'
+    }).then(res => {
+      console.log("sensitive result : ", res)
+      let nlpContentPoint = 0
+      for (let cc = 0; cc < res.result.length; cc++) {
+        if (res.result[cc][0] == 'other') {
+          nlpContentPoint = res.result[cc][1]
+        }
+      }
+      log('nlpContentPoint', nlpContentPoint)
+      if (nlpContentPoint > 0 && nlpContentPoint <= 1) {
+
+        if (!checkRes) {
+          log('验证通过')
+
+          plugin.api.nlp("ner-product", {
+            q: e.detail.value.title
+          }).then((res) => {
+            console.log("ner result : ", res);
+            let textTag = []
+            let ccc = res.entities
+            if(ccc.hasOwnProperty('product') == false){
+              textTag = []
+            }else{
+              for (let bb = 0; bb < res.entities.product.length; bb++) {
+                textTag.push(res.entities.product[bb][0])
+              }
             }
-          })
-          .then(res => {
-            t.getShequ()
-            console.log(res)
-            wx.pro.hideLoading()
-            wx.setStorageSync('fangchanwendawillTime', willTime());
-            t.hideModal()
-          })
-          .catch(console.error)
-      }).catch(console.error)
+            log('textTag', textTag)
 
-    } else {
-      wx.showToast({
-        title: checkRes,
-        icon: "none"
-      });
-    }
+            let _key = t.store.data.curCity
+            let temp = _key + 'fangchanwenda'
+            let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
+            db.collection(database).add({
+                data: {
+                  title: e.detail.value.title,
+                  time: dayjs(new Date()).format('YYYY-MM-DD'),
+                  publishName: t.store.data.userInfo.nickName,
+                  chakanrenshu: 0,
+                  avatar: t.store.data.userInfo.avatarUrl,
+                  comment: [],
+                  phone: e.detail.value.mobile,
+                  tag: textTag
+                }
+              })
+              .then(res => {
+                t.getShequ()
+                console.log(res)
+                wx.showToast({
+                  title: '提交成功',
+                })
+                wx.hideLoading()
+                wx.setStorageSync('fangchanwendawillTime', willTime());
+                t.hideModal()
+              })
+              .catch(console.error)
+          });
+
+
+
+
+          // wx.cloud.callFunction({
+          //   name: "openapi",
+          //   data: {
+          //     action: 'getTokenize',
+          //     msg: e.detail.value.title,
+          //     openid: app.globalData.openid
+          //   },
+          // }).then(function (result) {
+
+          // }).catch(console.error)
+
+        } else {
+          wx.showToast({
+            title: checkRes,
+            icon: "none"
+          });
+        }
+      } else {
+        log('包含违规内容！')
+        wx.showToast({
+          title: '包含违规内容！',
+          icon: 'none'
+        })
+        wx.hideLoading()
+      }
+    })
+
 
   },
   onReady: function () {

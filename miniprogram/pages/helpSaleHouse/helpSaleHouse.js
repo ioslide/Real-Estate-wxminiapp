@@ -107,6 +107,20 @@ create(store, {
       })
       .then(res => {
         console.log(res)
+        wx.cloud.callFunction({
+          name : 'sendSms',
+          data:{
+            type: '卖房咨询',
+            userPhone : t.data.phone,
+            userName : formData.nameInput,
+            xiaoqumingcheng:formData.houseNameInput,
+            loudongfanghao:formData.houseIdInput,
+            qiwangshoujia:formData.dreamSalePriceInput,
+            qiwangzujia:formData.dreamRentPriceInput || '',
+          }
+        }).then( res => {
+          log(res)
+        })
         wx.pro.hideLoading()
         wx.showToast({
           title: '提交成功',

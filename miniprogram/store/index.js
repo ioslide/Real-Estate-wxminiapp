@@ -13,6 +13,7 @@ promisifyAll()
 const apiLists = require('../config/config.js').apiLists
 let $$ = {
   allHouseList: [],
+  homepageStyle:{},
   swiperList: [],
   dailiren: [],
   adSwiperList: [],
@@ -20,6 +21,7 @@ let $$ = {
   goufangzhengce: [],
   // homepageHouseList:[],
   markersData:[],
+  userInfo:[],
   rentHouseMarkersData:[],
   curCity:'锦江区',
   latitude:30.5702,
@@ -29,6 +31,7 @@ let $$ = {
 
 export default {
   data: {
+    userInfo:$$.userInfo,
     markersData:$$.markersData,
     rentHouseMarkersData:$$.rentHouseMarkersData,
     adSwiperList: $$.adSwiperList,
@@ -36,6 +39,7 @@ export default {
     zixunxinxi:$$.zixunxinxi,
     startImage:$$.startImage,
     dailiren: $$.dailiren,
+    homepageStyle:$$.homepageStyle,
     allHouseList: $$.allHouseList,
     maifangliucheng: $$.maifangliucheng,
     goufangzhengce: $$.goufangzhengce,
@@ -70,7 +74,7 @@ const getdailirenList = () => {
     key = '锦江区'
   }
   let temp = key + 'dailiren'
-  let database =pinyin.getPinyin(temp).replace(/\s+/g,"");_
+  let database =pinyin.getPinyin(temp).replace(/\s+/g,"");
   log('代理人数据库',database)
 
   db.collection(database).orderBy('paimingshunxu', 'desc').get().then(res => {
@@ -79,6 +83,20 @@ const getdailirenList = () => {
     //   key:"dailiren",
     //   data:res.data
     // })
+  })
+}
+const getHomepageStyle = () => {
+  let key = ''
+  if(wx.getStorageSync('curCity')){
+    key = wx.getStorageSync('curCity')
+  }else{
+    key = '锦江区'
+  }
+  let temp = key + 'shouyeyangshi'
+  let database =pinyin.getPinyin(temp).replace(/\s+/g,"");
+  db.collection(database).get().then(res => {
+    log(res)
+    module.exports.default.data.homepageStyle = res.data[0]
   })
 }
 const getSwiper = () => {
@@ -101,15 +119,15 @@ const getSwiper = () => {
   })
 }
 const getadSwiper = () => {
-  // let key = ''
-  // if(wx.getStorageSync('curCity')){
-  //   key = wx.getStorageSync('curCity')
-  // }else{
-  //   key = '锦江区'
-  // }
-  let temp = 'qiyefuwulunbotu'
+  let key = ''
+  if(wx.getStorageSync('curCity')){
+    key = wx.getStorageSync('curCity')
+  }else{
+    key = '锦江区'
+  }
+  let temp = key + 'qiyefuwulunbotu'
   let database =pinyin.getPinyin(temp).replace(/\s+/g,"");_
-  log('首页中间轮播图数据库',database)
+  log('首页企业轮播图数据库',database)
 
   db.collection(database).orderBy('_createTime', 'desc').get().then(res => {
     module.exports.default.data.adSwiperList = res.data
@@ -161,7 +179,7 @@ const getUserInfo = () =>{
       openid : openid
     }).get().then(res1 => {
       log('userInfo',res1.data[0])
-      module.exports.default.data.userInfo = res1.data[0]
+      module.exports.default.data.userInfo = res1.data[0] || {}
     })
   }).catch(
     console.error)
@@ -329,6 +347,7 @@ const initData = async () => {
   getNews()
   getStartImage()
   getdailirenList()
+  getHomepageStyle()
   getUserInfo()
   // getGoufangzhengce()
   // getMaifangliucheng()

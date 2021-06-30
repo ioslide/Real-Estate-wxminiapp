@@ -1,0 +1,29 @@
+<view class="ticket-item">
+  <view class="ticket-item">
+    <view catchtap="copyCode" class="ticket-left">
+      <text class="ticket-name ">{{item.Title}}</text>
+      <text class="ticket-number " wx:if="{{cardNumberShow}}">{{item.PayOrderNO}}</text>
+      <view>
+        <text class="ticket-time"
+          wx:if="{{item.effectiveType==2}}">有效期至{{filter.sliceDateToDot(item.useEndTime)}}结束</text>
+        <text class="ticket-time"
+          wx:else>{{filter.sliceDateToDot(item.BeginTime)}}-{{filter.sliceDateToDot(item.EndTime)}}</text>
+      </view>
+      <view class="detail-info">
+        <text class="info-text">详细信息</text>
+        <image catchtap="toggleShow" class="arrow-bottom" data-index="{{index}}" lazyLoad="false" mode="scaleToFill"
+          src="{{item.showDetail?arrowTop:arrowBottom}}"></image>
+      </view>
+    </view>
+    <view class="ticket-right ">
+      <view class="price"><text class="number">5折优惠卡</text>
+      </view>
+      <view class="use-box">
+        <text bindtap="toUse" class="get-ticket2 to-use"></text>
+      </view>
+    </view>
+    <view class="detail" wx:if="{{item.showDetail}}">
+      {{item.Description}}
+    </view>
+  </view>
+</view>

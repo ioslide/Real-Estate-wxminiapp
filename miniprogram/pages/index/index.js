@@ -37,7 +37,8 @@ create(store, {
     'longitude',
     'zixunxinxi',
     'startImage',
-    'curCity'
+    'curCity',
+    'homepageStyle'
   ],
   data: {
     scrollTop: 0,
@@ -668,20 +669,23 @@ create(store, {
     let dangeloupanxiangqingtemp = _key + 'dangeloupanxiangqing'
     let dailirentemp = _key + 'dailiren'
     let shouyelunbotutemp = _key + 'shouyelunbotu'
-    // let shouyezhongjianguanggaolunbotutemp = _key + 'shouyezhongjianguanggaolunbotu'
+    let shouyeqiyefuwulunbotutemp = _key + 'qiyefuwulunbotu'
     let startImagedatabasetemp = _key + 'shouyetanchucengguanggao'
     let zixunxinxitemp = _key + 'zixunxinxi'
-    let rentHousetemp = _key + 'rentHouse'
+    let rentHousetemp = _key + 'zufangxiangqing'
 
     let dailirendatabase = pinyin.getPinyin(dailirentemp).replace(/\s+/g, "");
     let dangeloupanxiangqingdatabase = pinyin.getPinyin(dangeloupanxiangqingtemp).replace(/\s+/g, "");
     let startImagedatabase = pinyin.getPinyin(startImagedatabasetemp).replace(/\s+/g, "");
-    let shouyelunbotudatabase = pinyin.getPinyin(shouyelunbotutemp).replace(/\s+/g, "");
+    let shouyelunbotudatabase = pinyin.getPinyin(shouyeqiyefuwulunbotutemp).replace(/\s+/g, "");
+    let shouyeqiyefuwulunbotudatabase = pinyin.getPinyin(shouyelunbotutemp).replace(/\s+/g, "");
+
     // let shouyezhongjianguanggaolunbotudatabase = pinyin.getPinyin(shouyezhongjianguanggaolunbotutemp).replace(/\s+/g, "");
     let zixunxinxidatabase = pinyin.getPinyin(zixunxinxitemp).replace(/\s+/g, "");
     let rentHousedatabase = pinyin.getPinyin(rentHousetemp).replace(/\s+/g, "");
 
     log('首页轮播图DATABASE', shouyelunbotudatabase)
+    log('首页企业服务轮播图DATABASE', shouyeqiyefuwulunbotudatabase)
     log('开屏广告DATABASE', startImagedatabase)
     log('最新资讯DATABASE', zixunxinxidatabase)
     log('代理人DATABASE', dailirendatabase)
@@ -798,7 +802,7 @@ create(store, {
       t.store.data.allRentHouseList = res.data
     })
 
-    db.collection('qiyefuwulunbotu').orderBy('_createTime', 'desc').get().then(res => {
+    db.collection(shouyeqiyefuwulunbotudatabase).orderBy('_createTime', 'desc').get().then(res => {
       t.store.data.adSwiperList = res.data
     })
     db.collection(dailirendatabase).orderBy('paimingshunxu', 'desc').get().then(res => {

@@ -1,6 +1,6 @@
 
 .enterbox {
-  margin-top: 8rpx;
+  margin: 20px 0 20px 0;
   padding: 0 32rpx;
   display: flex;
   justify-content: space-between;

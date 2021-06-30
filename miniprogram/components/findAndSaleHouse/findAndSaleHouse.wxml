@@ -1,12 +1,12 @@
 <view class="enterbox">
         <view bindtap="navHelpFindHouse" class="enter-item bwzf" >
-            <image class="bg" src="https://front.leyoujia.com/fangMini/images/index/v4/wt_bg.png"></image>
+            <image class="bg" src=""></image>
             <view class="tit">帮我找房</view>
             <view class="link">金牌专属置业服务<image class="enter" src="https://front.leyoujia.com/fangMini/images/index/v4/icon-enter.png"></image>
             </view>
         </view>
         <view bindtap="navHelpSaleHouse" class="enter-item bwmf" >
-            <image class="bg" src="https://front.leyoujia.com/fangMini/images/index/v4/zf_bg2.png"></image>
+            <image class="bg" src=""></image>
             <view class="tit">帮我卖房</view>
             <view class="link">助您卖得又快又好<image class="enter" src="https://front.leyoujia.com/fangMini/images/index/v4/icon-enter.png"></image>
             </view>

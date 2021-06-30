@@ -47,8 +47,9 @@
   </button>
 </view> -->
 
-<swiper class="card-swiper square-dot margin-bottom-20" style="height:140px" indicator-dots="false" circular="true"
-  autoplay="true" interval="5000" duration="500" bindchange="cardSwiper" wx:if="{{$.swiperList.length !==0}}">
+<swiper wx:if="{{$.homepageStyle.shoudingbulunbotu == true}}" class="card-swiper square-dot margin-bottom-20"
+  style="height:140px" indicator-dots="false" circular="true" autoplay="true" interval="5000" duration="500"
+  bindchange="cardSwiper" wx:if="{{$.swiperList.length !==0}}">
   <!-- <swiper-item class="{{cardCur==index?'cur':''}}">
     <view class="swiper-item" bindtap="navRuzhu" >
       <image src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/ruzhu.jpg" mode="aspectFill"></image>
@@ -74,7 +75,7 @@
   </swiper-item>
 </swiper>
 
-<view class="service-swiper">
+<view class="service-swiper" wx:if="{{$.homepageStyle.showfenleidaohang == true}}">
   <view class="service-swiper-item">
     <view class="grid col-5 text-center" style="width:100%;padding-left: 0;padding-right:0;padding-bottom:0">
       <view bindtap="navGoufangzizi" id="QUALIFICATION">
@@ -172,7 +173,9 @@
       </view> -->
       <view>
         <view class="item-inner-light" bindtap="navMap">
-          <image class="square-40" mode="aspectFit" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/16.png"></image>
+          <image class="square-40" mode="aspectFit"
+            src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/16.png">
+          </image>
           <text class="margin-top-10 cell-col-light">地图找房</text>
         </view>
       </view>
@@ -334,106 +337,106 @@
       longitude="{{$.longitude}}" latitude="{{$.latitude}}" scale="11" min-scale="9" markers="{{$.markersData}}"></map>
   </view>
 </block> -->
-<block wx:if="{{$.allHouseList.length !== 0}}">
+<block wx:if="{{$.allHouseList.length !== 0 && $.homepageStyle.showbangwozhaofangmaifang == true}}">
   <findAndSaleHouse />
 </block>
-<view class="common-title margin-bottom-15" wx:if="{{$.allHouseList.length !== 0}}">
-  <view class="common-title-left">楼盘分类</view>
-</view>
 
-<view class="flex flex-wrap justify-center text-center text-grey margin-bottom-15"
-  wx:if="{{$.allHouseList.length !== 0}}">
-  <view bindtap="goToAllhouseList" data-housetag="xuequfang"
-    class="basis-xsm margin-xs padding-sm radius margin-right-10">
-    <view class="cu-card case" style="width:100%;">
-      <view class="cu-item shadow margin-bottom-10">
-        <view class="image" style="height: 100px;width:100%;">
-          <image style="border-radius:22px; width:100%;height:100%"
-            src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/gallery3.png"
-            mode="scaleToFill"></image>
-          <view class="cu-bar justify-between flex top-0 bg-shadeBottom"
-            style="padding-top: 10px;padding-left:10px;min-height:30px;">
-            <view class="relative">
-              <view class="text-cut flex font-weight-400" style="color:#4f7df9">学区房</view>
-              <view class="text-cut flex margin-top-5" style="font-size:12px">安心优选</view>
-            </view>
-          </view>
-        </view>
-      </view>
-      <text class="cuIcon-roundcheck margin-right-5 lg"></text>
-      <text style="font-size:12px">100%真实房源</text>
-    </view>
+<block wx:if="{{$.allHouseList.length !== 0 && $.homepageStyle.showloupanfenlei == true}}">
+  <view class="common-title margin-bottom-15">
+    <view class="common-title-left">楼盘分类</view>
   </view>
-  <view bindtap="goToAllhouseList" data-housetag="didanjia" class="basis-xsm  margin-xs padding-sm radius">
-    <view class="cu-card case" style="width:100%;">
-      <view class="cu-item shadow margin-bottom-10">
-        <view class="image" style="height: 100px;width:100%;">
-          <image style="border-radius:22px; width:100%;height:100%"
-            src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/gallery2.png">
-          </image>
-          <view class="cu-bar justify-between top-0 bg-shadeBottom"
-            style="padding-top: 10px;padding-left:10px;min-height:30px;">
-            <view class="relative">
-              <view class="text-cut flex font-weight-400" style="color:#4f7df9">低单价</view>
-              <view class="text-cut flex margin-top-5" style="font-size:12px">高品质保证</view>
-            </view>
-          </view>
-        </view>
-      </view>
-      <text class="cuIcon-emoji margin-right-5 lg"></text>
-      <text style="font-size:12px">高品质楼盘</text>
-    </view>
-  </view>
-  <view bindtap="goToAllhouseList" data-housetag="anxiang"
-    class="basis-xsm  margin-xs padding-sm radius margin-left-10">
-    <view class="cu-card case" style="width:100%;">
-      <view class="cu-item shadow margin-bottom-10">
-        <view class="image" style="height: 100px;width:100%;">
-          <image style="border-radius:22px; width:100%;height:100%"
-            src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/gallery1.png"
-            mode="scaleToFill"></image>
-          <view class="cu-bar justify-between top-0 bg-shadeBottom"
-            style="padding-top: 10px;padding-left:10px;min-height:30px;">
-            <view class="relative">
-              <view class="text-cut flex font-weight-400" style="color:#4f7df9">安享居家</view>
-              <view class="text-cut flex margin-top-5" style="font-size:12px">纯住宅小区</view>
-            </view>
-          </view>
-        </view>
-      </view>
-      <text class="cuIcon-all margin-right-5 lg"></text>
-      <text style="font-size:12px">智能小区</text>
-    </view>
-  </view>
-</view>
 
-<swiper class="screen-swiper square-dot margin-15 " indicator-dots="true" circular="true"
-  wx:if="{{$.allHouseList.length !== 0}}" autoplay="true" interval="5000" duration="500" style="height:110px;">
-  <swiper-item wx:for="{{$.adSwiperList}}" wx:key="_id" class="{{cardCur==index?'cur':''}}"
-    style="border-radius: 20px;">
-    <view class="swiper-item" bindtap="navDetailQiyefuwu" data-id="{{item.guanlianqiyefuwu}}"
+  <view class="flex flex-wrap justify-center text-center text-grey margin-bottom-15">
+    <view bindtap="goToAllhouseList" data-housetag="xuequfang"
+      class="basis-xsm margin-xs padding-sm radius margin-right-10">
+      <view class="cu-card case" style="width:100%;">
+        <view class="cu-item shadow margin-bottom-10">
+          <view class="image" style="height: 100px;width:100%;">
+            <image style="border-radius:22px; width:100%;height:100%"
+              src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/gallery3.png"
+              mode="scaleToFill"></image>
+            <view class="cu-bar justify-between flex top-0 bg-shadeBottom"
+              style="padding-top: 10px;padding-left:10px;min-height:30px;">
+              <view class="relative">
+                <view class="text-cut flex font-weight-400" style="color:#4f7df9">学区房</view>
+                <view class="text-cut flex margin-top-5" style="font-size:12px">安心优选</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <text class="cuIcon-roundcheck margin-right-5 lg"></text>
+        <text style="font-size:12px">100%真实房源</text>
+      </view>
+    </view>
+    <view bindtap="goToAllhouseList" data-housetag="didanjia" class="basis-xsm  margin-xs padding-sm radius">
+      <view class="cu-card case" style="width:100%;">
+        <view class="cu-item shadow margin-bottom-10">
+          <view class="image" style="height: 100px;width:100%;">
+            <image style="border-radius:22px; width:100%;height:100%"
+              src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/gallery2.png">
+            </image>
+            <view class="cu-bar justify-between top-0 bg-shadeBottom"
+              style="padding-top: 10px;padding-left:10px;min-height:30px;">
+              <view class="relative">
+                <view class="text-cut flex font-weight-400" style="color:#4f7df9">低单价</view>
+                <view class="text-cut flex margin-top-5" style="font-size:12px">高品质保证</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <text class="cuIcon-emoji margin-right-5 lg"></text>
+        <text style="font-size:12px">高品质楼盘</text>
+      </view>
+    </view>
+    <view bindtap="goToAllhouseList" data-housetag="anxiang"
+      class="basis-xsm  margin-xs padding-sm radius margin-left-10">
+      <view class="cu-card case" style="width:100%;">
+        <view class="cu-item shadow margin-bottom-10">
+          <view class="image" style="height: 100px;width:100%;">
+            <image style="border-radius:22px; width:100%;height:100%"
+              src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/homepage/gallery1.png"
+              mode="scaleToFill"></image>
+            <view class="cu-bar justify-between top-0 bg-shadeBottom"
+              style="padding-top: 10px;padding-left:10px;min-height:30px;">
+              <view class="relative">
+                <view class="text-cut flex font-weight-400" style="color:#4f7df9">安享居家</view>
+                <view class="text-cut flex margin-top-5" style="font-size:12px">纯住宅小区</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <text class="cuIcon-all margin-right-5 lg"></text>
+        <text style="font-size:12px">智能小区</text>
+      </view>
+    </view>
+  </view>
+</block>
+
+<block wx:if="{{$.allHouseList.length !== 0 && $.homepageStyle.showqiyelunbotu == true}}">
+  <swiper class="screen-swiper square-dot margin-15 " indicator-dots="true" circular="true" autoplay="true"
+    interval="5000" duration="500" style="height:110px;">
+    <swiper-item wx:for="{{$.adSwiperList}}" wx:key="_id" class="{{cardCur==index?'cur':''}}"
       style="border-radius: 20px;">
-      <image src="{{item.lunbotutupian}}" wx:if="{{item.shifouweitupian== true}}" mode="aspectFill"
-        style="border-radius: 20px;"></image>
-      <video src="{{item.lunbotushipin}}" wx:if="{{item.shifouweitupian == false}}" style="border-radius: 20px;"
-        poster="{{item.lunbotutupian}}" title="{{item.lunbotubiaoti}}" loop="{{false}}" muted="{{false}}"
-        show-fullscreen-btn="{{true}}" enable-progress-gesture="{{true}}" show-play-btn="{{true}}" controls="{{true}}"
-        autoplay="{{false}}" object-fit="{{fill}}"></video>
-    </view>
-  </swiper-item>
-</swiper>
+      <view class="swiper-item" bindtap="navDetailQiyefuwu" data-id="{{item.guanlianqiyefuwu}}"
+        style="border-radius: 20px;">
+        <image src="{{item.lunbotutupian}}" wx:if="{{item.shifouweitupian== true}}" mode="aspectFill"
+          style="border-radius: 20px;"></image>
+        <video src="{{item.lunbotushipin}}" wx:if="{{item.shifouweitupian == false}}" style="border-radius: 20px;"
+          poster="{{item.lunbotutupian}}" title="{{item.lunbotubiaoti}}" loop="{{false}}" muted="{{false}}"
+          show-fullscreen-btn="{{true}}" enable-progress-gesture="{{true}}" show-play-btn="{{true}}" controls="{{true}}"
+          autoplay="{{false}}" object-fit="{{fill}}"></video>
+      </view>
+    </swiper-item>
+  </swiper>
+</block>
 
-<view class="common-title margin-bottom-15" wx:if="{{$.allHouseList.length !== 0}}">
-  <view class="common-title-left">推荐好盘</view>
-</view>
+<block wx:if="{{$.allHouseList.length !== 0 && $.homepageStyle.showtuijianhaopan == true}}">
 
-<view class="cu-card article">
-  <!-- 广告轮播图 -->
+  <view class="common-title margin-bottom-15">
+    <view class="common-title-left">推荐好盘</view>
+  </view>
 
-
-  <!-- 推荐好盘 -->
-
-  <block wx:if="{{$.allHouseList.length !==0}}">
+  <view class="cu-card article">
     <view class="grid col-2">
       <view class="padding-left-10 padding-right-10 padding-bottom-20" style="border-radius:30px;"
         wx:for="{{$.allHouseList}}" wx:key="_id" bindtap="navHousedetail" wx:if="{{item.shifoushouyetuijian == true}}"
@@ -464,9 +467,7 @@
         </view>
       </view>
     </view>
-  </block>
-
-  <!-- <view class="cu-item shadow margin-left-15 margin-right-15 margin-top-5 " style="" wx:for="{{$.allHouseList}}"
+    <!-- <view class="cu-item shadow margin-left-15 margin-right-15 margin-top-5 " style="" wx:for="{{$.allHouseList}}"
     wx:key="_id" wx:if="{{item.shifoushouyetuijian == true}}" bindtap="navHousedetail" data-id="{{item._id}}">
     <view class="content" style="padding:0px">
       <image src="{{item.loupanxiangce[0]}}" mode="aspectFill"></image>
@@ -486,63 +487,66 @@
       </view>
     </view>
   </view> -->
+  </view>
+</block>
 
-</view>
+<block wx:if="{{$.allHouseList.length !== 0 && $.homepageStyle.showtuijianguwen == true}}">
 
-<view class="apartment-box border-box margin-bottom-15" wx:if="{{$.dailiren.length !==0}}">
-  <view class="common-title margin-bottom-15">
-    <view class="common-title-left">推荐顾问</view>
-    <!-- <view class="logo">
+  <view class="apartment-box border-box margin-bottom-15" wx:if="{{$.dailiren.length !==0}}">
+    <view class="common-title margin-bottom-15">
+      <view class="common-title-left">推荐顾问</view>
+      <!-- <view class="logo">
       <image class="logo-img" lazyLoad="true" src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/renz.png"></image>
       <view class="logo-label">论方略官方认证</view>
     </view> -->
-    <image bindtap="navAllDailiren"
-      src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/fangda.svg"
-      style="width:25px;height:25px;border:none;border-radius:0" class="more-apartment common-title-right"></image>
-  </view>
+      <image bindtap="navAllDailiren"
+        src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/fangda.svg"
+        style="width:25px;height:25px;border:none;border-radius:0" class="more-apartment common-title-right"></image>
+    </view>
 
-  <view class="saleman-scroll-box margin-left-15 margin-right-15 border-box">
+    <view class="saleman-scroll-box margin-left-15 margin-right-15 border-box">
 
-    <!-- 销售顾问 -->
-    <view wx:for="{{$.dailiren}}" wx:key="_id" wx:if="{{item&&item.shifoushouyetuijian == true}}"
-      bind:tap="navDetailDailiren" data-id="{{item._id}}" class="saleman-item border-box">
-      <view class="saleman-item-left border-box">
-        <view class="left-img first">
-          <view class="saleman-img-box">
-            <image binderror="imgError" class="saleman-item-left-img border-box" data-index="0" mode="aspectFill"
-              src="{{item.zhaopian}}" role="img"></image>
+      <!-- 销售顾问 -->
+      <view wx:for="{{$.dailiren}}" wx:key="_id" wx:if="{{item&&item.shifoushouyetuijian == true}}"
+        bind:tap="navDetailDailiren" data-id="{{item._id}}" class="saleman-item border-box">
+        <view class="saleman-item-left border-box">
+          <view class="left-img first">
+            <view class="saleman-img-box">
+              <image binderror="imgError" class="saleman-item-left-img border-box" data-index="0" mode="aspectFill"
+                src="{{item.zhaopian}}" role="img"></image>
+            </view>
+            <view class="comImg" wx:if="{{item.dailidengji == '金牌'}}">
+              <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9925.png"
+                role="img"></image>
+            </view>
+            <view class="comImg" wx:if="{{item.dailidengji == '银牌'}}">
+              <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9939.png"
+                role="img"></image>
+            </view>
+            <view class="comImg" wx:if="{{item.dailidengji == '铜牌'}}">
+              <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de993a.png"
+                role="img"></image>
+            </view>
           </view>
-          <view class="comImg" wx:if="{{item.dailidengji == '金牌'}}">
-            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9925.png"
-              role="img"></image>
+          <view class="saleman-item-left-label border-box">
+            <view class="saleman-item-label-top border-box">{{item.mingcheng}}</view>
+            <view class="saleman-item-label-bot border-box">{{item.dailidengji}}顾问</view>
           </view>
-          <view class="comImg" wx:if="{{item.dailidengji == '银牌'}}">
-            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de9939.png"
-              role="img"></image>
-          </view>
-          <view class="comImg" wx:if="{{item.dailidengji == '铜牌'}}">
-            <image mode="aspectFill" src="https://fhy-file.bgy.com.cn/bu00310-prd1/5ed9c685e4b04e6375de993a.png"
-              role="img"></image>
-          </view>
-        </view>
-        <view class="saleman-item-left-label border-box">
-          <view class="saleman-item-label-top border-box">{{item.mingcheng}}</view>
-          <view class="saleman-item-label-bot border-box">{{item.dailidengji}}顾问</view>
         </view>
       </view>
     </view>
   </view>
-</view>
+</block>
 
+<block wx:if="{{$.allHouseList.length !== 0 && $.homepageStyle.showloupandaquan == true}}">
 
-<view class="common-title margin-bottom-15" wx:if="{{$.allHouseList.length !==0}}">
-  <view class="common-title-left">楼盘大全</view>
-  <image bindtap="goToAllhouseList"
-    src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/fangda.svg"
-    style="width:25px;height:25px;border:none;border-radius:0" class="more-apartment common-title-right"></image>
-</view>
+  <view class="common-title margin-bottom-15">
+    <view class="common-title-left">楼盘大全</view>
+    <image bindtap="goToAllhouseList"
+      src="cloud://lunfanglue-7g33jtt446e6cefa.6c75-lunfanglue-7g33jtt446e6cefa-1306211988/fangda.svg"
+      style="width:25px;height:25px;border:none;border-radius:0" class="more-apartment common-title-right"></image>
+  </view>
 
-<block wx:if="{{$.allHouseList.length !==0}}">
   <view class="grid col-2">
     <view class="padding-left-10 padding-right-10 padding-bottom-20" style="border-radius:30px;"
       wx:for="{{$.allHouseList}}" wx:key="_id" bindtap="navHousedetail" data-id="{{item._id}}">
@@ -573,7 +577,6 @@
     </view>
   </view>
 </block>
-
 <!-- 
 <view class="cu-card article padding-bottom-30" id="loupandaquan" wx:if="{{$.allHouseList.length !==0}}">
   <view class="cu-item shadow margin-left-15 margin-right-15" style="" wx:for="{{$.allHouseList}}" wx:key="_id"

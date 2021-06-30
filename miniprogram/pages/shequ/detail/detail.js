@@ -76,6 +76,8 @@ create(store, {
         let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
         db.collection(database).add({
           data: {
+            realName : "",
+            shenfengzhen : "",
             nickName: userInfo.nickName,
             city: userInfo.city,
             province: userInfo.province,
@@ -90,7 +92,8 @@ create(store, {
             isdaili:false,
             openid:globalData.openid,
             unionid:globalData.unionid || "",
-            userMoney : 0
+            userMoney : 0,
+            guanliankaquankabao : []
           }
           })
           .then(res => {

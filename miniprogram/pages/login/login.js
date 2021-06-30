@@ -52,10 +52,32 @@ create(store, {
         var userInfo = res.userInfo
         console.log('userInfo==>', userInfo)
 
+        t.store.data.userInfo = {
+          realName: "",
+          shenfengzhen: "",
+          nickName: userInfo.nickName,
+          city: userInfo.city,
+          province: userInfo.province,
+          country: userInfo.country,
+          gender: userInfo.gender,
+          avatarUrl: userInfo.avatarUrl,
+          phone: '',
+          kabao: [],
+          tuiguangshouyi: 0,
+          youxiaoyaoqingrenshu: 0,
+          ishehuoren: false,
+          isdaili: false,
+          openid: globalData.openid,
+          unionid: globalData.unionid || "",
+          userMoney: 0,
+          guanliankaquankabao: []
+        }
         let temp = t.store.data.curCity + 'userInfo'
         let database = pinyin.getPinyin(temp).replace(/\s+/g, "");
         db.collection(database).add({
             data: {
+              realName: "",
+              shenfengzhen: "",
               nickName: userInfo.nickName,
               city: userInfo.city,
               province: userInfo.province,
@@ -70,7 +92,8 @@ create(store, {
               isdaili: false,
               openid: globalData.openid,
               unionid: globalData.unionid || "",
-              userMoney: 0
+              userMoney: 0,
+              guanliankaquankabao: []
             }
           })
           .then(res => {
@@ -80,7 +103,6 @@ create(store, {
         wx.navigateBack({
           delta: 1,
         })
-        t.store.data.userInfo = userInfo
       },
       fail: function (err) {
         wx.showToast({
