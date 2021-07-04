@@ -78,6 +78,7 @@ const getdailirenList = () => {
   log('代理人数据库',database)
 
   db.collection(database).orderBy('paimingshunxu', 'desc').get().then(res => {
+    log('代理人数据库 RES',res)
     module.exports.default.data.dailiren = res.data
     // wx.setStorage({
     //   key:"dailiren",
